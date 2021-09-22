@@ -10,8 +10,8 @@ public class ClimbingGauntlet : MonoBehaviour, Tool
 
     public void Action()
     {
-        if (onPlayer && person.IsOnWall()){
-            person.SetWallJump(true);
+        if (onPlayer && person.IsOnWall){
+            person.CanWallJump = true;
         }
         return;
     }

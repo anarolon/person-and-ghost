@@ -178,6 +178,17 @@
                 },
                 {
                     "name": "",
+                    "id": "09bf6935-0f4d-402b-bda0-1ef444cfb6bb",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardRight",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "751c448b-3f55-4015-be31-78a712ca9243",
                     "path": "<Keyboard>/k",
                     "interactions": "",

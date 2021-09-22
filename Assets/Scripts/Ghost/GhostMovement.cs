@@ -14,6 +14,7 @@ public class GhostMovement : MonoBehaviour
 
     [Header("Anchor Fields")]
     [SerializeField] private float _anchorRBRange = 5;
+    [SerializeField] private float _anchorRangeGrowth = 2; 
     private Rigidbody2D _anchorRB = default;
     private PlayerController _anchorScript = default;
     private float _anchorRBRangeValue = 5;
@@ -26,16 +27,12 @@ public class GhostMovement : MonoBehaviour
     private SpriteRenderer _ghostVanishes = default;
     private AIAgent _nearbyMonster;
 
-
     // Properties used for testing 
-    public bool IsNearAMonster => _isNearAMonster;
     public float AnchorRBRange => _anchorRBRange;
-
-    public AIAgent Monster
-    {
-        get => _monster;
-        set => _monster = value;
-    }
+    public AIAgent NearbyMonster => _nearbyMonster;
+    public AIAgent Monster => _monster;
+    public bool IsNearAMonster => _isNearAMonster;
+    public bool IsPossessing => _isPossessing;
 
     public Rigidbody2D Anchor
     {
@@ -43,18 +40,11 @@ public class GhostMovement : MonoBehaviour
         set => _anchorRB = value;
     }
 
-    public bool IsPossessing
-    {
-        get => _isPossessing;
-        set => _isPossessing = value;
-    }
-
     public Vector2 MovementInput
     {
         get => _movementInput;
         set => _movementInput = value;
     }
-    //
 
     private void Start()
     {
@@ -86,7 +76,7 @@ public class GhostMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _anchorRBRangeValue = _anchorScript.IsMeditating ? _anchorRBRange * 2 : _anchorRBRange;
+        _anchorRBRangeValue = _anchorScript.IsMeditating ? _anchorRBRange * _anchorRangeGrowth : _anchorRBRange;
 
         if (!_isPossessing)
         {
@@ -109,16 +99,31 @@ public class GhostMovement : MonoBehaviour
     public void OnPossession(InputAction.CallbackContext context)
     {
         context.ReadValue<float>();
-        bool triggered = context.action.triggered;
+
+        bool triggered;
+
+        try
+        {
+            triggered = context.action.triggered;
+        }
+
+        catch
+        {
+            triggered = true;
+            Debug.LogWarning("OnPossession Context is null. The OnPossession Trigger will always be true.");
+        }
 
         if (triggered && _isNearAMonster)
         {
-             _isPossessing = !_isPossessing;
-            if(!_isPossessing) {
+            _isPossessing = !_isPossessing;
+            if (!_isPossessing)
+            {
                 //Debug.Log("Unpossessing Creature");
                 _isNearAMonster = false;
                 _monster.stateMachine.ChangeState(_monster.initialState);
-            } else {
+            }
+            else
+            {
                 //Debug.Log("Possessed Creature");
                 _monster = _nearbyMonster;
                 _monster.stateMachine.ChangeState(AIStateId.Possessed);
@@ -183,6 +188,7 @@ public class GhostMovement : MonoBehaviour
         if (Equals(other.gameObject.tag, "Monster"))
         {
             _isNearAMonster = false;
+            _nearbyMonster = null;
         }
     }
 

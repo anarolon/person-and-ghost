@@ -3,8 +3,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-
-
     [Header("Components")]
     private Rigidbody2D playerRB = default;
 
@@ -53,7 +51,17 @@ public class PlayerController : MonoBehaviour
         set => isJumping = value;
     }
 
-    void Awake()
+    public bool IsOnGround => onGround;
+
+    public bool IsOnWall => onWall;
+
+    public bool CanWallJump
+    {
+        get => canWallJump;
+        set => canWallJump = value;
+    }
+
+    private void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
         IsMeditating = false;   
@@ -75,11 +83,18 @@ public class PlayerController : MonoBehaviour
         if (canWallJump) WallJump();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         CheckCollision();
-        if (!IsMeditating) MovePlayer(movementInput);
-        
+        if (IsMeditating)
+        {
+            playerRB.velocity = new Vector2(0, playerRB.velocity.y);
+        }
+        else
+        {
+            MovePlayer(movementInput);
+        }
+
         if (onGround) // For some reason onGround variable is being set to True a short while after jumping into a bottomless pit for a small amount of time;
         {
             ApplyLinearDrag();
@@ -91,8 +106,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //TESTING
-    public void MovePlayer(Vector2 movementInput)
+    private void MovePlayer(Vector2 movementInput)
     {
         horizontalVelocity = movementInput.x;
         playerRB.AddForce(new Vector2(horizontalVelocity, 0f) * movementAcceleration);
@@ -120,8 +134,7 @@ public class PlayerController : MonoBehaviour
         playerRB.drag = airLinearDrag;
     }
 
-    //TESTING
-    public void Jump()
+    private void Jump()
     {
         playerRB.velocity = new Vector2(playerRB.velocity.x, 0f);
         playerRB.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); //Make the added force an impulse
@@ -129,7 +142,7 @@ public class PlayerController : MonoBehaviour
         canWallJump = false;
     }
 
-    public void WallJump()
+    private void WallJump()
     {
         Vector2 jumpDirection = Vector2.up * jumpForce + Vector2.left * jumpForce / 4; //Temporary, in actuality will have to change direction depending on which side the wall is.
 
@@ -177,20 +190,4 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + Vector3.left * groundRaycastLength);
 
     }
-
-    public bool IsOnGround()
-    {
-        return onGround;
-    }
-
-    public bool IsOnWall()
-    {
-        return onWall;
-    }
-
-    public void SetWallJump(bool newCanWallJump)
-    {
-        canWallJump = newCanWallJump;
-    }
-
 }

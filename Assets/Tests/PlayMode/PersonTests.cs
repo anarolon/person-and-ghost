@@ -1,128 +1,114 @@
 using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
 public class PersonTests
 {
-    // A Test behaves as an ordinary method
-    [Test]
-    public void PersonTestsSimplePasses()
+    private GameObject _ground;
+    private GameObject _person;
+    private PlayerController _personController;
+
+    [UnitySetUp]
+    public IEnumerator SetUp()
     {
-        // Use the Assert class to test conditions
+        _ground = (GameObject)GameObject.Instantiate((UnityEngine.Object)Resources.Load("Prefabs/Ground"));
+        _ground.transform.localScale *= 2.5f;
+
+        _person = (GameObject)GameObject.Instantiate((UnityEngine.Object)Resources.Load("Prefabs/Person"), Vector3.zero, Quaternion.identity);
+        _personController = _person.GetComponent<PlayerController>();
+
+        yield return new WaitUntil(() => _personController.IsOnGround);
+
+        yield return new EnterPlayMode();
     }
 
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    [UnityTest]
-    public IEnumerator PersonLeftMovement()
+    [UnityTearDown]
+    public IEnumerator TearDown()
     {
-        GameObject player = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Person"));
-        PlayerController personController = player.GetComponent<PlayerController>();
+        GameObject.Destroy(_ground);
+        GameObject.Destroy(_person);
 
-        float x = player.transform.position.x;
+        yield return new ExitPlayMode();
+    }
 
-        personController.MovePlayer(Vector2.left);
+    [UnityTest]
+    public IEnumerator MoveLeft()
+    {
+        var previousPos = _person.transform.position.x;
+        _personController.MovementInput = Vector2.left;
+        yield return new WaitForFixedUpdate();
+        Assert.Greater(previousPos, _person.transform.position.x, "Moved to the left.");
+    }
 
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
+    [UnityTest]
+    public IEnumerator MoveRight()
+    {
+        var previousPos = _person.transform.position.x;
+        _personController.MovementInput = Vector2.right;
+        yield return new WaitForFixedUpdate();
+        Assert.Greater(_person.transform.position.x, previousPos, "Moved to the right.");
+    }
+
+    [UnityTest]
+    public IEnumerator Jump()
+    {
+        _personController.IsJumping = true;
+        yield return new WaitUntil(() => !_personController.IsOnGround);
+        Assert.False(_personController.IsOnGround);
+        yield return new WaitUntil(() => _personController.IsOnGround);
+        Assert.True(_personController.IsOnGround);
+    }
+
+
+    [UnityTest]
+    public IEnumerator ToolPickUpAndDrop()
+    {
+        GameObject tool = (GameObject)GameObject.Instantiate((UnityEngine.Object)Resources.Load("Prefabs/Climbing Gauntlet"), Vector3.zero, Quaternion.identity);
+
         yield return new WaitForFixedUpdate();
 
-        Assert.Greater(x, player.transform.position.x, "Move Left");
-    }
-    [UnityTest]
-    public IEnumerator PersonRightMovement()
-    {
-        GameObject player = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Person"));
-        PlayerController personController = player.GetComponent<PlayerController>();
-
-        float x = player.transform.position.x;
-
-        personController.MovePlayer(Vector2.right);
-
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return new WaitForFixedUpdate();
-
-        Assert.Less(x, player.transform.position.x, "Move Right");
-    }
-
-    [UnityTest]
-    public IEnumerator PersonJump()
-    {
-        GameObject player = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Person"));
-        PlayerController personController = player.GetComponent<PlayerController>();
-        player.transform.position = new Vector3(0, 0, 0);
-
-        GameObject ground = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Ground"));
-        ground.transform.position = new Vector3(0, -1, 0);
-
-        //Need to Check that onGround is true before the jump. For some reason when i Assert before jumping it ends up false
-        // Debug.Log(player.transform.position);
-        // Assert.True(personController.IsOnGround());
-
-        personController.Jump();  
-        yield return new WaitForFixedUpdate();
-        Assert.False(personController.IsOnGround());
-
-        yield return new WaitForSeconds(2);
-        Debug.Log(player.transform.position);
-        Assert.True(personController.IsOnGround());
-    }
-
-
-    [UnityTest]
-    public IEnumerator PersonToolInteract()
-    {
-        GameObject player = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Person"));
-        PlayerController personController = player.GetComponent<PlayerController>();
-        PlayerToolController personToolController = player.GetComponent<PlayerToolController>();
-        player.transform.position = new Vector3(0, 0, 0);
-
-        GameObject climbingGauntlet = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Climbing Gauntlet"));
-        ClimbingGauntlet toolScript = climbingGauntlet.GetComponent<ClimbingGauntlet>();
-        climbingGauntlet.transform.position = new Vector3(0, 0, 0);
-
-        GameObject ground = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Ground"));
-        ground.transform.position = new Vector3(0, -1, 0);
+        PlayerToolController personToolController = _person.GetComponent<PlayerToolController>();
+        ClimbingGauntlet toolScript = tool.GetComponent<ClimbingGauntlet>();
 
         Assert.False(toolScript.onPlayer);
+
         personToolController.InteractWithTool(toolScript);
 
         yield return new WaitForFixedUpdate();
+
         Assert.True(toolScript.onPlayer);
 
+        personToolController.InteractWithTool(toolScript);
+
+        yield return new WaitForFixedUpdate();
+
+        Assert.False(toolScript.onPlayer);
+
+        GameObject.Destroy(tool);
     }
 
     [UnityTest]
-    public IEnumerator PersonToolAction()
+    public IEnumerator ToolActionClimbingGauntlet()
     {
-        GameObject player = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Person"));
-        PlayerController personController = player.GetComponent<PlayerController>();
-        PlayerToolController personToolController = player.GetComponent<PlayerToolController>();
-        player.transform.position = new Vector3(0, 0, 0);
+        GameObject tool = (GameObject)GameObject.Instantiate((UnityEngine.Object)Resources.Load("Prefabs/Climbing Gauntlet"), Vector3.zero, Quaternion.identity);
+        GameObject wall = (GameObject)GameObject.Instantiate((UnityEngine.Object)Resources.Load("Prefabs/Wall"), new Vector3(1, 3, 0), Quaternion.identity);
 
-        GameObject climbingGauntlet = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Climbing Gauntlet"));
-        ClimbingGauntlet toolScript = climbingGauntlet.GetComponent<ClimbingGauntlet>();
-        climbingGauntlet.transform.position = new Vector3(0, 0, 0);
+        yield return new WaitForFixedUpdate();
 
-        GameObject ground = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Ground"));
-        ground.transform.position = new Vector3(0, -1, 0);
-
-        GameObject wall = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Wall"));
-        wall.transform.position = new Vector3(1, -1, 0);
-
+        PlayerToolController personToolController = _person.GetComponent<PlayerToolController>();
+        ClimbingGauntlet toolScript = tool.GetComponent<ClimbingGauntlet>();
 
         personToolController.InteractWithTool(toolScript);
         toolScript.Action();
-        yield return new WaitForFixedUpdate();
-        Assert.False(personController.IsOnGround());
 
-        yield return new WaitForSeconds(2);
-        Assert.True(personController.IsOnGround());
+        yield return new WaitUntil(() => !_personController.IsOnGround);
+        Assert.False(_personController.IsOnGround);
 
+        yield return new WaitUntil(() => _personController.IsOnGround);
+        Assert.True(_personController.IsOnGround);
 
+        GameObject.Destroy(tool);
+        GameObject.Destroy(wall);
     }
-
 }

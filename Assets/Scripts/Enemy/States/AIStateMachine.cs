@@ -29,6 +29,7 @@ public class AIStateMachine
     }
 
     public void ChangeState(AIStateId newStateId) {
+        //Debug.Log("Agent Changed State to " + newStateId);
         GetState(currentState)?.Exit(agent);
         currentState = newStateId;
         GetState(currentState)?.Enter(agent);

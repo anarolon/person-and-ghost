@@ -15,18 +15,19 @@ public class AIAgent : MonoBehaviour
 
     public virtual void Start()
     {
-        this.rb = GetComponent<Rigidbody2D>();
-        this.stateMachine = new AIStateMachine(this);
-        this.stateMachine.RegisterState(new AIPossessedState());
+        rb = GetComponent<Rigidbody2D>();
+        stateMachine = new AIStateMachine(this);
+        stateMachine.RegisterState(new AIPossessedState());
+        stateMachine.RegisterState(new AIIdleState());
     }
 
     public virtual void FixedUpdate()
     {
-        this.stateMachine.UpdateState();
+        stateMachine.UpdateState();
     }
 
     public virtual IEnumerator StateLoop() {
-        yield return new WaitUntil(() => this.stateMachine.currentState == this.initialState);
+        yield return null;
     }
 
     public virtual void movementBehaviour(Vector2 movementInput){

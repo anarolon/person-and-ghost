@@ -20,6 +20,7 @@ public class AIMoveXState : AIState
 
     public void Update(AIAgent agent)
     {
+        //Debug.Log("I'm moving.");
         agent.rb.drag = agent.config._linearDrag;
         Vector2 movement = new Vector2(agent.xDirection, 0f);
         movement *= agent.config._movementAcceleration;
