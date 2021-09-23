@@ -76,6 +76,9 @@ public class PersonMeditationTests
     {
         _ghost = MonoBehaviour.Instantiate(_ghost, Vector3.one, Quaternion.identity);
         _mainCamera.SetActive(true);
+
+        yield return new WaitForSeconds(1);
+        
         var ghostController = _ghost.GetComponent<GhostMovement>();
         var ghostRB = _ghost.GetComponent<Rigidbody2D>();
         var offset = ghostController.AnchorRBRange * 1.5f;
