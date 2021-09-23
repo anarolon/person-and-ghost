@@ -12,8 +12,6 @@ public class PlayerToolController : MonoBehaviour
     [SerializeField] private bool interactWithTool = false;
     private bool useAction = false;
 
-
-
     void Start()
     {
         
@@ -37,16 +35,12 @@ public class PlayerToolController : MonoBehaviour
         useAction = context.action.triggered;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        
-    }
-
     private void OnTriggerStay2D(Collider2D other)
     {
         if (interactWithTool)
         {
             InteractWithTool(other.gameObject.GetComponent<Tool>());
+            interactWithTool = false;
         }
     }
 

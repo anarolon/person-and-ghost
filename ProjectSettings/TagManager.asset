@@ -8,6 +8,8 @@ TagManager:
   - Ghost
   - Monster
   - Collectable
+  - Ground
+  - Tool
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - Water
   - UI
   - Wall
-  - 
+  - Interactable
   - 
   - 
   - 

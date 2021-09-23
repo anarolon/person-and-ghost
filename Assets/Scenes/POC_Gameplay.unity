@@ -130,6 +130,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7653277479552305733, guid: 9048b7d6515d2cf42837a839f45c3752, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -102833553937736216, guid: 9048b7d6515d2cf42837a839f45c3752, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -102833553937736216, guid: 9048b7d6515d2cf42837a839f45c3752, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -102833553937736216, guid: 9048b7d6515d2cf42837a839f45c3752, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1178792571317775800, guid: 9048b7d6515d2cf42837a839f45c3752, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -177,6 +193,14 @@ PrefabInstance:
     - target: {fileID: 1178792571317775806, guid: 9048b7d6515d2cf42837a839f45c3752, type: 3}
       propertyPath: m_Name
       value: Climbing Gauntlet
+      objectReference: {fileID: 0}
+    - target: {fileID: 1178792571317775806, guid: 9048b7d6515d2cf42837a839f45c3752, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1178792571317775806, guid: 9048b7d6515d2cf42837a839f45c3752, type: 3}
+      propertyPath: m_TagString
+      value: Tool
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9048b7d6515d2cf42837a839f45c3752, type: 3}

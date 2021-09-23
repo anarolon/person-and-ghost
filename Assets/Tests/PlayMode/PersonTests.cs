@@ -71,19 +71,19 @@ public class PersonTests
         PlayerToolController personToolController = _person.GetComponent<PlayerToolController>();
         ClimbingGauntlet toolScript = tool.GetComponent<ClimbingGauntlet>();
 
-        Assert.False(toolScript.onPlayer);
+        Assert.False(toolScript.OnPlayer);
 
         personToolController.InteractWithTool(toolScript);
 
         yield return new WaitForFixedUpdate();
 
-        Assert.True(toolScript.onPlayer);
+        Assert.True(toolScript.OnPlayer);
 
         personToolController.InteractWithTool(toolScript);
 
         yield return new WaitForFixedUpdate();
 
-        Assert.False(toolScript.onPlayer);
+        Assert.False(toolScript.OnPlayer);
 
         GameObject.Destroy(tool);
     }
