@@ -34,11 +34,7 @@ public class GhostMovement : MonoBehaviour
     public bool IsNearAMonster => _isNearAMonster;
     public bool IsPossessing => _isPossessing;
 
-    public Rigidbody2D Anchor
-    {
-        get => _anchorRB;
-        set => _anchorRB = value;
-    }
+    public Rigidbody2D Anchor => _anchorRB;
 
     public Vector2 MovementInput
     {
