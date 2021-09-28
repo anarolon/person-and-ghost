@@ -20,7 +20,7 @@ public class CinemachineCameraCustomSettings : MonoBehaviour
 
     private void FindTransformToFollow()
     {
-        var gameObjectToFollow = GameObject.FindGameObjectWithTag(_transformToFollowTag);
+        GameObject gameObjectToFollow = GameObject.FindGameObjectWithTag(_transformToFollowTag);
         try
         {
             GetComponent<CinemachineVirtualCamera>().Follow = gameObjectToFollow.transform;

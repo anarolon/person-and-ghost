@@ -151,7 +151,7 @@ public class GhostMovement : MonoBehaviour
 
         if (Mathf.Abs(positionDifference.x) > _anchorRBRangeValue
             || Mathf.Abs(positionDifference.y) > _anchorRBRangeValue
-            || !IsVisibleToCamera(_mainCamera, transform.position))
+            || !Utility.IsVisibleToCamera(_mainCamera, transform.position))
         {
             _rb.MovePosition(anchorPosition);
         }
@@ -194,13 +194,5 @@ public class GhostMovement : MonoBehaviour
         Vector3 to = _anchorRBRangeValue * 2 * Vector2.one;
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(from, to);
-    }
-
-    //To be visible, the object most be between 0 and 1 for both X and Y positions
-    private static bool IsVisibleToCamera(Camera mainCamera, Vector3 objectPosition)
-    {
-        Vector3 cameraVision = mainCamera.WorldToViewportPoint(objectPosition);
-        return (cameraVision.x >= 0 && cameraVision.y >= 0)
-                && (cameraVision.x <= 1 && cameraVision.y <= 1);
     }
 }
