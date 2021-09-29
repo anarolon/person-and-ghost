@@ -1,36 +1,74 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MultiplayerManager : MonoBehaviour
+namespace PersonAndGhost
 {
-    [Header("Player 1 Fields")]
-    [SerializeField] private GameObject _player1Prefab = default;
-    [SerializeField] private Vector2 _player1Position = Vector2.one;
-
-    [Header("Player 2 Fields")]
-    [SerializeField] private GameObject _player2Prefab = default;
-    [SerializeField] private Vector2 _player2Position = -Vector2.one;
-
-    private void Start()
+    public class MultiplayerManager : MonoBehaviour
     {
-        Transform player1 = PlayerInput.Instantiate
-        (
-            _player1Prefab,
-            controlScheme: "KeyboardLeft",
-            pairWithDevice: Keyboard.current
-        ).gameObject.transform;
+        [Header("Left Player Fields")]
+        [SerializeField] private GameObject _leftPlayerPrefab = default;
+        [SerializeField] private Vector2 _leftPlayerPosition = Vector2.one * 2;
 
-        Transform player2 = PlayerInput.Instantiate
-            (
-                _player2Prefab,
-                controlScheme: "KeyboardRight",
-                pairWithDevice: Keyboard.current
-            ).gameObject.transform;
+        [Header("Right Player Fields")]
+        [SerializeField] private GameObject _rightPlayerPrefab = default;
+        [SerializeField] private Vector2 _rightPlayerPosition = -Vector2.one;
 
-        player1.parent = this.gameObject.transform;
-        player2.parent = this.gameObject.transform;
+        private void Start()
+        {
+            Transform leftPlayerTransform;
+            Transform rightPlayerTransform;
 
-        player1.position = _player1Position;
-        player2.position = _player2Position;
+            try
+            {
+                leftPlayerTransform = PlayerInput.Instantiate
+                (
+                    _leftPlayerPrefab,
+                    controlScheme: "KeyboardLeft",
+                    pairWithDevice: Keyboard.current
+                ).gameObject.transform;
+
+                rightPlayerTransform = PlayerInput.Instantiate
+                    (
+                        _rightPlayerPrefab,
+                        controlScheme: "KeyboardRight",
+                        pairWithDevice: Keyboard.current
+                    ).gameObject.transform;
+            }
+
+            catch (System.ArgumentNullException exception)
+            {
+                GameObject leftPlayerGameObject;
+                GameObject rightPlayerGameObject;
+
+                leftPlayerGameObject = Resources.Load<GameObject>("Prefabs/Person");
+                rightPlayerGameObject = Resources.Load<GameObject>("Prefabs/Ghost");
+
+                leftPlayerGameObject = PlayerInput.Instantiate
+                (
+                    leftPlayerGameObject,
+                    controlScheme: "KeyboardLeft",
+                    pairWithDevice: Keyboard.current
+                ).gameObject;
+
+                rightPlayerGameObject = PlayerInput.Instantiate
+                    (
+                        rightPlayerGameObject,
+                        controlScheme: "KeyboardRight",
+                        pairWithDevice: Keyboard.current
+                    ).gameObject;
+
+                leftPlayerTransform = leftPlayerGameObject.transform;
+                rightPlayerTransform = rightPlayerGameObject.transform;
+
+                Debug.LogException(exception, this);
+            }
+
+
+            leftPlayerTransform.parent = this.gameObject.transform;
+            rightPlayerTransform.parent = this.gameObject.transform;
+
+            leftPlayerTransform.position = _leftPlayerPosition;
+            rightPlayerTransform.position = _rightPlayerPosition;
+        }
     }
 }

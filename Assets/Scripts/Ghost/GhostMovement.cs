@@ -151,7 +151,7 @@ public class GhostMovement : MonoBehaviour
 
         if (Mathf.Abs(positionDifference.x) > _anchorRBRangeValue
             || Mathf.Abs(positionDifference.y) > _anchorRBRangeValue
-            || !Utility.IsVisibleToCamera(_mainCamera, transform.position))
+            || !PersonAndGhost.Utils.Utility.IsVisibleToCamera(_mainCamera, transform.position))
         {
             _rb.MovePosition(anchorPosition);
         }

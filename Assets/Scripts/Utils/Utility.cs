@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public static class Utility
+namespace PersonAndGhost.Utils
 {
-    //To be visible, the object most be between 0 and 1 for both X and Y positions
-    public static bool IsVisibleToCamera(Camera mainCamera, Vector3 objectPosition)
+    public static class Utility
     {
-        Vector3 cameraVision = mainCamera.WorldToViewportPoint(objectPosition);
-        return (cameraVision.x >= 0 && cameraVision.y >= 0)
-                && (cameraVision.x <= 1 && cameraVision.y <= 1);
+        //To be visible, the object most be between 0 and 1 for both X and Y positions
+        public static bool IsVisibleToCamera(Camera mainCamera, Vector3 objectPosition)
+        {
+            Vector3 cameraVision = mainCamera.WorldToViewportPoint(objectPosition);
+            return (cameraVision.x >= 0 && cameraVision.y >= 0)
+                    && (cameraVision.x <= 1 && cameraVision.y <= 1);
+        }
     }
 }

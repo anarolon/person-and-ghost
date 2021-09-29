@@ -1,37 +1,41 @@
 using Cinemachine;
-using System.Collections;
 using UnityEngine;
 
-public class CinemachineCameraCustomSettings : MonoBehaviour
+namespace PersonAndGhost
 {
-    [SerializeField] private string _transformToFollowTag = "Person";
-    private bool _errorFlag = false;
-    private void Start()
+    public class CinemachineCameraCustomSettings : MonoBehaviour
     {
-        FindTransformToFollow();
-    }
-    private void FixedUpdate()
-    {
-        if (_errorFlag)
+        [SerializeField] private string _transformToFollowTag = "Person";
+        private bool _errorFlag = false;
+
+        private void Start()
         {
             FindTransformToFollow();
         }
-    }
 
-    private void FindTransformToFollow()
-    {
-        GameObject gameObjectToFollow = GameObject.FindGameObjectWithTag(_transformToFollowTag);
-        try
+        private void FixedUpdate()
         {
-            GetComponent<CinemachineVirtualCamera>().Follow = gameObjectToFollow.transform;
-            _errorFlag = false;
+            if (_errorFlag)
+            {
+                FindTransformToFollow();
+            }
         }
-        catch
+
+        private void FindTransformToFollow()
         {
-            _errorFlag = true;
-            Debug.LogWarning("The game object with tag " + _transformToFollowTag
-                + " was not found in the scene. Search result was Null. "
-                + "Camera will be static. Until FixedUpdate where the script will try to search the transform until found.");
+            GameObject gameObjectToFollow = GameObject.FindGameObjectWithTag(_transformToFollowTag);
+            try
+            {
+                GetComponent<CinemachineVirtualCamera>().Follow = gameObjectToFollow.transform;
+                _errorFlag = false;
+            }
+            catch
+            {
+                _errorFlag = true;
+                Debug.LogWarning("The game object with tag " + _transformToFollowTag
+                    + " was not found in the scene. Search result was Null. "
+                    + "Camera will be static. Until FixedUpdate where the script will try to search the transform until found.");
+            }
         }
     }
 }
