@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c09b1b22f4788cc45b0420598a40551a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player1Prefab: {fileID: 3585288843904447371, guid: 9a4e60dc3ed928448a38965e5ba024f9, type: 3}
-  _player1Position: {x: -7.4, y: -3.67}
-  _player2Prefab: {fileID: 5665107311941679825, guid: 1489c450b763a0a468013a83669d0ad8, type: 3}
-  _player2Position: {x: -6.8, y: -3.67}
+  _leftPlayerPrefab: {fileID: 3585288843904447371, guid: 9a4e60dc3ed928448a38965e5ba024f9, type: 3}
+  _leftPlayerPosition: {x: 1.5, y: -3.67}
+  _rightPlayerPrefab: {fileID: 5665107311941679825, guid: 1489c450b763a0a468013a83669d0ad8, type: 3}
+  _rightPlayerPosition: {x: -1.5, y: -3.67}
