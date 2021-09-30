@@ -10,7 +10,6 @@ namespace PersonAndGhost
         private GhostMovement _ghostIfMonster;
         private GameObjectType _gameObjectType = default;
         private AIAgent _agentIfMonster = default;
-        private Text _textBoxIfPerson = default;
 
         private enum GameObjectType
         {
@@ -32,7 +31,6 @@ namespace PersonAndGhost
 
             else if (TryGetComponent(out PlayerController _))
             {
-                _textBoxIfPerson = FindObjectOfType<Canvas>().GetComponentInChildren<Text>();
                 _gameObjectType = GameObjectType.Person;
             }
         }
@@ -49,7 +47,7 @@ namespace PersonAndGhost
 
                 else if (_gameObjectType == GameObjectType.Person)
                 {
-                    _textBoxIfPerson.text = "You Fail!!!";
+                    Actions.OnPuzzleFail();
                     Destroy(this.gameObject.transform.parent.gameObject);
                 }
             }
