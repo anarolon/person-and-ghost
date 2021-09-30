@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 
-public class GhostPossessionTests
+public class GhostPossessionTests : InputTestFixture
 {
     private GameObject _mainCamera;
     private GameObject _ghost;
@@ -16,20 +16,16 @@ public class GhostPossessionTests
     {
         _mainCamera = CreateMainCamera();
 
-        _ghost = (GameObject)GameObject.Instantiate((UnityEngine.Object)Resources.Load("Prefabs/Ghost"), Vector3.zero, Quaternion.identity);
-        _ghostController = _ghost.GetComponent<GhostMovement>();
+        _monster = Resources.Load<GameObject>("Prefabs/Bird");
+        _ghost = Resources.Load<GameObject>("Prefabs/Ghost");
 
-        _monster = (GameObject)GameObject.Instantiate((UnityEngine.Object)Resources.Load("Prefabs/Bird"), Vector3.zero, Quaternion.identity);
-
-        yield return new WaitForFixedUpdate();
-
-        _ghostController.Anchor.GetComponent<Rigidbody2D>().gravityScale = 0;
+        _monster = MonoBehaviour.Instantiate(_monster);
 
         yield return new EnterPlayMode();
     }
 
     [UnityTearDown]
-    public IEnumerator TearDown()
+    public new IEnumerator TearDown()
     {
         GameObject.Destroy(_mainCamera);
         GameObject.Destroy(_ghost);
@@ -40,6 +36,8 @@ public class GhostPossessionTests
     [UnityTest]
     public IEnumerator GhostNearMonster()
     {
+        InstantiateGhostWithKeyboard();
+
         yield return new WaitUntil(() => _ghostController.IsNearAMonster);
 
         Assert.True(_ghostController.IsNearAMonster);
@@ -54,19 +52,22 @@ public class GhostPossessionTests
     [UnityTest]
     public IEnumerator GhostPossessingMonster()
     {
+        Keyboard keyboard = InstantiateGhostWithKeyboard();
+
         yield return new WaitUntil(() => _ghostController.IsNearAMonster);
 
         Assert.False(_ghostController.IsPossessing);
         Assert.AreNotEqual(AIStateId.Possessed, _ghostController.NearbyMonster.stateMachine.currentState);
 
-        _ghostController.OnPossession(new InputAction.CallbackContext());
+        Press(keyboard.numpadEnterKey);
 
         yield return new WaitForFixedUpdate();
 
         Assert.True(_ghostController.IsPossessing);
         Assert.AreEqual(AIStateId.Possessed, _ghostController.Monster.stateMachine.currentState);
 
-        _ghostController.OnPossession(new InputAction.CallbackContext());
+        Release(keyboard.numpadEnterKey);
+        Press(keyboard.numpadEnterKey);
 
         yield return new WaitForFixedUpdate();
 
@@ -81,15 +82,19 @@ public class GhostPossessionTests
     [UnityTest]
     public IEnumerator MoveMonsterPossessedRight()
     {
+        Keyboard keyboard = InstantiateGhostWithKeyboard();
+
         yield return new WaitUntil(() => _ghostController.IsNearAMonster);
 
-        _ghostController.OnPossession(new InputAction.CallbackContext());
+        Press(keyboard.numpadEnterKey);
 
         yield return new WaitForFixedUpdate();
 
+        Release(keyboard.numpadEnterKey);
+
         float monsterPreviousPos = _monster.transform.position.x;
 
-        _ghostController.MovementInput = Vector2.right;
+        Press(keyboard.rightArrowKey);
 
         yield return new WaitForFixedUpdate();
         yield return new WaitForSeconds(1); //Line not needed to run test individually but bug was found when running it with the rest of the tests
@@ -101,15 +106,19 @@ public class GhostPossessionTests
     [UnityTest]
     public IEnumerator MoveMonsterPossessedLeft()
     {
+        Keyboard keyboard = InstantiateGhostWithKeyboard();
+
         yield return new WaitUntil(() => _ghostController.IsNearAMonster);
 
-        _ghostController.OnPossession(new InputAction.CallbackContext());
+        Press(keyboard.numpadEnterKey);
 
         yield return new WaitForFixedUpdate();
 
+        Release(keyboard.numpadEnterKey);
+
         float monsterPreviousPos = _monster.transform.position.x;
 
-        _ghostController.MovementInput = Vector2.left;
+        Press(keyboard.leftArrowKey);
 
         yield return new WaitForFixedUpdate();
 
@@ -120,17 +129,21 @@ public class GhostPossessionTests
     [UnityTest]
     public IEnumerator MoveFlyingMonsterPossessedUp()
     {
+        Keyboard keyboard = InstantiateGhostWithKeyboard();
+
         yield return new WaitUntil(() => _ghostController.IsNearAMonster);
 
         Assert.AreEqual("Bird(Clone)", _ghostController.NearbyMonster.gameObject.name); //Identify flying monster
 
-        _ghostController.OnPossession(new InputAction.CallbackContext());
+        Press(keyboard.numpadEnterKey);
 
         yield return new WaitForFixedUpdate();
 
+        Release(keyboard.numpadEnterKey);
+
         float monsterPreviousPos = _monster.transform.position.y;
 
-        _ghostController.MovementInput = Vector2.up;
+        Press(keyboard.upArrowKey);
 
         yield return new WaitForFixedUpdate();
 
@@ -141,17 +154,21 @@ public class GhostPossessionTests
     [UnityTest]
     public IEnumerator MoveFlyingMonsterPossessedDown()
     {
+        Keyboard keyboard = InstantiateGhostWithKeyboard();
+
         yield return new WaitUntil(() => _ghostController.IsNearAMonster);
 
         Assert.AreEqual("Bird(Clone)", _ghostController.NearbyMonster.gameObject.name); //Identify flying monster
 
-        _ghostController.OnPossession(new InputAction.CallbackContext());
+        Press(keyboard.numpadEnterKey);
 
         yield return new WaitForFixedUpdate();
 
+        Release(keyboard.numpadEnterKey);
+
         float monsterPreviousPos = _monster.transform.position.y;
 
-        _ghostController.MovementInput = Vector2.down;
+        Press(keyboard.downArrowKey);
 
         yield return new WaitForFixedUpdate();
 
@@ -171,6 +188,22 @@ public class GhostPossessionTests
         camera.transform.position = new Vector3(0, 0, -10);
 
         return camera;
+    }
+
+    private Keyboard InstantiateGhostWithKeyboard()
+    {
+        Keyboard keyboard = InputSystem.AddDevice<Keyboard>();
+
+        _ghost = PlayerInput.Instantiate
+        (
+            _ghost,
+            controlScheme: "KeyboardRight",
+            pairWithDevice: keyboard
+        ).gameObject;
+
+        _ghostController = _ghost.GetComponent<GhostMovement>();
+
+        return keyboard;
     }
 
     public static bool FastApproximately(float a, float b, float threshold)

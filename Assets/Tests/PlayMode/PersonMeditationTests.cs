@@ -25,6 +25,9 @@ public class PersonMeditationTests
         _person = MonoBehaviour.Instantiate(_person, Vector3.zero, Quaternion.identity);
         _personController = _person.GetComponent<PlayerController>();
 
+        _person.GetComponent<PersonAndGhost.DestroyWhenOutOfScreen>().enabled = false;
+        _person.GetComponent<PersonCollectableController>().enabled = false;
+
         yield return new WaitUntil(() => _personController.IsOnGround);
 
         yield return new EnterPlayMode();
