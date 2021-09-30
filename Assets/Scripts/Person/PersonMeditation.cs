@@ -4,11 +4,11 @@ using UnityEngine.InputSystem;
 public class PersonMeditation : MonoBehaviour
 {
     [Header("Component Fields")]
-    PlayerController _movementScript = default;
+    PersonController _movementScript = default;
 
     private void Start()
     {
-        _movementScript = GetComponent<PlayerController>();
+        _movementScript = GetComponent<PersonController>();
     }
 
     public void OnMeditation(InputAction.CallbackContext context)

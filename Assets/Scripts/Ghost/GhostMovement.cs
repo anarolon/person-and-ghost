@@ -16,7 +16,7 @@ public class GhostMovement : MonoBehaviour
     [SerializeField] private float _anchorRBRange = 5;
     [SerializeField] private float _anchorRangeGrowth = 2; 
     private Rigidbody2D _anchorRB = default;
-    private PlayerController _anchorScript = default;
+    private PersonController _anchorScript = default;
     private float _anchorRBRangeValue = 5;
     private Camera _mainCamera = default;
 
@@ -52,7 +52,7 @@ public class GhostMovement : MonoBehaviour
         {
             GameObject anchor = GameObject.FindGameObjectWithTag("Person");
             _anchorRB = anchor.GetComponent<Rigidbody2D>();
-            _anchorScript = anchor.GetComponent<PlayerController>();
+            _anchorScript = anchor.GetComponent<PersonController>();
         }
         catch
         {
@@ -62,7 +62,7 @@ public class GhostMovement : MonoBehaviour
             };
 
             _anchorRB = anchor.AddComponent<Rigidbody2D>();
-            _anchorScript = anchor.AddComponent<PlayerController>();
+            _anchorScript = anchor.AddComponent<PersonController>();
 
             _anchorRB.constraints = RigidbodyConstraints2D.FreezePositionY;
 

@@ -2,67 +2,116 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tool : MonoBehaviour, ITool
+public class Tool : MonoBehaviour
 {
-    
-    [SerializeField] protected bool onPlayer;
-    protected PlayerController person;
+    [SerializeField] protected bool didSubscribe = false;
+    [SerializeField] protected bool isPickedUp = false;
+    protected Transform obtainerPos = default;
+
+    [SerializeField] protected LayerMask groundLayer = default;
+
     protected Rigidbody2D toolRb;
-    protected Collider2D toolCollider;
+    protected PolygonCollider2D toolPolyCollider;
 
-    public bool OnPlayer {
-        get => onPlayer;
-        set => onPlayer = value;
-    }
+    // Testing variables
+    [Header("Testing variables")]
+    [SerializeField] private bool touchingGround = false;
 
-    void Start()
+
+    protected virtual void Start()
     {
-        onPlayer = false;
+        didSubscribe = false;
+        touchingGround = false;
+
         toolRb = GetComponent<Rigidbody2D>();
-        toolCollider = GetComponent<Collider2D>();
+        toolPolyCollider = GetComponent<PolygonCollider2D>();
+
+        isPickedUp = false;
+
         ZeroGravityEffect();
     }
 
-    void Update()
+
+    protected virtual void Update()
     {
-        if (onPlayer)
+        if (isPickedUp && obtainerPos != null)
         {
-            transform.position = person.gameObject.transform.position;
+            transform.position = obtainerPos.position;
         }
     }
 
-    public virtual void Action()
+    protected void OnTriggerEnter2D(Collider2D collision)
     {
-        throw new System.NotImplementedException();
+        if (collision.CompareTag("Person") && !didSubscribe)
+        {
+
+            Actions.OnToolPickup += ToolPickup;
+            Actions.OnToolDrop += ToolDrop;
+
+            didSubscribe = true;
+
+        }
+
     }
 
-    public virtual void GetDropped()
+    protected void OnTriggerExit2D(Collider2D collision)
     {
-        onPlayer = false;
-        AddGravityEffect();
-    }
+        if (collision.CompareTag("Person"))
+        {
+            if (didSubscribe)
+            {
+                Actions.OnToolPickup -= ToolPickup;
+                Actions.OnToolDrop -= ToolDrop;
+                didSubscribe = false;
+            }
 
-    public virtual void GetPickedUp(PlayerController player)
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        onPlayer = true;
-        person = player;
-        ZeroGravityEffect();
-    }
-
-    private void ZeroGravityEffect() {
-        toolRb.gravityScale = 0;
-        toolRb.velocity = new Vector2(0f, toolRb.velocity.y);
-        toolCollider.isTrigger = true;
-    }
-
-    private void AddGravityEffect() {
-        toolRb.gravityScale = 1;
-        toolCollider.isTrigger = false;
-    }
-
-    private void OnCollisionStay2D(Collision2D other) {
-        if(Equals(other.gameObject.tag, "Ground")) {
+        if (collision.gameObject.layer == 3) // Magic Number
+        {
             ZeroGravityEffect();
         }
     }
+
+    protected virtual void ToolAction(GameObject obtainer)
+    {
+
+    }
+
+    protected virtual void ToolDrop(GameObject obtainer)
+    {
+        isPickedUp = false;
+        obtainerPos = null;
+
+        AddGravityEffect();
+
+        Actions.OnToolActionUse -= ToolAction;
+    }
+
+    protected virtual void ToolPickup(GameObject obtainer)
+    {
+        isPickedUp = true;
+        obtainerPos = obtainer.transform;
+
+        ZeroGravityEffect();
+
+        Actions.OnToolActionUse += ToolAction;
+    }
+
+    private void ZeroGravityEffect()
+    {
+        toolRb.gravityScale = 0;
+        toolRb.velocity = Vector2.zero;
+        toolPolyCollider.enabled = false;
+    }
+
+    private void AddGravityEffect()
+    {
+
+        toolPolyCollider.enabled = true;
+        toolRb.gravityScale = 0.5f;
+    }
+
 }

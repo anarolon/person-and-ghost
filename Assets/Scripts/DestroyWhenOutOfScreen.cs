@@ -30,7 +30,7 @@ namespace PersonAndGhost
                 _gameObjectType = GameObjectType.Monster;
             }
 
-            else if (TryGetComponent(out PlayerController _))
+            else if (TryGetComponent(out PersonController _))
             {
                 _textBoxIfPerson = FindObjectOfType<Canvas>().GetComponentInChildren<Text>();
                 _gameObjectType = GameObjectType.Person;
