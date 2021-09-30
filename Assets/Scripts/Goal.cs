@@ -11,14 +11,9 @@ namespace PersonAndGhost
         private bool _isCollidingWithPlayer1 = false;
         private bool _isCollidingWithPlayer2 = false;
 
-        [Header("User Interface Fields")]
-        [SerializeField] private Canvas _gameUI = default;
-        [SerializeField] private string _winningMessage = "You Win!!!";
-        private Text _textBox = default;
-
         private void Start()
         {
-            _textBox = _gameUI.gameObject.GetComponentInChildren<Text>();
+            
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -35,9 +30,9 @@ namespace PersonAndGhost
             }
             if (_isCollidingWithPlayer1 && _isCollidingWithPlayer2)
             {
-                _textBox.text = _winningMessage;
+                Actions.OnPuzzleWin();
                 Destroy(this.gameObject);
-                Time.timeScale = 0;
+                
             }
         }
 
