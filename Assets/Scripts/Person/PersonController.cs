@@ -9,6 +9,7 @@ public class PersonController : MonoBehaviour
     public MovementState movement;
     public JumpingState jumping;
     public ClingState cling;
+    public MeditatingState meditate;
     [SerializeField] string currentState; // Just for demonstration purposes currently
 
     [Header("Components")]
@@ -74,6 +75,7 @@ public class PersonController : MonoBehaviour
         movement = new MovementState(this, movementSM);
         jumping = new JumpingState(this, movementSM);
         cling = new ClingState(this, movementSM);
+        meditate = new MeditatingState(this, movementSM);
         movementSM.Initialize(idle);
     }
 

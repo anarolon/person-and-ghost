@@ -7,6 +7,8 @@ public class IdleState : PersonState
     private Vector2 movementInput;
     private bool jumped;
 
+    private bool meditating;
+
     public IdleState(PersonController character, StateMachine stateMachine) : base(character, stateMachine)
     {
     }
@@ -22,6 +24,8 @@ public class IdleState : PersonState
         base.HandleInput();
         movementInput = character.MovementInput;
         jumped = character.Jumped;
+
+        meditating = character.IsMeditating;
     }
 
     public override void LogicUpdate()
@@ -34,6 +38,10 @@ public class IdleState : PersonState
         else if (jumped)
         {
             stateMachine.ChangeState(character.jumping);
+        }
+        else if (meditating)
+        {
+            stateMachine.ChangeState(character.meditate);
         }
     }
 

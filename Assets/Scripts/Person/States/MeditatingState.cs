@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovementState : PersonState
+public class MeditatingState : PersonState
 {
     private Vector2 movementInput;
     private bool jumped;
-
     private bool meditating;
 
-    public MovementState(PersonController character, StateMachine stateMachine) : base(character, stateMachine)
+
+    public MeditatingState(PersonController character, StateMachine stateMachine) : base(character, stateMachine)
     {
     }
 
@@ -21,34 +21,38 @@ public class MovementState : PersonState
     public override void HandleInput()
     {
         base.HandleInput();
+        meditating = character.IsMeditating;
+
         movementInput = character.MovementInput;
         jumped = character.Jumped;
-
-        meditating = character.IsMeditating;
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (movementInput == Vector2.zero)
+        if (!meditating)
         {
             stateMachine.ChangeState(character.idle);
         }
-        else if (jumped)
-        {
-            stateMachine.ChangeState(character.jumping);
-        }
-        else if (meditating)
-        {
-            stateMachine.ChangeState(character.meditate);
-        }
+        
 
     }
-
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        character.Move();
+        if (movementInput.x != 0)
+        {
+            // TODO: Move brainwave laser
+            Debug.Log("laser move!");
+        }
+        else if (jumped)
+        {
 
+            // TODO: shoot laster on jump
+            Debug.Log("laser shoot!");
+
+        }
     }
+
+
 }
