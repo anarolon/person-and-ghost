@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8972354120028295908}
   - component: {fileID: 6498247437925675265}
   - component: {fileID: 5033818193286649620}
+  - component: {fileID: -1574923455968311322}
   m_Layer: 0
   m_Name: Person
   m_TagString: Person
@@ -270,18 +271,9 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
-  movementAcceleration: 50
-  maxMoveSpeed: 12
-  linearDrag: 10
-  jumpForce: 6
-  airLinearDrag: 3
-  fallMultiplier: 8
-  lowJumpFallMultiplier: 5
-  groundRaycastLength: 0.6
-  groundRaycastOffset: {x: 0.25, y: 0, z: 0}
   isOnGround: 0
-  wallRaycastLength: 0.3
   isTouchingWall: 0
+  config: {fileID: 11400000, guid: 87f8de44ff82129438941eed1cf23a0c, type: 2}
 --- !u!114 &6498247437925675265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,3 +301,16 @@ MonoBehaviour:
   toolInHand: 0
   interactWithTool: 0
   useAction: 0
+--- !u!114 &-1574923455968311322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2260929579766930403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed3a8ce36d3ba7a45beee965e7041a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectableCount: 0

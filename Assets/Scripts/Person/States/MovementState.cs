@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class MovementState : PersonState
 {
-    private Vector2 movementInput;
-    private bool jumped;
+    private Vector2 _movementInput;
+    private bool _jumped;
 
-    private bool meditating;
+    private bool _meditating;
 
     public MovementState(PersonController character, StateMachine stateMachine) : base(character, stateMachine)
     {
@@ -21,24 +21,24 @@ public class MovementState : PersonState
     public override void HandleInput()
     {
         base.HandleInput();
-        movementInput = character.MovementInput;
-        jumped = character.Jumped;
+        _movementInput = character.MovementInput;
+        _jumped = character.Jumped;
 
-        meditating = character.IsMeditating;
+        _meditating = character.IsMeditating;
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (movementInput == Vector2.zero)
+        if (_movementInput == Vector2.zero)
         {
             stateMachine.ChangeState(character.idle);
         }
-        else if (jumped)
+        else if (_jumped)
         {
             stateMachine.ChangeState(character.jumping);
         }
-        else if (meditating)
+        else if (_meditating)
         {
             stateMachine.ChangeState(character.meditate);
         }

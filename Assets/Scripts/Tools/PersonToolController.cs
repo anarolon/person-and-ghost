@@ -7,7 +7,8 @@ public class PersonToolController : MonoBehaviour
     [SerializeField] private bool toolInHand = false;
 
     [Header("Input System Variables")]
-    [SerializeField] private bool interactWithTool = false;
+    //[SerializeField] private bool interactWithTool = false;
+    [SerializeField] private float interactWithTool = 0;
     [SerializeField] private bool useAction = false;
 
     void Start()
@@ -17,7 +18,7 @@ public class PersonToolController : MonoBehaviour
 
     void Update()
     {
-        if (interactWithTool && toolInHand)
+        if (interactWithTool < 0 && toolInHand)
         {
             DropTool();
         }
@@ -31,7 +32,8 @@ public class PersonToolController : MonoBehaviour
 
     public void OnToolInteract(InputAction.CallbackContext context)
     {
-        interactWithTool = context.action.triggered;
+        //interactWithTool = context.action.triggered;
+        interactWithTool = context.ReadValue<float>();
     }
 
     public void OnToolUse(InputAction.CallbackContext context)
@@ -42,13 +44,12 @@ public class PersonToolController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (interactWithTool && collision.CompareTag("Tool") && !toolInHand)
+        if (interactWithTool > 0 && collision.CompareTag("Tool") && !toolInHand)
         {
             PickupTool();
         }
 
     }
-
 
 
     private void PickupTool()

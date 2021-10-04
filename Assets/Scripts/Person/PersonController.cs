@@ -3,128 +3,123 @@ using UnityEngine.InputSystem;
 
 public class PersonController : MonoBehaviour
 {
+
     [Header("State Machine Fields")]
-    private StateMachine movementSM;
+    private StateMachine _movementSM;
     public IdleState idle;
     public MovementState movement;
     public JumpingState jumping;
-    public ClingState cling;
+    public FallingState falling;
     public MeditatingState meditate;
-    [SerializeField] string currentState; // Just for demonstration purposes currently
+    public ClingState cling;
+    [Tooltip("Currently only being used to visualize current player state")]
+    [SerializeField] private string _currentState = default;
 
-    [Header("Components")]
-    private Rigidbody2D playerRB;
+    [Header("Cached Components and Fields")]
+    private Rigidbody2D _playerRB = default;
+    [SerializeField] private PersonConfig _config = default;
 
     [Header("Layer Masks")]
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private LayerMask _groundLayer = default;
+    [SerializeField] private LayerMask _wallLayer = default;
 
     [Header("Movement Fields")]
-    [SerializeField] private float movementAcceleration = 50f;
-    [SerializeField] private float maxMoveSpeed = 12f;
-    [SerializeField] private float linearDrag = 10f;
-    private float horizontalVelocity;
-    private bool changingDirection => (
-        playerRB.velocity.x > 0f && horizontalVelocity < 0f)
-        || (playerRB.velocity.x < 0f && horizontalVelocity > 0f);
+    private float _horizontalVelocity = default;
+    private bool _changingDirection => (
+        _playerRB.velocity.x > 0f && _horizontalVelocity < 0f)
+        || (_playerRB.velocity.x < 0f && _horizontalVelocity > 0f);
+    private bool _canJump = false;
 
-    [Header("Jump Variables")]
-    [SerializeField] private float jumpForce = 12f;
-    [SerializeField] private float airLinearDrag = 2.5f;
-    [SerializeField] private float fallMultiplier = 8f;
-    [SerializeField] private float lowJumpFallMultiplier = 5f;
-    private bool canJump = false;
-
-    [Header("Ground Collision Variables")]
-    [SerializeField] private float groundRaycastLength = 1.2f;
-    [SerializeField] private Vector3 groundRaycastOffset = new Vector3(0.5f, 0, 0);
+    [Header("Collision Variables")]
     [SerializeField] private bool isOnGround = false;
-
-    [Header("Wall Collision Variables")]
-    [SerializeField] private float wallRaycastLength = 0.5f;
     [SerializeField] private bool isTouchingWall = false;
 
-
     [Header("Input System Variables")]
-    private Vector2 movementInput = Vector2.zero;
-    private bool jumped = false;
+    private Vector2 _movementInput = Vector2.zero;
+    private bool _jumped = false;
 
     // PROPERTIES
-    public StateMachine MovementSM { get => movementSM; }
-    public bool CanJump { get => canJump; set => canJump = value; }
-    public float GroundRayCastLength
-    {
-        get => groundRaycastLength; set => groundRaycastLength = value;
-    }
-    public bool IsOnGround { get => isOnGround; set => isOnGround = value; }
-    public bool IsTouchingWall { get => isTouchingWall; }
-    public bool IsMeditating { get; set; }
-    public Vector2 MovementInput { get => movementInput; }
-    public bool Jumped { get => jumped; }
+    public StateMachine MovementSM { get => _movementSM;}
+    public bool CanJump { get => _canJump; set => _canJump = value;}
+    public bool IsOnGround { get => isOnGround;}
+    public bool IsTouchingWall { get => isTouchingWall;}
+    public bool IsMeditating { get; set;}
+    public Vector2 MovementInput { get => _movementInput;}
+    public bool Jumped { get => _jumped;}
+
+
+    
 
     void Awake()
     {
-        playerRB = GetComponent<Rigidbody2D>();
+        _playerRB = GetComponent<Rigidbody2D>();
+        _groundLayer = LayerMask.GetMask("Ground");
+        _wallLayer = LayerMask.GetMask("Wall");
+        _config ??= ScriptableObject.CreateInstance<PersonConfig>();
     }
 
     private void Start()
     {
-        movementSM = new StateMachine();
+        _movementSM = new StateMachine();
 
-        idle = new IdleState(this, movementSM);
-        movement = new MovementState(this, movementSM);
-        jumping = new JumpingState(this, movementSM);
-        cling = new ClingState(this, movementSM);
-        meditate = new MeditatingState(this, movementSM);
-        movementSM.Initialize(idle);
+        idle = new IdleState(this, _movementSM);
+        movement = new MovementState(this, _movementSM);
+        jumping = new JumpingState(this, _movementSM);
+        falling = new FallingState(this, _movementSM);
+        meditate = new MeditatingState(this, _movementSM);
+        cling = new ClingState(this, _movementSM);
+        
+        _movementSM.Initialize(idle);
     }
 
     private void Update()
     {
-        movementSM.CurrentState.HandleInput();
+        _movementSM.CurrentState.HandleInput();
 
-        movementSM.CurrentState.LogicUpdate();
-        currentState = movementSM.CurrentState.ToString();
+        _movementSM.CurrentState.LogicUpdate();
+        _currentState = _movementSM.CurrentState.ToString();
     }
 
     private void FixedUpdate()
     {
-        movementSM.CurrentState.PhysicsUpdate();
+        _movementSM.CurrentState.PhysicsUpdate();
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        movementInput = context.ReadValue<Vector2>();
+        _movementInput = context.ReadValue<Vector2>();
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        jumped = context.action.triggered;
+        _jumped = context.action.triggered;
     }
 
 
     public bool IsWalking()
     {
-        return Mathf.Abs(playerRB.velocity.x) > 0;
+        return Mathf.Abs(_playerRB.velocity.x) > 0;
     }
 
     public void ResetVelocity()
     {
-        playerRB.velocity = Vector2.zero;
-        playerRB.angularVelocity = 0;
+        _playerRB.velocity = Vector2.zero;
+        _playerRB.angularVelocity = 0;
     }
 
     public void Move()
     {
         CheckCollision();
+        // TODO: Do we need this meditation check here?
         if (IsMeditating)
         {
-            playerRB.velocity = new Vector2(0, playerRB.velocity.y);
+            _playerRB.velocity = new Vector2(0, _playerRB.velocity.y);
         }
         else
         {
-            MovePlayer(movementInput);
+            MovePlayer(_movementInput);
         }
+        // TODO: Do we need this ground check here?
         if (isOnGround)
         {
             ApplyLinearDrag();
@@ -134,108 +129,108 @@ public class PersonController : MonoBehaviour
     public void AirMove()
     {
         CheckCollision();
-        MovePlayer(movementInput);
+        MovePlayer(_movementInput);
         ApplyAirLinearDrag();
         ApplyFallMultiplier();
     }
 
+    public void Jump()
+    {
+        _playerRB.velocity = new Vector2(_playerRB.velocity.x, 0f);
+        _playerRB.AddForce(Vector2.up * _config.jumpForce, ForceMode2D.Impulse);
+
+    }
+
     public void Cling()
     {
-        playerRB.gravityScale = 0;
-        playerRB.velocity = Vector2.zero;
+        _playerRB.gravityScale = 0;
+        _playerRB.velocity = Vector2.zero;
     }
 
     public void UnCling()
     {
-        playerRB.gravityScale = 1;
+        _playerRB.gravityScale = 1;
     }
 
 
 
     private void MovePlayer(Vector2 movementInput)
     {
-        horizontalVelocity = movementInput.x;
+        _horizontalVelocity = movementInput.x;
 
-        playerRB.AddForce(new Vector2(horizontalVelocity, 0f) * movementAcceleration);
+        _playerRB.AddForce(new Vector2(_horizontalVelocity, 0f) * _config.movementAcceleration);
 
-        if (Mathf.Abs(playerRB.velocity.x) > maxMoveSpeed)
+        if (Mathf.Abs(_playerRB.velocity.x) > _config.maxMoveSpeed)
         {
-            playerRB.velocity = new Vector2(Mathf.Sign(playerRB.velocity.x)
-                * maxMoveSpeed, playerRB.velocity.y);
+            _playerRB.velocity = new Vector2(Mathf.Sign(_playerRB.velocity.x)
+                * _config.maxMoveSpeed, _playerRB.velocity.y);
         }
     }
 
     private void ApplyLinearDrag()
     {
         // TODO: Magic Number: 0.4f; make into a variable
-        if (Mathf.Abs(horizontalVelocity) < 0.4f || changingDirection)
+        if (Mathf.Abs(_horizontalVelocity) < 0.4f || _changingDirection)
         {
-            playerRB.drag = linearDrag;
+            _playerRB.drag = _config.linearDrag;
         }
         else
         {
-            playerRB.drag = 0f;
+            _playerRB.drag = 0f;
         }
     }
 
     private void ApplyAirLinearDrag()
     {
-        playerRB.drag = airLinearDrag;
-    }
-
-    public void Jump()
-    {
-        playerRB.velocity = new Vector2(playerRB.velocity.x, 0f);
-        playerRB.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-
+        _playerRB.drag = _config.airLinearDrag;
     }
 
     private void ApplyFallMultiplier()
     {
-        if (playerRB.velocity.y < 0)
+        if (_playerRB.velocity.y < 0)
         {
-            playerRB.gravityScale = fallMultiplier;
+            _playerRB.gravityScale = _config.fallMultiplier;
         }
-        else if (playerRB.velocity.y > 0 && !jumped)
+        else if (_playerRB.velocity.y > 0 && !_jumped)
         {
-            playerRB.gravityScale = lowJumpFallMultiplier;
+            _playerRB.gravityScale = _config.lowJumpFallMultiplier;
         }
         else
         {
-            playerRB.gravityScale = 1f;
+            _playerRB.gravityScale = 1f;
         }
     }
 
     private void CheckCollision()
     {
-        isOnGround = Physics2D.Raycast(transform.position + groundRaycastOffset,
-            Vector2.down, groundRaycastLength, groundLayer)
-            || Physics2D.Raycast(transform.position - groundRaycastOffset,
-            Vector2.down, groundRaycastLength, groundLayer);
+        isOnGround = Physics2D.Raycast(transform.position + _config.groundRaycastOffset,
+            Vector2.down, _config.groundRaycastLength, _groundLayer)
+            || Physics2D.Raycast(transform.position - _config.groundRaycastOffset,
+            Vector2.down, _config.groundRaycastLength, _groundLayer);
 
         isTouchingWall = Physics2D.Raycast(transform.position,
-            Vector2.right, wallRaycastLength, wallLayer)
+            Vector2.right, _config.wallRaycastLength, _wallLayer)
             || Physics2D.Raycast(transform.position,
-            Vector2.left, wallRaycastLength, wallLayer);
+            Vector2.left, _config.wallRaycastLength, _wallLayer);
     }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position + groundRaycastOffset,
-            transform.position + groundRaycastOffset + Vector3.down
-            * groundRaycastLength);
+        Gizmos.DrawLine(transform.position + _config.groundRaycastOffset,
+            transform.position + _config.groundRaycastOffset + Vector3.down
+            * _config.groundRaycastLength);
 
-        Gizmos.DrawLine(transform.position - groundRaycastOffset,
-            transform.position - groundRaycastOffset + Vector3.down
-            * groundRaycastLength);
+        Gizmos.DrawLine(transform.position - _config.groundRaycastOffset,
+            transform.position - _config.groundRaycastOffset + Vector3.down
+            * _config.groundRaycastLength);
 
         Gizmos.color = Color.blue;
 
         Gizmos.DrawLine(transform.position,
-            transform.position + Vector3.right * wallRaycastLength);
+            transform.position + Vector3.right * _config.wallRaycastLength);
 
         Gizmos.DrawLine(transform.position,
-            transform.position + Vector3.left * wallRaycastLength);
+            transform.position + Vector3.left * _config.wallRaycastLength);
 
     }
 

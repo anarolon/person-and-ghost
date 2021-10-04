@@ -17,7 +17,10 @@ public class Tool : MonoBehaviour
     [Header("Testing variables")]
     [SerializeField] private bool touchingGround = false;
 
-
+    private void Awake()
+    {
+        tag = "Tool";
+    }
     protected virtual void Start()
     {
         didSubscribe = false;

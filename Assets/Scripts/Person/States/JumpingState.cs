@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class JumpingState : PersonState
 {
-    private bool meditating;
     public JumpingState(PersonController character, StateMachine stateMachine) : base(character, stateMachine)
     {
     }
@@ -15,30 +14,12 @@ public class JumpingState : PersonState
         character.Jump();
     }
 
-    public override void HandleInput()
-    {
-        base.HandleInput();
-
-        meditating = character.IsMeditating;
-    }
-
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (character.IsOnGround)
-        {
-            stateMachine.ChangeState(character.idle);
-        }
-        else if (meditating)
-        {
-            stateMachine.ChangeState(character.meditate);
-        }
+        // TODO: maybe only change when at the height of the jump (when y velocity == 0)
+        stateMachine.ChangeState(character.falling);
 
     }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
-        character.AirMove();
-    }
 }

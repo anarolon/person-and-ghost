@@ -1,6 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class ClimbingGauntlet : Tool
+public class GrapplingHook : Tool
 {
     private PersonController _obtainerController = default;
     private StateMachine _obtainerStateMachine = default;
@@ -9,10 +11,10 @@ public class ClimbingGauntlet : Tool
     {
         base.ToolAction(obtainer);
 
-        if (_obtainerController != null && _obtainerStateMachine != null
-            && _obtainerController.IsTouchingWall)
+        if (_obtainerController != null && _obtainerStateMachine != null)
         {
-            _obtainerStateMachine.ChangeState(_obtainerController.cling);
+            // TODO: Do Grappling Hook Stuff
+            Debug.Log("Grapple!");
         }
 
     }
@@ -25,7 +27,7 @@ public class ClimbingGauntlet : Tool
         _obtainerController = obtainer.GetComponent<PersonController>();
         _obtainerStateMachine ??= _obtainerController.MovementSM;
 
-        Debug.Log("Climbing Gauntlet got picked up by: " + obtainer.name);
+        Debug.Log("Grappling Hook got picked up by: " + obtainer.name);
 
     }
 
@@ -36,7 +38,7 @@ public class ClimbingGauntlet : Tool
         _obtainerController = null;
         _obtainerStateMachine = null;
 
-        Debug.Log("Climbing Gauntlet got dropped by: " + obtainer.name);
+        Debug.Log("Grappling Hook got dropped by: " + obtainer.name);
 
     }
 }

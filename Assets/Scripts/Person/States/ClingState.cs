@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ClingState : PersonState
 {
-    private Vector2 movementInput;
-    private bool jumped;
+    private Vector2 _movementInput;
+    private bool _jumped;
+    private bool _meditating;
 
 
     public ClingState(PersonController character, StateMachine stateMachine) : base(character, stateMachine)
@@ -15,8 +16,10 @@ public class ClingState : PersonState
     public override void HandleInput()
     {
         base.HandleInput();
-        movementInput = character.MovementInput;
-        jumped = character.Jumped;
+        _movementInput = character.MovementInput;
+        _jumped = character.Jumped;
+
+        _meditating = character.IsMeditating;
     }
 
     public override void LogicUpdate()
@@ -24,7 +27,11 @@ public class ClingState : PersonState
         base.LogicUpdate();
 
         // TODO : Make the player fall if they move towards the wall they are clinging to
-        if (movementInput.x != 0 || jumped)
+        if (_meditating)
+        {
+            stateMachine.ChangeState(character.meditate);
+        }
+        else if (_movementInput.x != 0 || _jumped)
         {
             stateMachine.ChangeState(character.jumping);
         }

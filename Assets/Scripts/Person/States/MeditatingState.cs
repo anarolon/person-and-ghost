@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class MeditatingState : PersonState
 {
-    private Vector2 movementInput;
-    private bool jumped;
-    private bool meditating;
-
+    private Vector2 _movementInput;
+    private bool _jumped;
+    private bool _meditating;
 
     public MeditatingState(PersonController character, StateMachine stateMachine) : base(character, stateMachine)
     {
@@ -21,18 +20,26 @@ public class MeditatingState : PersonState
     public override void HandleInput()
     {
         base.HandleInput();
-        meditating = character.IsMeditating;
+        _meditating = character.IsMeditating;
 
-        movementInput = character.MovementInput;
-        jumped = character.Jumped;
+        _movementInput = character.MovementInput;
+        _jumped = character.Jumped;
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (!meditating)
+        if (!_meditating)
         {
-            stateMachine.ChangeState(character.idle);
+            if (character.IsOnGround)
+            {
+               stateMachine.ChangeState(character.idle);
+            }
+            else
+            {
+                stateMachine.ChangeState(character.falling);
+            }
+            
         }
         
 
@@ -40,12 +47,12 @@ public class MeditatingState : PersonState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        if (movementInput.x != 0)
+        if (_movementInput.x != 0)
         {
             // TODO: Move brainwave laser
             Debug.Log("laser move!");
         }
-        else if (jumped)
+        else if (_jumped)
         {
 
             // TODO: shoot laster on jump

@@ -31,9 +31,9 @@
                 },
                 {
                     "name": "ToolPickup/Drop",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "459568e2-cfec-430c-9ae7-46a3c4d8c34c",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": ""
                 },
@@ -190,7 +190,7 @@
                 {
                     "name": "",
                     "id": "751c448b-3f55-4015-be31-78a712ca9243",
-                    "path": "<Keyboard>/k",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardLeft",
@@ -199,15 +199,37 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "d310141a-613f-4c7e-9b0f-b6ef1d37bc9d",
-                    "path": "<Keyboard>/j",
+                    "name": "1D Axis",
+                    "id": "3bb8a0d9-714c-4792-a031-59d1c0c70034",
+                    "path": "1DAxis(whichSideWins=2)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToolPickup/Drop",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "7152e288-0493-42de-b657-9daccfb19ed7",
+                    "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardLeft",
                     "action": "ToolPickup/Drop",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "db1331b9-4958-476f-8974-563a75418888",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardLeft",
+                    "action": "ToolPickup/Drop",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
