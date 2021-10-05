@@ -25,7 +25,7 @@ public class Tool : MonoBehaviour, ITool
 
     void Update()
     {
-        if (onPlayer)
+        if (onPlayer && person)
         {
             transform.position = person.gameObject.transform.position;
         }

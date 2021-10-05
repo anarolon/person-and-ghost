@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using PersonAndGhost.Utils;
 
 public class GameManagerController : MonoBehaviour
 {
@@ -36,12 +37,6 @@ public class GameManagerController : MonoBehaviour
         }
     }
 
-
-    private void Update()
-    {
-        
-    }
-
     private void OnEnable()
     {
         Actions.OnPuzzleWin += HandlePuzzleWin;
@@ -55,7 +50,6 @@ public class GameManagerController : MonoBehaviour
         Actions.OnPuzzleFail -= HandlePuzzleFail;
         Actions.OnCollectableCollected -= UpdateCollectableCount;
     }
-
 
     private void HandlePuzzleWin()
     {

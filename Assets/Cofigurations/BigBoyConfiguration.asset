@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f7625711c5257c4bac2ed37d21ab2c5, type: 3}
   m_Name: BigBoyConfiguration
   m_EditorClassIdentifier: 
-  _movementAcceleration: 10
+  _movementAcceleration: 20
   _maxMoveSpeed: 3
   _linearDrag: 15
   _changeDirectionFrequency: 3

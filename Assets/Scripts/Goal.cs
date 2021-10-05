@@ -1,38 +1,34 @@
 using UnityEngine;
-using UnityEngine.UI;
+using PersonAndGhost.Utils;
 
 namespace PersonAndGhost
 {
     public class Goal : MonoBehaviour
     {
         [Header("Players Tag to Collide with Goal")]
-        [SerializeField] private string _player1Tag = "Person";
-        [SerializeField] private string _player2Tag = "Ghost";
-        private bool _isCollidingWithPlayer1 = false;
-        private bool _isCollidingWithPlayer2 = false;
-
-        private void Start()
-        {
-            
-        }
+        [SerializeField] private string _leftPlayerTag = "Person";
+        [SerializeField] private string _rightPlayerTag = "Ghost";
+        private bool _isCollidingWithLeftPlayer = false;
+        private bool _isCollidingWithRightPlayer = false;
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             string collidingTag = collision.gameObject.tag;
 
-            if (collidingTag == _player1Tag)
+            if (collidingTag == _leftPlayerTag)
             {
-                _isCollidingWithPlayer1 = true;
+                _isCollidingWithLeftPlayer = true;
             }
-            else if (collidingTag == _player2Tag)
+
+            else if (collidingTag == _rightPlayerTag)
             {
-                _isCollidingWithPlayer2 = true;
+                _isCollidingWithRightPlayer = true;
             }
-            if (_isCollidingWithPlayer1 && _isCollidingWithPlayer2)
+
+            if (_isCollidingWithLeftPlayer && _isCollidingWithRightPlayer)
             {
                 Actions.OnPuzzleWin();
                 Destroy(this.gameObject);
-                
             }
         }
 
@@ -40,13 +36,14 @@ namespace PersonAndGhost
         {
             string collidingTag = collision.gameObject.tag;
 
-            if (collidingTag == _player1Tag)
+            if (collidingTag == _leftPlayerTag)
             {
-                _isCollidingWithPlayer1 = false;
+                _isCollidingWithLeftPlayer = false;
             }
-            else if (collidingTag == _player2Tag)
+
+            else if (collidingTag == _rightPlayerTag)
             {
-                _isCollidingWithPlayer2 = false;
+                _isCollidingWithRightPlayer = false;
             }
         }
     }

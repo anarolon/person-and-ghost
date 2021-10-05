@@ -8,10 +8,14 @@ namespace PersonAndGhost
         [Header("Left Player Fields")]
         [SerializeField] private GameObject _leftPlayerPrefab = default;
         [SerializeField] private Vector2 _leftPlayerPosition = Vector2.one * 2;
+        private string _leftPrefabPath = "Prefabs/Person";
+        private string _leftControlScheme = "KeyboardLeft";
 
         [Header("Right Player Fields")]
         [SerializeField] private GameObject _rightPlayerPrefab = default;
         [SerializeField] private Vector2 _rightPlayerPosition = -Vector2.one;
+        private string _rightPrefabPath = "Prefabs/Ghost";
+        private string _rightControlScheme = "KeyboardRight";
 
         private void Start()
         {
@@ -23,14 +27,14 @@ namespace PersonAndGhost
                 leftPlayerTransform = PlayerInput.Instantiate
                 (
                     _leftPlayerPrefab,
-                    controlScheme: "KeyboardLeft",
+                    controlScheme: _leftControlScheme,
                     pairWithDevice: Keyboard.current
                 ).gameObject.transform;
 
                 rightPlayerTransform = PlayerInput.Instantiate
                     (
                         _rightPlayerPrefab,
-                        controlScheme: "KeyboardRight",
+                        controlScheme: _rightControlScheme,
                         pairWithDevice: Keyboard.current
                     ).gameObject.transform;
             }
@@ -40,20 +44,20 @@ namespace PersonAndGhost
                 GameObject leftPlayerGameObject;
                 GameObject rightPlayerGameObject;
 
-                leftPlayerGameObject = Resources.Load<GameObject>("Prefabs/Person");
-                rightPlayerGameObject = Resources.Load<GameObject>("Prefabs/Ghost");
+                leftPlayerGameObject = Resources.Load<GameObject>(_leftPrefabPath);
+                rightPlayerGameObject = Resources.Load<GameObject>(_rightPrefabPath);
 
                 leftPlayerGameObject = PlayerInput.Instantiate
                 (
                     leftPlayerGameObject,
-                    controlScheme: "KeyboardLeft",
+                    controlScheme: _leftControlScheme,
                     pairWithDevice: Keyboard.current
                 ).gameObject;
 
                 rightPlayerGameObject = PlayerInput.Instantiate
                     (
                         rightPlayerGameObject,
-                        controlScheme: "KeyboardRight",
+                        controlScheme: _rightControlScheme,
                         pairWithDevice: Keyboard.current
                     ).gameObject;
 

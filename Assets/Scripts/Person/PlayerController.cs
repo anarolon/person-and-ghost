@@ -7,8 +7,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRB = default;
 
     [Header("Layer Masks")]
-    [SerializeField] private LayerMask groundLayer = default;
-    [SerializeField] private LayerMask wallLayer = default;
+    [SerializeField] private LayerMask groundLayer = 3;
+    [SerializeField] private LayerMask wallLayer = 6;
 
     [Header("Movement Variables")]
     [SerializeField] private float movementAcceleration = 50f;
@@ -24,8 +24,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float lowJumpFallMultiplier = 5f;
 
     [Header("Ground Collision Variables")]
-    [SerializeField] private float groundRaycastLength;
-    [SerializeField] private Vector3 groundRaycastOffset;
+    [SerializeField] private float groundRaycastLength = 0.6f;
+    [SerializeField] private Vector3 groundRaycastOffset = Vector2.right * 0.25f;
     [SerializeField] private bool onGround;
 
     [Header("Wall Collision Variables")]
@@ -63,7 +63,18 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        playerRB = GetComponent<Rigidbody2D>();
+        if (TryGetComponent(out Rigidbody2D rigidbody2D))
+        {
+            playerRB = rigidbody2D;
+        }
+
+        else
+        {
+            playerRB = gameObject.AddComponent<Rigidbody2D>();
+
+            Debug.LogWarning("Rigidbody 2D component was not attached.");
+        }
+
         IsMeditating = false;   
     }
 
