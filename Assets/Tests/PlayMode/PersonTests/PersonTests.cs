@@ -4,43 +4,37 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 using PersonAndGhost.Utils;
+using PersonAndGhost.Person;
+using PersonAndGhost.Tools;
 
 namespace PersonAndGhost.PlayMode.PersonTests
 {
     public class PersonTests : InputTestFixture
     {
-        private GameObject _groundPrefab;
-        private GameObject _personPrefab;
         private Transform _groundTransform;
+        private GameObject _personPrefab;
         private Transform _personTransform;
-        private PlayerController _person;
-        private Keyboard _keyboard;
+        private PersonMovement _person;
 
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            _groundPrefab = Resources.Load<GameObject>(Utility.GROUNDPREFABPATH);
-            _personPrefab = Resources.Load<GameObject>(Utility.LEFTPLAYERPREFABPATH);
-            _groundTransform = Object.Instantiate(_groundPrefab).transform;
+            GameObject groundPrefab 
+                = Resources.Load<GameObject>(Utility.GROUNDPREFABPATH);
+            _groundTransform = Object.Instantiate(groundPrefab).transform;
             _groundTransform.localScale *= 2.5f;
+
+            _personPrefab = Resources.Load<GameObject>(Utility.LEFTPLAYERPREFAB);
 
             yield return new EnterPlayMode();
         }
 
         private IEnumerator PlayModeSetUp()
         {
-            PlayerInput personPlayerInput = Utility.InstantiatePlayerWithKeyboard
-            (
-                _personPrefab, 
-                default
-            );
-            var personDevices = personPlayerInput.devices;
-            int keyboardIndex = personDevices.Count <= 1 ? 0 :
-                personDevices.IndexOf(device => device.GetType() == typeof(Keyboard));
+            _personTransform = Utility.InstantiatePlayerWithKeyboard(
+                _personPrefab, default).gameObject.transform;
 
-            _personTransform = personPlayerInput.transform; 
-            _person = _personTransform.GetComponent<PlayerController>();
-            _keyboard = (Keyboard)personPlayerInput.devices[keyboardIndex];
+            _person = _personTransform.GetComponent<PersonMovement>();
 
             yield return new WaitUntil(() => _person.IsOnGround);
         }
@@ -61,9 +55,9 @@ namespace PersonAndGhost.PlayMode.PersonTests
 
             float previousPos = _personTransform.position.x;
 
-            Press(_keyboard.aKey);
+            Press(Keyboard.current.aKey);
 
-            yield return new WaitForFixedUpdate();
+            yield return new WaitUntil(() => _personTransform.position.x < previousPos);
 
             Assert.Less(_personTransform.position.x, previousPos, "Moved to the left.");
         }
@@ -75,11 +69,11 @@ namespace PersonAndGhost.PlayMode.PersonTests
 
             float previousPos = _personTransform.position.x;
 
-            Press(_keyboard.dKey);
+            Press(Keyboard.current.dKey);
 
-            yield return new WaitForFixedUpdate();
+            yield return new WaitUntil(() => _personTransform.position.x > previousPos);
 
-            Assert.Greater(_personTransform.position.x, previousPos, "Moved to the left.");
+            Assert.Greater(_personTransform.position.x, previousPos, "Moved to right.");
         }
 
         [UnityTest]
@@ -87,7 +81,7 @@ namespace PersonAndGhost.PlayMode.PersonTests
         {
             yield return PlayModeSetUp();
 
-            Press(_keyboard.spaceKey);
+            Press(Keyboard.current.spaceKey);
 
             yield return new WaitUntil(() => !_person.IsOnGround);
 
@@ -103,27 +97,29 @@ namespace PersonAndGhost.PlayMode.PersonTests
         {
             yield return PlayModeSetUp();
 
-            GameObject toolPrefab = Resources.Load<GameObject>(Utility.CLIMBINGGAUNTLETPREFABPATH);
-            GameObject tool = Object.Instantiate(toolPrefab, Vector3.zero, Quaternion.identity);
+            GameObject toolPrefab = Resources.Load<GameObject>(
+                Utility.CLIMBINGGAUNTLETPREFABPATH);
+            GameObject tool = Object.Instantiate(
+                toolPrefab, Vector3.zero, Quaternion.identity);
 
             yield return new WaitForFixedUpdate();
 
-            PlayerToolController personToolController = _person.GetComponent<PlayerToolController>();
             ClimbingGauntlet toolScript = tool.GetComponent<ClimbingGauntlet>();
 
-            Assert.False(toolScript.OnPlayer);
+            Assert.False(toolScript.IsPickedUp);
 
-            personToolController.InteractWithTool(toolScript);
+            Press(Keyboard.current.qKey);
 
-            yield return new WaitForFixedUpdate();
+            yield return new WaitUntil(() => toolScript.IsPickedUp);
 
-            Assert.True(toolScript.OnPlayer);
+            Assert.True(toolScript.IsPickedUp);
 
-            personToolController.InteractWithTool(toolScript);
+            Release(Keyboard.current.qKey);
+            Press(Keyboard.current.zKey);
 
-            yield return new WaitForFixedUpdate();
+            yield return new WaitWhile(() => toolScript.IsPickedUp);
 
-            Assert.False(toolScript.OnPlayer);
+            Assert.False(toolScript.IsPickedUp);
 
             Object.Destroy(tool);
         }
@@ -133,24 +129,41 @@ namespace PersonAndGhost.PlayMode.PersonTests
         {
             yield return PlayModeSetUp();
 
-            GameObject toolPrefab = Resources.Load<GameObject>(Utility.CLIMBINGGAUNTLETPREFABPATH);
-            GameObject tool = Object.Instantiate(toolPrefab, Vector3.zero, Quaternion.identity);
+            GameObject toolPrefab = Resources.Load<GameObject>(
+                Utility.CLIMBINGGAUNTLETPREFABPATH);
+            GameObject tool 
+                = Object.Instantiate(toolPrefab, Vector3.zero, Quaternion.identity);
 
-            GameObject wallPrefab = Resources.Load<GameObject>(Utility.WALLPREFABPATH);
-            GameObject wall = Object.Instantiate(wallPrefab, new Vector3(1, 3, 0), Quaternion.identity);
+            ClimbingGauntlet toolScript = tool.GetComponent<ClimbingGauntlet>();
+
+            GameObject wallPrefab = Resources.Load<GameObject>(
+                Utility.WALLPREFABPATH);
+            GameObject wall = Object.Instantiate(
+                wallPrefab, new Vector3(0.77f, 3, 0), Quaternion.identity);
 
             yield return new WaitForFixedUpdate();
 
-            PlayerToolController personToolController = _person.GetComponent<PlayerToolController>();
-            ClimbingGauntlet toolScript = tool.GetComponent<ClimbingGauntlet>();
+            Press(Keyboard.current.qKey);
 
-            personToolController.InteractWithTool(toolScript);
-            toolScript.Action();
+            yield return new WaitUntil(() => toolScript.IsPickedUp);
+
+            Release(Keyboard.current.qKey);
+            Press(Keyboard.current.spaceKey);
 
             yield return new WaitUntil(() => !_person.IsOnGround);
+
+            Release(Keyboard.current.spaceKey);
+            Press(Keyboard.current.rKey);
+
+            yield return new WaitForFixedUpdate();
+
             Assert.False(_person.IsOnGround);
 
+            Release(Keyboard.current.rKey);
+            Press(Keyboard.current.spaceKey);
+
             yield return new WaitUntil(() => _person.IsOnGround);
+
             Assert.True(_person.IsOnGround);
 
             Object.Destroy(tool);

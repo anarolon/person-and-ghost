@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 14dfa98430d3e7f43a3167f1a202001d, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: d26c545befb815349a19775eb2cdc615, type: 3}
   m_Color: {r: 0.43752456, g: 0.24705881, b: 0.7647059, a: 0.5529412}
   m_FlipX: 0
   m_FlipY: 0
@@ -122,5 +122,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065e5d61abaa5f24ca1b773c42c0fded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player1Tag: Person
-  _player2Tag: Ghost
+  _leftPlayerTag: Person
+  _rightPlayerTag: Ghost

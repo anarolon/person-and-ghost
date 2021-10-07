@@ -190,22 +190,11 @@
                 {
                     "name": "",
                     "id": "751c448b-3f55-4015-be31-78a712ca9243",
-                    "path": "<Keyboard>/k",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardLeft",
                     "action": "ToolAction",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d310141a-613f-4c7e-9b0f-b6ef1d37bc9d",
-                    "path": "<Keyboard>/j",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardLeft",
-                    "action": "ToolPickup/Drop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -230,6 +219,39 @@
                     "action": "Possess",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "778008ee-d66c-4130-ad49-db308dd7c1bf",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToolPickup/Drop",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "0f319be1-fdeb-44bf-a025-caa4f1e89b3d",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardLeft",
+                    "action": "ToolPickup/Drop",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "0ae8bbb0-fd9b-43f0-a3ba-f3111f021d3c",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardLeft",
+                    "action": "ToolPickup/Drop",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

@@ -4,32 +4,37 @@ using PersonAndGhost.Utils;
 
 namespace PersonAndGhost.Ghost
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class GhostMovement : MonoBehaviour
     {
-        [Header("Movement Fields")]
-        [SerializeField] private float _movementAcceleration = 50f;
-        [SerializeField] private float _maxMoveSpeed = 12f;
-        [SerializeField] private float _linearDrag = 10f;
-        private Rigidbody2D _rigidbody2D = default;
-
+        [SerializeField] private GhostConfig _config = default;
+        private float _movementAcceleration = 50f;
+        private float _maxMoveSpeed = 12f;
+        private float _linearDrag = 10f;
+        private Rigidbody2D _rigidbody = default;
+        private Vector2 _movementInput = Vector2.zero;
         private bool _isPossessing = false;
 
-        public Vector2 MovementInput { get; private set; }
-
-        private void Start()
+        private void Awake()
         {
-            if (TryGetComponent(out Rigidbody2D rigidbody2D))
+            if (!_config)
             {
-                _rigidbody2D = rigidbody2D;
+                _config = ScriptableObject.CreateInstance<GhostConfig>();
             }
 
-            else
-            {
-                _rigidbody2D = gameObject.AddComponent<Rigidbody2D>();
-                _rigidbody2D.gravityScale = 0;
+            _movementAcceleration = _config.movementAcceleration;
+            _maxMoveSpeed = _config.maxMoveSpeed;
+            _linearDrag = _config.linearDrag;
 
-                Debug.LogWarning("Rigidbody 2D component was not attached.");
-            }
+            _rigidbody = GetComponent<Rigidbody2D>();
+            _rigidbody.gravityScale = _config.gravityScale;
+            _rigidbody.collisionDetectionMode = _config.collisionDetectionMode;
+            _rigidbody.constraints = _config.constraints;
+        }
+
+        private void OnEnable()
+        {
+            Actions.OnPossessionTriggered += UpdatePossession;
         }
 
         private void FixedUpdate()
@@ -42,19 +47,17 @@ namespace PersonAndGhost.Ghost
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            MovementInput = context.ReadValue<Vector2>();
+            _movementInput = context.ReadValue<Vector2>();
 
-            Actions.OnGhostMovementTriggered(MovementInput);
-        }
+            try
+            {
+                Actions.OnGhostMovementTriggered(_movementInput);
+            }
 
-        private void OnEnable()
-        {
-            Actions.OnPossessionTriggered += UpdatePossession;
-        }
-
-        private void OnDisable()
-        {
-            Actions.OnPossessionTriggered -= UpdatePossession;
+            catch (System.NullReferenceException)
+            {
+                // Do nothing
+            }
         }
 
         private void UpdatePossession(bool isPossessing)
@@ -64,17 +67,25 @@ namespace PersonAndGhost.Ghost
 
         private void MoveGhost()
         {
-            _rigidbody2D.AddForce(MovementInput * _movementAcceleration);
+            _rigidbody.AddForce(_movementInput * _movementAcceleration);
 
-            var velocity = _rigidbody2D.velocity;
-            if (Mathf.Abs(velocity.x) > _maxMoveSpeed || Mathf.Abs(velocity.y) > _maxMoveSpeed)
+            var velocity = _rigidbody.velocity;
+
+            if (Mathf.Abs(velocity.x) > _maxMoveSpeed 
+                || Mathf.Abs(velocity.y) > _maxMoveSpeed)
             {
-                var x = Mathf.Sign(velocity.x) * _maxMoveSpeed;
-                var y = Mathf.Sign(velocity.y) * _maxMoveSpeed;
-                _rigidbody2D.velocity = new Vector2(x, y);
+                float x = Mathf.Sign(velocity.x) * _maxMoveSpeed;
+                float y = Mathf.Sign(velocity.y) * _maxMoveSpeed;
+
+                _rigidbody.velocity = new Vector2(x, y);
             }
 
-            _rigidbody2D.drag = _linearDrag;
+            _rigidbody.drag = _linearDrag;
+        }
+
+        private void OnDisable()
+        {
+            Actions.OnPossessionTriggered -= UpdatePossession;
         }
     }
 }

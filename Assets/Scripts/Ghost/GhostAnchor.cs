@@ -1,41 +1,49 @@
 using UnityEngine;
 using PersonAndGhost.Utils;
-using System.Collections;
+using PersonAndGhost.Person;
 
 namespace PersonAndGhost.Ghost
 {
     public class GhostAnchor : MonoBehaviour
     {
-        [Header("Anchor Fields")]
-        [SerializeField] private float _anchorRange = 2.5f;
-        [SerializeField] private float _anchorRangeGrowth = 2;
-        private PlayerController _anchor = default;
-
+        [SerializeField] private GhostConfig _config = default;
+        private float _anchorRangeGrowth = 2;
+        private PersonMovement _anchor = default;
         private bool _isPossessing = false;
 
-        public float AnchorRange => _anchorRange;
+        public float AnchorRange { get; private set; } = 2.5f;
 
         private float AnchorRangeValue => _anchor.IsMeditating ?
-                _anchorRange * _anchorRangeGrowth : _anchorRange;
+                AnchorRange * _anchorRangeGrowth : AnchorRange;
 
         private Vector2 AnchorTransformPosition => _anchor.transform.position;
 
+        private void Awake()
+        {
+            if (!_config)
+            {
+                _config = ScriptableObject.CreateInstance<GhostConfig>();
+            }
+
+            AnchorRange = _config.anchorRange;
+            _anchorRangeGrowth = _config.anchorRangeGrowth;
+        }
+
+        private void OnEnable()
+        {
+            Actions.OnPossessionTriggered += UpdatePossession;
+        }
+
         private void Start()
         {
-            _anchor = FindObjectOfType<PlayerController>();
+            _anchor = FindObjectOfType<PersonMovement>();
 
             if (!_anchor)
             {
-                GameObject anchor = new GameObject
-                (
-                    name = "Anchor"
-                );
-
+                GameObject anchor = new GameObject("Anchor");
                 anchor.AddComponent<Rigidbody2D>().constraints =
                     RigidbodyConstraints2D.FreezePositionY;
-                _anchor = anchor.AddComponent<PlayerController>();
-
-                Debug.LogWarning("Player Controller was not added in the inspector.");
+                _anchor = anchor.AddComponent<PersonMovement>();
             }
         }
 
@@ -54,16 +62,6 @@ namespace PersonAndGhost.Ghost
                 (AnchorRangeValue * 2) * Vector2.one);
         }
 
-        private void OnEnable()
-        {
-            Actions.OnPossessionTriggered += UpdatePossession;
-        }
-
-        private void OnDisable()
-        {
-            Actions.OnPossessionTriggered -= UpdatePossession;
-        }
-
         private void UpdatePossession(bool isPossessing)
         {
             _isPossessing = isPossessing;
@@ -79,6 +77,11 @@ namespace PersonAndGhost.Ghost
             {
                 transform.position = AnchorTransformPosition;
             }
+        }
+
+        private void OnDisable()
+        {
+            Actions.OnPossessionTriggered -= UpdatePossession;
         }
     }
 }

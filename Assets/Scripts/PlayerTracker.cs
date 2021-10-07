@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using PersonAndGhost.Utils;
 using PersonAndGhost.Ghost;
+using PersonAndGhost.Person;
 
 namespace PersonAndGhost
 {
@@ -38,8 +39,8 @@ namespace PersonAndGhost
 
             yield return new WaitForFixedUpdate();
 
-            PlayerController person =
-                _playerManager.GetComponentInChildren<PlayerController>();
+            PersonMovement person =
+                _playerManager.GetComponentInChildren<PersonMovement>();
             GhostMovement ghost =
                 _playerManager.GetComponentInChildren<GhostMovement>();
 

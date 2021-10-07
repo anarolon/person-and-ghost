@@ -3,6 +3,8 @@ using UnityEngine.TestTools;
 using System.Collections;
 using NUnit.Framework;
 using PersonAndGhost.Ghost;
+using PersonAndGhost.Person;
+using PersonAndGhost.Utils;
 
 namespace PersonAndGhost.PlayMode.GhostTests
 {
@@ -15,12 +17,12 @@ namespace PersonAndGhost.PlayMode.GhostTests
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            GameObject anchor = new GameObject();
-            GameObject ghost = new GameObject();
+            GameObject anchor = new GameObject("Anchor");
+            GameObject ghost = new GameObject(Utility.RIGHTPLAYERTAG);
 
             anchor.AddComponent<Rigidbody2D>().constraints = 
                 RigidbodyConstraints2D.FreezePositionY;
-            anchor.AddComponent<PlayerController>();
+            anchor.AddComponent<PersonMovement>();
 
             _anchorTransform = anchor.transform;
             _ghostTransform = ghost.transform;

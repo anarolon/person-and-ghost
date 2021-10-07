@@ -20,12 +20,24 @@ namespace PersonAndGhost
 
             else if (gameObjectToDestroy.CompareTag(Utility.MONSTERTAG))
             {
-                AIStateMachine stateMachineToCheck =
-                    gameObjectToDestroy.GetComponent<AIAgent>().stateMachine;
+                AIAgent monsterToDestroy = gameObjectToDestroy.GetComponent<AIAgent>();
+                AIStateMachine stateMachineToCheck = monsterToDestroy.stateMachine;
                 
                 if (stateMachineToCheck.currentState == AIStateId.Possessed)
                 {
-                    FindObjectOfType<GhostPossession>().ChangePossession();
+                    GhostPossession possession = FindObjectOfType<GhostPossession>();
+
+                    if (possession) 
+                    {
+                        possession.ChangePossession();
+
+                        yield return new WaitWhile(() => possession.IsPossessing);
+                    }
+
+                    else
+                    {
+                        stateMachineToCheck.ChangeState(monsterToDestroy.initialState);
+                    }
 
                     yield return new WaitWhile(() => 
                         stateMachineToCheck.currentState == AIStateId.Possessed);

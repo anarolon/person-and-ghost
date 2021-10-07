@@ -2,6 +2,7 @@ using Cinemachine;
 using UnityEngine;
 using System.Collections;
 using PersonAndGhost.Utils;
+using PersonAndGhost.Person;
 
 namespace PersonAndGhost
 {
@@ -20,8 +21,8 @@ namespace PersonAndGhost
 
                 if (_playerManager)
                 {
-                    PlayerController leftPlayer = 
-                        _playerManager.GetComponentInChildren<PlayerController>();
+                    PersonMovement leftPlayer = 
+                        _playerManager.GetComponentInChildren<PersonMovement>();
                     playerToFollow = leftPlayer.gameObject;
                 }
                 

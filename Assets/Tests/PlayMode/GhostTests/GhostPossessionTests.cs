@@ -5,34 +5,30 @@ using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 using PersonAndGhost.Utils;
 using PersonAndGhost.Ghost;
+using PersonAndGhost.Person;
 
 namespace PersonAndGhost.PlayMode.GhostTests
 {
     public class GhostPossessionTests : InputTestFixture
     {
-        private GameObject _ghostPrefab;
-        private GameObject _monsterPrefab;
         private Transform _ghostTransform;
-        private Transform _monsterTransform;
-        private GameObject _anchor;
         private GhostPossession _possession;
+        private GameObject _anchor;
+        private Transform _monsterTransform;
         private AIAgent _monster;
-        private Keyboard _keyboard;
 
         private const string BIRDNAME = "Bird(Clone)";
 
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            _anchor = new GameObject();
+            _anchor = new GameObject("Anchor");
             _anchor.AddComponent<Rigidbody2D>().constraints =
                 RigidbodyConstraints2D.FreezePositionY;
-            _anchor.AddComponent<PlayerController>();
+            _anchor.AddComponent<PersonMovement>();
 
-            _ghostPrefab = Resources.Load<GameObject>(Utility.RIGHTPLAYERPREFABPATH);
-            _monsterPrefab = Resources.Load<GameObject>(Utility.BIRDPREFABPATH);
-
-            _monster = Object.Instantiate(_monsterPrefab).GetComponent<AIAgent>();
+            GameObject monstePrefab = Resources.Load<GameObject>(Utility.BIRDPREFABPATH);
+            _monster = Object.Instantiate(monstePrefab).GetComponent<AIAgent>();
             _monsterTransform = _monster.transform;
 
             yield return new EnterPlayMode();
@@ -40,15 +36,9 @@ namespace PersonAndGhost.PlayMode.GhostTests
 
         private IEnumerator PlayModeSetUp()
         {
-            PlayerInput ghostPlayerInput = Utility.InstantiatePlayerWithKeyboard(
-                _ghostPrefab, default);
-            var ghostDevices = ghostPlayerInput.devices;
-            int keyboardIndex = ghostDevices.Count <= 1 ? 0 :
-                ghostDevices.IndexOf(device => device.GetType() == typeof(Keyboard));
-
-            _ghostTransform = ghostPlayerInput.transform;
-            _possession = ghostPlayerInput.GetComponent<GhostPossession>();
-            _keyboard = (Keyboard)ghostPlayerInput.devices[keyboardIndex];
+            _ghostTransform =
+                Utility.RightPlayerManualInstantiation(Vector2.zero).transform;
+            _possession = _ghostTransform.GetComponent<GhostPossession>();
 
             yield return new WaitUntil(() => _possession.IsNearAMonster);
         }
@@ -56,8 +46,8 @@ namespace PersonAndGhost.PlayMode.GhostTests
         [UnityTearDown]
         public new IEnumerator TearDown()
         {
-            Object.Destroy(_anchor);
             Object.Destroy(_ghostTransform);
+            Object.Destroy(_anchor);
             Object.Destroy(_monsterTransform);
 
             yield return new ExitPlayMode();
@@ -83,15 +73,15 @@ namespace PersonAndGhost.PlayMode.GhostTests
             Assert.False(_possession.IsPossessing);
             Assert.AreNotEqual(AIStateId.Possessed, _monster.stateMachine.currentState);
 
-            Press(_keyboard.numpadEnterKey);
+            Press(Keyboard.current.numpadEnterKey);
 
             yield return new WaitForFixedUpdate();
 
             Assert.True(_possession.IsPossessing);
             Assert.AreEqual(AIStateId.Possessed, _monster.stateMachine.currentState);
 
-            Release(_keyboard.numpadEnterKey);
-            Press(_keyboard.numpadEnterKey);
+            Release(Keyboard.current.numpadEnterKey);
+            Press(Keyboard.current.numpadEnterKey);
 
             yield return new WaitForFixedUpdate();
 
@@ -108,15 +98,15 @@ namespace PersonAndGhost.PlayMode.GhostTests
         {
             yield return PlayModeSetUp();
 
-            Press(_keyboard.numpadEnterKey);
+            Press(Keyboard.current.numpadEnterKey);
 
             yield return new WaitForFixedUpdate();
 
-            Release(_keyboard.numpadEnterKey);
+            Release(Keyboard.current.numpadEnterKey);
 
             float monsterPreviousPos = _monsterTransform.position.x;
 
-            Press(_keyboard.rightArrowKey);
+            Press(Keyboard.current.rightArrowKey);
 
             yield return new WaitForFixedUpdate();
 
@@ -135,15 +125,15 @@ namespace PersonAndGhost.PlayMode.GhostTests
         {
             yield return PlayModeSetUp();
 
-            Press(_keyboard.numpadEnterKey);
+            Press(Keyboard.current.numpadEnterKey);
 
             yield return new WaitForFixedUpdate();
 
-            Release(_keyboard.numpadEnterKey);
+            Release(Keyboard.current.numpadEnterKey);
 
             float monsterPreviousPos = _monsterTransform.position.x;
 
-            Press(_keyboard.leftArrowKey);
+            Press(Keyboard.current.leftArrowKey);
 
             yield return new WaitForFixedUpdate();
 
@@ -161,15 +151,15 @@ namespace PersonAndGhost.PlayMode.GhostTests
             //Identify flying monster
             Assert.AreEqual(BIRDNAME, _monsterTransform.gameObject.name);
 
-            Press(_keyboard.numpadEnterKey);
+            Press(Keyboard.current.numpadEnterKey);
 
             yield return new WaitForFixedUpdate();
 
-            Release(_keyboard.numpadEnterKey);
+            Release(Keyboard.current.numpadEnterKey);
 
             float monsterPreviousPos = _monsterTransform.position.y;
 
-            Press(_keyboard.upArrowKey);
+            Press(Keyboard.current.upArrowKey);
 
             yield return new WaitForFixedUpdate();
 
@@ -187,15 +177,15 @@ namespace PersonAndGhost.PlayMode.GhostTests
             //Identify flying monster
             Assert.AreEqual(BIRDNAME, _monsterTransform.gameObject.name);
 
-            Press(_keyboard.numpadEnterKey);
+            Press(Keyboard.current.numpadEnterKey);
 
             yield return new WaitForFixedUpdate();
 
-            Release(_keyboard.numpadEnterKey);
+            Release(Keyboard.current.numpadEnterKey);
 
             float monsterPreviousPos = _monsterTransform.position.y;
 
-            Press(_keyboard.downArrowKey);
+            Press(Keyboard.current.downArrowKey);
 
             yield return new WaitForFixedUpdate();
 

@@ -2,6 +2,7 @@ using System.Collections;
 using NUnit.Framework;
 using PersonAndGhost.Ghost;
 using PersonAndGhost.Utils;
+using PersonAndGhost.Person;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
@@ -10,56 +11,38 @@ namespace PersonAndGhost.PlayMode.PersonTests
 {
     public class PersonMeditationTests : InputTestFixture
     {
-        private GameObject _groundPrefab;
-        private GameObject _personPrefab;
-        private GameObject _ghostPrefab;
         private Transform _groundTransform;
+        private GameObject _personPrefab;
         private Transform _personTransform;
+        private PersonMovement _person;
+        private Rigidbody2D _personRigidbody;
         private Transform _ghostTransform;
-        private PlayerController _person;
-        private Rigidbody2D _personRigidbody2D;
         private GhostAnchor _anchor;
-        private Keyboard _keyboard;
 
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            _groundPrefab = Resources.Load<GameObject>(Utility.GROUNDPREFABPATH);
-            _personPrefab = Resources.Load<GameObject>(Utility.LEFTPLAYERPREFABPATH);
-            _ghostPrefab = Resources.Load<GameObject>(Utility.RIGHTPLAYERPREFABPATH);
+            GameObject ghost = new GameObject(Utility.RIGHTPLAYERTAG);
+            _ghostTransform = ghost.transform;
+            _anchor = ghost.AddComponent<GhostAnchor>();
+            _ghostTransform.gameObject.SetActive(false);
 
-            _groundTransform = Object.Instantiate(_groundPrefab).transform;
+            GameObject groundPrefab
+                = Resources.Load<GameObject>(Utility.GROUNDPREFABPATH);
+            _groundTransform = Object.Instantiate(groundPrefab).transform;
             _groundTransform.localScale *= 2.5f;
+
+            _personPrefab = Resources.Load<GameObject>(Utility.LEFTPLAYERPREFAB);
 
             yield return new EnterPlayMode();
         }
 
         private IEnumerator PlayModeSetUp()
         {
-            PlayerInput personPlayerInput = Utility.InstantiatePlayerWithKeyboard
-            (
-                _personPrefab,
-                default
-            );
-
-            PlayerInput ghostPlayerInput = Utility.InstantiatePlayerWithKeyboard
-            (
-                _ghostPrefab,
-                default
-            );
-
-            var personDevices = personPlayerInput.devices;
-            int keyboardIndex = personDevices.Count <= 1 ? 0 :
-                personDevices.IndexOf(device => device.GetType() == typeof(Keyboard));
-
-            _personTransform = personPlayerInput.transform;
-            _person = _personTransform.GetComponent<PlayerController>();
-            _personRigidbody2D = _person.GetComponent<Rigidbody2D>();
-            _keyboard = (Keyboard)personPlayerInput.devices[keyboardIndex];
-
-            _ghostTransform = ghostPlayerInput.transform;
-            _anchor = _ghostTransform.GetComponent<GhostAnchor>();
-            _ghostTransform.gameObject.SetActive(false);
+            _personTransform = Utility.InstantiatePlayerWithKeyboard(
+                _personPrefab, default).gameObject.transform;
+            _person = _personTransform.GetComponent<PersonMovement>();
+            _personRigidbody = _person.GetComponent<Rigidbody2D>();
 
             yield return new WaitUntil(() => _person.IsOnGround);
         }
@@ -79,33 +62,34 @@ namespace PersonAndGhost.PlayMode.PersonTests
         {
             yield return PlayModeSetUp();
 
-            Press(_keyboard.aKey);
+            Press(Keyboard.current.aKey);
 
-            yield return new WaitForFixedUpdate();
+            yield return new WaitWhile(() => _personRigidbody.velocity == Vector2.zero);
 
-            Assert.AreNotEqual(Vector2.zero, _personRigidbody2D.velocity);
+            Assert.AreNotEqual(Vector2.zero, _personRigidbody.velocity);
 
-            Release(_keyboard.aKey);
-            Press(_keyboard.eKey);
+            Release(Keyboard.current.aKey);
+            Press(Keyboard.current.eKey);
 
             yield return new WaitUntil(() => 
-                _personRigidbody2D.velocity == Vector2.zero);
+                _personRigidbody.velocity == Vector2.zero);
 
-            Assert.AreEqual(Vector2.zero, _personRigidbody2D.velocity);
+            Assert.AreEqual(Vector2.zero, _personRigidbody.velocity);
 
-            Release(_keyboard.eKey);
-            Press(_keyboard.spaceKey);
-            Press(_keyboard.dKey);
-
-            yield return new WaitForFixedUpdate();
-
-            Assert.AreEqual(Vector2.zero, _personRigidbody2D.velocity);
-
-            Press(_keyboard.eKey);
+            Release(Keyboard.current.eKey);
+            Press(Keyboard.current.spaceKey);
+            Press(Keyboard.current.dKey);
 
             yield return new WaitForFixedUpdate();
 
-            Assert.AreNotEqual(Vector2.zero, _personRigidbody2D.velocity);
+            Assert.AreEqual(Vector2.zero, _personRigidbody.velocity);
+
+            Press(Keyboard.current.eKey);
+
+            yield return new WaitWhile(() =>
+                _personRigidbody.velocity == Vector2.zero);
+
+            Assert.AreNotEqual(Vector2.zero, _personRigidbody.velocity);
         }
         
         [UnityTest]
@@ -133,7 +117,7 @@ namespace PersonAndGhost.PlayMode.PersonTests
                 _ghostTransform.position.y, threshold), 
                 "Ghost is anchored back to Person in y-axis.");
 
-            Press(_keyboard.eKey);
+            Press(Keyboard.current.eKey);
 
             yield return new WaitForFixedUpdate();
 
@@ -150,8 +134,8 @@ namespace PersonAndGhost.PlayMode.PersonTests
                 _ghostTransform.position.y, threshold),
                 "Ghost is not anchored back to Person in y-axis.");
 
-            Release(_keyboard.eKey);
-            Press(_keyboard.eKey);
+            Release(Keyboard.current.eKey);
+            Press(Keyboard.current.eKey);
 
             yield return new WaitForFixedUpdate();
 

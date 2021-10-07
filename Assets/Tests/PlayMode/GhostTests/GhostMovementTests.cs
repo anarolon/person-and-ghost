@@ -4,33 +4,38 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using NUnit.Framework;
 using PersonAndGhost.Utils;
+using UnityEngine.Events;
+using PersonAndGhost.Ghost;
 
 namespace PersonAndGhost.PlayMode.GhostTests
 {
     public class GhostMovementTests : InputTestFixture
     {
-        private GameObject _ghostPrefab;
         private Transform _ghostTransform;
-        private Keyboard _keyboard;
-
-        [UnitySetUp]
-        public IEnumerator SetUp()
-        {
-            _ghostPrefab = Resources.Load<GameObject>(Utility.RIGHTPLAYERPREFABPATH);
-
-            yield return new EnterPlayMode();
-        }
 
         private void PlayModeSetUp()
         {
-            PlayerInput ghostPlayerInput = Utility.InstantiatePlayerWithKeyboard(
-                _ghostPrefab, default);
-            var ghostDevices = ghostPlayerInput.devices;
-            int keyboardIndex = ghostDevices.Count <= 1 ? 0 :
-                ghostDevices.IndexOf(device => device.GetType() == typeof(Keyboard));
+            string controlScheme = Utility.RIGHTCONTROLSCHEME;
 
-            _ghostTransform = ghostPlayerInput.transform;
-            _keyboard = (Keyboard)ghostPlayerInput.devices[keyboardIndex];
+            PlayerInput input = Utility.PlayerManualCreation(
+                Utility.RIGHTPLAYERTAG, controlScheme);
+
+            GameObject rightPlayer = input.gameObject;
+
+            GhostMovement ghostMovement = rightPlayer.AddComponent<GhostMovement>();
+
+            UnityAction<InputAction.CallbackContext>[] unityActions =
+            {
+                    ghostMovement.OnMove
+            };
+
+            string[] actionNames =
+            {
+                Utility.MOVEMENTACTION
+            };
+
+            _ghostTransform = Utility.PlayerManualInstantiation(input, rightPlayer,
+                controlScheme, Vector2.zero, unityActions, actionNames).transform;
         }
 
         [UnityTearDown]
@@ -48,7 +53,7 @@ namespace PersonAndGhost.PlayMode.GhostTests
 
             float previousPos = _ghostTransform.position.y;
 
-            Press(_keyboard.upArrowKey);
+            Press(Keyboard.current.upArrowKey);
 
             yield return new WaitForFixedUpdate();
 
@@ -62,7 +67,7 @@ namespace PersonAndGhost.PlayMode.GhostTests
 
             float previousPos = _ghostTransform.position.y;
 
-            Press(_keyboard.downArrowKey);
+            Press(Keyboard.current.downArrowKey);
 
             yield return new WaitForFixedUpdate();
 
@@ -76,7 +81,7 @@ namespace PersonAndGhost.PlayMode.GhostTests
 
             float previousPos = _ghostTransform.position.x;
 
-            Press(_keyboard.rightArrowKey);
+            Press(Keyboard.current.rightArrowKey);
 
             yield return new WaitForFixedUpdate();
 
@@ -90,8 +95,8 @@ namespace PersonAndGhost.PlayMode.GhostTests
 
             float previousPos = _ghostTransform.position.x;
 
-            Press(_keyboard.leftArrowKey);
-            
+            Press(Keyboard.current.leftArrowKey);
+
             yield return new WaitForFixedUpdate();
 
             Assert.Less(_ghostTransform.position.x, previousPos, "Moved to left.");

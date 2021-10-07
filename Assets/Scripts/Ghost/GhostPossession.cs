@@ -4,31 +4,44 @@ using PersonAndGhost.Utils;
 
 namespace PersonAndGhost.Ghost
 {
+    [RequireComponent(typeof(SpriteRenderer), typeof(CapsuleCollider2D))]
     public class GhostPossession : MonoBehaviour
     {
-        [Header("Possession Fields")]
+        [SerializeField] private GhostConfig _config = default;
+        private SpriteRenderer _renderer = default;
         private AIAgent _nearbyMonster = default;
         private AIAgent _monster = default;
-
-        private SpriteRenderer _renderer = default;
         private Vector2 _movement = Vector2.zero;
 
         public bool IsPossessing { get; private set; } = false;
         public bool IsNearAMonster => _nearbyMonster;
 
-        private void Start()
+        private void Awake()
         {
-            if (TryGetComponent(out SpriteRenderer renderer))
+            if (!_config)
             {
-                _renderer = renderer;
+                _config = ScriptableObject.CreateInstance<GhostConfig>();
             }
 
-            else
-            {
-                _renderer = gameObject.AddComponent<SpriteRenderer>();
+            transform.localScale = _config.scale;
 
-                Debug.LogWarning("Sprite Renderer component was not attached.");
+            _renderer = GetComponent<SpriteRenderer>();
+            _renderer.sortingOrder = _config.sortingOrder;
+            _renderer.sprite = _config.sprite;
+            _renderer.color = _config.color;
+            if(!_renderer.sprite)
+            {
+                _renderer.sprite = Resources.Load<Sprite>(Utility.CAPSULESPRITE);
             }
+
+            CapsuleCollider2D collider = GetComponent<CapsuleCollider2D>();
+            collider.isTrigger = _config.isTrigger;
+            collider.size = _config.size;
+        }
+
+        private void OnEnable()
+        {
+            Actions.OnGhostMovementTriggered += UpdateMovement;
         }
 
         private void FixedUpdate()
@@ -71,16 +84,6 @@ namespace PersonAndGhost.Ghost
             }
         }
 
-        private void OnEnable()
-        {
-            Actions.OnGhostMovementTriggered += UpdateMovement;
-        }
-
-        private void OnDisable()
-        {
-            Actions.OnGhostMovementTriggered -= UpdateMovement;
-        }
-
         private void UpdateMovement(Vector2 movement)
         {
             _movement = movement;
@@ -96,7 +99,15 @@ namespace PersonAndGhost.Ghost
         {
             IsPossessing = !IsPossessing;
 
-            Actions.OnPossessionTriggered(IsPossessing);
+            try
+            {
+                Actions.OnPossessionTriggered(IsPossessing);
+            }
+
+            catch (System.NullReferenceException)
+            {
+                // Do nothing
+            }
 
             if (IsPossessing)
             {
@@ -111,6 +122,11 @@ namespace PersonAndGhost.Ghost
                 _renderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
                 _monster = null;
             }
+        }
+
+        private void OnDisable()
+        {
+            Actions.OnGhostMovementTriggered -= UpdateMovement;
         }
     }
 }
