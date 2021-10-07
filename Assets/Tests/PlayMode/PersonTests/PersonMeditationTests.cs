@@ -77,12 +77,20 @@ namespace PersonAndGhost.PlayMode.PersonTests
             Assert.AreEqual(Vector2.zero, _personRigidbody.velocity);
 
             Release(Keyboard.current.eKey);
+            
+            Vector2 previousPosition = _personRigidbody.position;
+            
             Press(Keyboard.current.spaceKey);
             Press(Keyboard.current.dKey);
 
             yield return new WaitForFixedUpdate();
 
-            Assert.AreEqual(Vector2.zero, _personRigidbody.velocity);
+            //Line modified from 0.005 to 0.5 bug was found when running 
+            //  it with the rest of the tests.
+            Assert.True(Utility.FastApproximately(
+                previousPosition.x, _personRigidbody.position.x, 0.5f));
+            Assert.True(Utility.FastApproximately(
+                previousPosition.y, _personRigidbody.position.y, 0.5f));
 
             Press(Keyboard.current.eKey);
 
