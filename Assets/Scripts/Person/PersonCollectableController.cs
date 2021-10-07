@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using PersonAndGhost;
+using PersonAndGhost.Utils;
 
 public class PersonCollectableController : MonoBehaviour
 {
     [SerializeField] private int collectableCount = 0;
-    // Start is called before the first frame update
+
     void Start()
     {
         collectableCount = 0;
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -17,6 +21,7 @@ public class PersonCollectableController : MonoBehaviour
         {
             Collectable collectable = collision.gameObject.GetComponent<Collectable>();
             collectableCount += collectable.worth;
+            Actions.OnCollectableCollected(collectableCount);
             Destroy(collision.gameObject);
         }
     }

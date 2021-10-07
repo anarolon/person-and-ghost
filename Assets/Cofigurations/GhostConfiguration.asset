@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c190256e35478dc498b6b347e1ba2f08, type: 3}
+  m_Name: GhostConfiguration
+  m_EditorClassIdentifier: 
+  scale: {x: 0.5, y: 0.5, z: 0.5}
+  sortingOrder: 10
+  sprite: {fileID: -9095717837082945937, guid: a97c0e72733fd264db04811f7e7a1209, type: 3}
+  color: {r: 0.15686275, g: 0.15686275, b: 0.15686275, a: 1}
+  isTrigger: 1
+  size: {x: 1, y: 2}
+  anchorRange: 2.5
+  anchorRangeGrowth: 2
+  movementAcceleration: 50
+  maxMoveSpeed: 12
+  linearDrag: 10
+  gravityScale: 0
+  collisionDetectionMode: 1
+  constraints: 4

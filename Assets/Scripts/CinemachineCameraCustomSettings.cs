@@ -1,37 +1,58 @@
 using Cinemachine;
-using System.Collections;
 using UnityEngine;
+using System.Collections;
+using PersonAndGhost.Utils;
+using PersonAndGhost.Person;
 
-public class CinemachineCameraCustomSettings : MonoBehaviour
+namespace PersonAndGhost
 {
-    [SerializeField] private string _transformToFollowTag = "Person";
-    private bool _errorFlag = false;
-    private void Start()
+    public class CinemachineCameraCustomSettings : MonoBehaviour
     {
-        FindTransformToFollow();
-    }
-    private void FixedUpdate()
-    {
-        if (_errorFlag)
-        {
-            FindTransformToFollow();
-        }
-    }
+        [Header("Game Object to Follow")]
+        [SerializeField] MultiplayerManager _playerManager = default;
 
-    private void FindTransformToFollow()
-    {
-        GameObject gameObjectToFollow = GameObject.FindGameObjectWithTag(_transformToFollowTag);
-        try
+        private IEnumerator Start()
         {
-            GetComponent<CinemachineVirtualCamera>().Follow = gameObjectToFollow.transform;
-            _errorFlag = false;
-        }
-        catch
-        {
-            _errorFlag = true;
-            Debug.LogWarning("The game object with tag " + _transformToFollowTag
-                + " was not found in the scene. Search result was Null. "
-                + "Camera will be static. Until FixedUpdate where the script will try to search the transform until found.");
+            if (this.gameObject.TryGetComponent(out CinemachineVirtualCamera cvc))
+            {
+                yield return new WaitForFixedUpdate();
+
+                GameObject playerToFollow;
+
+                if (_playerManager)
+                {
+                    PersonMovement leftPlayer = 
+                        _playerManager.GetComponentInChildren<PersonMovement>();
+                    playerToFollow = leftPlayer.gameObject;
+                }
+                
+                else
+                {
+                    playerToFollow = GameObject.FindGameObjectWithTag
+                    (
+                        Utility.LEFTPLAYERTAG
+                    );
+
+                    Debug.LogWarning("Player Manager was not found.");
+                }
+
+                if (playerToFollow)
+                {
+                    cvc.Follow = playerToFollow.transform;
+                }
+
+                else
+                {
+                    Debug.LogError("GameObject with tag " + Utility.LEFTPLAYERTAG +
+                        " was not found.");
+                }
+            }
+
+            else
+            {
+                Debug.LogError(this.gameObject + " didn't had Cinemachine Virtual" +
+                    " Camera component.");
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6926115863539861360}
   - component: {fileID: 6926115863539861361}
   - component: {fileID: 205291976626197635}
+  - component: {fileID: -1487280091531113013}
   m_Layer: 0
   m_Name: BigBoy
   m_TagString: Monster
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 14dfa98430d3e7f43a3167f1a202001d, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 140cc8d61d7df224b9bf2aaf175f0eac, type: 3}
   m_Color: {r: 0.05805397, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -151,3 +152,15 @@ MonoBehaviour:
   xDirection: 1
   _isJumping: 0
   _isGrounded: 0
+--- !u!114 &-1487280091531113013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6926115863539861364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5edddf3350688b942b6d5cc7e0b39e4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,14 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using PersonAndGhost.Person;
 
 public class PersonMeditation : MonoBehaviour
 {
     [Header("Component Fields")]
-    PlayerController _movementScript = default;
+    PersonMovement _movementScript = default;
 
     private void Start()
     {
-        _movementScript = GetComponent<PlayerController>();
+        _movementScript = GetComponent<PersonMovement>();
     }
 
     public void OnMeditation(InputAction.CallbackContext context)
