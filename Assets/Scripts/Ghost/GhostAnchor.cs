@@ -13,6 +13,7 @@ namespace PersonAndGhost.Ghost
 
         public float AnchorRange { get; private set; } = 2.5f;
 
+        // TODO: Make Anchor Range grow to a radius approximately the size of the entire camera view if anchor is meditating
         private float AnchorRangeValue => _anchor.IsMeditating ?
                 AnchorRange * _anchorRangeGrowth : AnchorRange;
 
@@ -58,8 +59,9 @@ namespace PersonAndGhost.Ghost
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireCube(AnchorTransformPosition,
-                (AnchorRangeValue * 2) * Vector2.one);
+            //Gizmos.DrawWireCube(AnchorTransformPosition,
+                //(AnchorRangeValue * 2) * Vector2.one);
+            Gizmos.DrawWireSphere(AnchorTransformPosition, AnchorRangeValue);
         }
 
         private void UpdatePossession(bool isPossessing)
@@ -69,13 +71,15 @@ namespace PersonAndGhost.Ghost
 
         private void AdjustDistanceFromAnchor()
         {
-            Vector2 positionDifference = AnchorTransformPosition -
-                (Vector2)transform.position;
 
-            if (Mathf.Abs(positionDifference.x) > AnchorRangeValue
-                || Mathf.Abs(positionDifference.y) > AnchorRangeValue)
+            float distanceToAnchor = Vector3.Distance((Vector2)transform.position, AnchorTransformPosition);
+
+            if (distanceToAnchor > AnchorRangeValue)
             {
-                transform.position = AnchorTransformPosition;
+                Vector2 distanceToAnchorVector = (Vector2)transform.position - AnchorTransformPosition;
+
+                distanceToAnchorVector *= AnchorRangeValue / distanceToAnchor;
+                transform.position = AnchorTransformPosition + distanceToAnchorVector;
             }
         }
 

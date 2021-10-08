@@ -43,7 +43,7 @@ namespace PersonAndGhost.PlayMode.GhostTests
         [UnityTest]
         public IEnumerator AnchorGhost()
         {
-            Vector2 previousPosition = _ghostTransform.position;
+            Vector2 uncorrectedGhostPosition = _ghostTransform.position;
             float offset = _anchor.AnchorRange + 5.0f;
 
             _anchorTransform.position = Vector2.one * offset;
@@ -51,18 +51,27 @@ namespace PersonAndGhost.PlayMode.GhostTests
             yield return new WaitForFixedUpdate();
             yield return new WaitForFixedUpdate();
 
-            Assert.AreEqual(_ghostTransform.position, _anchorTransform.position,
-                "Ghost is anchored back to Anchor.");
-            Assert.AreNotEqual(_ghostTransform.position, previousPosition,
-                "Ghost exceeded the anchor range.");
+            // TODO: Make this a method either here or in ghostAnchor Script for easier resueability
+            Vector2 correctedGhostPosition = (Vector2)_anchorTransform.position +
+                (uncorrectedGhostPosition - (Vector2)_anchorTransform.position) *
+                (_anchor.AnchorRange /
+                Vector3.Distance(uncorrectedGhostPosition, _anchorTransform.position)
+                );
 
-            _ghostTransform.position = Vector2.one * offset;
+            Assert.AreEqual((Vector2)_ghostTransform.position, correctedGhostPosition);
+
+            _ghostTransform.position = Vector2.one * -offset;
+            uncorrectedGhostPosition = _ghostTransform.position;
 
             yield return new WaitForFixedUpdate();
             yield return new WaitForFixedUpdate();
 
-            Assert.AreEqual(_ghostTransform.position, _anchorTransform.position,
-                "Ghost is anchored back to Anchor.");
+            correctedGhostPosition = (Vector2)_anchorTransform.position +
+                (uncorrectedGhostPosition - (Vector2)_anchorTransform.position) *
+                (_anchor.AnchorRange /
+                Vector3.Distance(uncorrectedGhostPosition, _anchorTransform.position)
+                );
+            Assert.AreEqual((Vector2)_ghostTransform.position, correctedGhostPosition);
         }
     }
 }
