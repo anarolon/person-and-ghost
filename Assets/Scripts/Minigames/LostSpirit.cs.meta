@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 997e932049c79004889e30ac44a2e478
+<<<<<<< HEAD:Assets/Scripts/ContactKiller.cs.meta
+guid: fce3455855a5af24384ed7021de296b0
+=======
+guid: 4ba9b7c6e0282424cb0e85985018b78d
+>>>>>>> DEV#33:Assets/Scripts/Minigames/LostSpirit.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
