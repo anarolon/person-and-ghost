@@ -83,6 +83,7 @@ public class GhostlyInvasionTests : InputTestFixture
         Release(_keyboard.eKey);
 
         yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
 
         Assert.Null(GameObject.FindWithTag(Utility.GHOSTLYINNVASIONTAG));
     }
