@@ -43,7 +43,12 @@ using PersonAndGhost.Person.States;
         private Vector2 _movementInput = Vector2.zero;
         private bool _jumped = false;
 
+        [Header("Minigame Fields")]
+        [SerializeField] private GameObject _turret = default;
+        [SerializeField] private GameObject _ghostlyInvasion = default;
+
         // PROPERTIES
+        public GameObject GhostlyInvasion { get => _ghostlyInvasion; }
         public StateMachine MovementSM { get => _movementSM; }
         public bool CanJump { get => _canJump; set => _canJump = value; }
         public bool IsOnGround { get => isOnGround; }
@@ -58,6 +63,7 @@ using PersonAndGhost.Person.States;
             _groundLayer = LayerMask.GetMask("Ground");
             _wallLayer = LayerMask.GetMask("Wall");
             _config ??= ScriptableObject.CreateInstance<PersonConfig>();
+            if (_turret) _turret.SetActive(false);
         }
 
         private void Start()
@@ -96,6 +102,18 @@ using PersonAndGhost.Person.States;
         {
             _jumped = context.action.triggered;
         }
+
+         public void OnMeditation(InputAction.CallbackContext context)
+    {
+
+        bool triggered = context.action.triggered;
+
+        if (triggered)
+        {
+            IsMeditating = !IsMeditating;
+            _turret.SetActive(IsMeditating);
+        }
+    }
 
         public bool IsWalking()
         {

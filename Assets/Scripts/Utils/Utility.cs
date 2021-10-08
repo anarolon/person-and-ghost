@@ -10,8 +10,10 @@ namespace PersonAndGhost.Utils
     {
         public const string MAINCAMERATAG = "MainCamera";
         public const string MONSTERTAG = "Monster";
+        public const string SPIRITTAG = "Spirit";
         public const string LEFTPLAYERTAG = "Person";
         public const string RIGHTPLAYERTAG = "Ghost";
+        public const string GHOSTLYINNVASIONTAG = "GhostlyInvasion";
         public const string LEFTCONTROLSCHEME = "KeyboardLeft";
         public const string RIGHTCONTROLSCHEME = "KeyboardRight";
         public const string LEFTPLAYERPREFAB = "Prefabs/Person";
@@ -19,6 +21,7 @@ namespace PersonAndGhost.Utils
         public const string BIRDPREFABPATH = "Prefabs/Bird";
         public const string GROUNDPREFABPATH = "Prefabs/Ground";
         public const string WALLPREFABPATH = "Prefabs/Wall";
+        public const string LINEPREFABPATH = "Prefabs/Line";
         public const string CLIMBINGGAUNTLETPREFABPATH = "Prefabs/Climbing Gauntlet";
         public const string CAPSULESPRITE = "Sprites/Capsule";
         public const string CIRCLESPRITEPATH = "Sprites/Circle";
