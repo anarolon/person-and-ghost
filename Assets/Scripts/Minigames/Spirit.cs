@@ -12,7 +12,7 @@ public class Spirit : MonoBehaviour
     public void Hit() {
         GameObject.Destroy(gameObject);
     }
-    private void OnTriggerEnter2D(Collider2D other) {
+    private void OnCollisionEnter2D(Collision2D other) {
         if(Equals(other.gameObject.tag, "Person")) {
             GameObject.Destroy(gameObject);
         }

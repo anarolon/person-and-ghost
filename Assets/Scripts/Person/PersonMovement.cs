@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using PersonAndGhost.Person.States;
+using PersonAndGhost.Utils;
 
-    namespace PersonAndGhost.Person
+namespace PersonAndGhost.Person
 {
     public class PersonMovement : MonoBehaviour
     {
@@ -250,6 +251,13 @@ using PersonAndGhost.Person.States;
 
             Gizmos.DrawLine(transform.position,
                 transform.position + Vector3.left * _config.wallRaycastLength);
+        }
+
+        private void OnCollisionEnter2D(Collision2D other) {
+            if(other.gameObject.CompareTag(Utility.SPIRITTAG)) {
+                IsMeditating = false;
+                _turret.SetActive(false);
+            }
         }
     }
 }

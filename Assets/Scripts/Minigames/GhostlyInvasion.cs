@@ -54,7 +54,7 @@ public class GhostlyInvasion : MonoBehaviour
                                     _person.position.y + (_spawnRange * yDir));
 
         GameObject spirit = spirits[index];
-        Instantiate(spirit, new Vector2(xPos, yPos), spirit.transform.rotation);
+        Instantiate(spirit, new Vector2(xPos, yPos), spirit.transform.rotation, gameObject.transform);
         spiritCount++;
     }
 }
