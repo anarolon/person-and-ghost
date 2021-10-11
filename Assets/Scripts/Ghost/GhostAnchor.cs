@@ -10,24 +10,26 @@ namespace PersonAndGhost.Ghost
         private float _anchorRangeGrowth = 2;
         private PersonMovement _anchor = default;
         private bool _isPossessing = false;
+        private Camera _camera;
+
+        [Header("Ghost bounds")]
+        private Vector2 ghostBound = default;
 
         public float AnchorRange { get; private set; } = 2.5f;
 
-        // TODO: Make Anchor Range grow to a radius approximately the size of the entire camera view if anchor is meditating
-        private float AnchorRangeValue => _anchor.IsMeditating ?
-                AnchorRange * _anchorRangeGrowth : AnchorRange;
 
+        // TODO: Ask why make this a Property if its private?
         private Vector2 AnchorTransformPosition => _anchor.transform.position;
 
         private void Awake()
         {
-            if (!_config)
-            {
-                _config = ScriptableObject.CreateInstance<GhostConfig>();
-            }
+            _config ??= ScriptableObject.CreateInstance<GhostConfig>();
 
             AnchorRange = _config.anchorRange;
             _anchorRangeGrowth = _config.anchorRangeGrowth;
+
+            // TODO: Find more efficient way to get the cinemachine camera
+            _camera = Camera.main;
         }
 
         private void OnEnable()
@@ -46,6 +48,8 @@ namespace PersonAndGhost.Ghost
                     RigidbodyConstraints2D.FreezePositionY;
                 _anchor = anchor.AddComponent<PersonMovement>();
             }
+
+            ghostBound = GetComponent<SpriteRenderer>().bounds.size / 2;
         }
 
         private void FixedUpdate()
@@ -59,9 +63,14 @@ namespace PersonAndGhost.Ghost
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.yellow;
-            //Gizmos.DrawWireCube(AnchorTransformPosition,
-                //(AnchorRangeValue * 2) * Vector2.one);
-            Gizmos.DrawWireSphere(AnchorTransformPosition, AnchorRangeValue);
+
+            if (!_anchor.IsMeditating) {
+                Gizmos.DrawWireSphere(AnchorTransformPosition, AnchorRange);
+            }
+            //else
+            //{
+            //    Gizmos.DrawWireCube(_camera.transform.position, new Vector3(2*_camera.orthographicSize * _camera.aspect, 2*_camera.orthographicSize, 0));
+            //}
         }
 
         private void UpdatePossession(bool isPossessing)
@@ -72,15 +81,33 @@ namespace PersonAndGhost.Ghost
         private void AdjustDistanceFromAnchor()
         {
 
-            float distanceToAnchor = Vector3.Distance((Vector2)transform.position, AnchorTransformPosition);
-
-            if (distanceToAnchor > AnchorRangeValue)
+            if (!_anchor.IsMeditating)
             {
-                Vector2 distanceToAnchorVector = (Vector2)transform.position - AnchorTransformPosition;
+                float distanceToAnchor = Vector3.Distance((Vector2)transform.position, AnchorTransformPosition);
+                if (distanceToAnchor > AnchorRange)
+                {
+                    Vector2 distanceToAnchorVector = (Vector2)transform.position - AnchorTransformPosition;
 
-                distanceToAnchorVector *= AnchorRangeValue / distanceToAnchor;
-                transform.position = AnchorTransformPosition + distanceToAnchorVector;
+                    distanceToAnchorVector *= AnchorRange / distanceToAnchor;
+                    transform.position = AnchorTransformPosition + distanceToAnchorVector;
+                }
             }
+
+            // TODO: Find out if it is necessary to have this be in this method or in Start
+            float leftBound = _camera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x
+                + ghostBound.x;
+            float rightBound = _camera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x
+                - ghostBound.x;
+            float bottomBound = _camera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y
+                + ghostBound.y;
+            float topBound = _camera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y
+                - ghostBound.y;
+
+            Vector2 correctedPos = transform.position;
+            correctedPos.x = Mathf.Clamp(correctedPos.x, leftBound, rightBound);
+            correctedPos.y = Mathf.Clamp(correctedPos.y, bottomBound, topBound);
+            transform.position = correctedPos;
+            
         }
 
         private void OnDisable()
