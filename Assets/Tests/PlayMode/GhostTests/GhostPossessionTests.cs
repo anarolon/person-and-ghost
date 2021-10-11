@@ -17,6 +17,8 @@ namespace PersonAndGhost.PlayMode.GhostTests
         private Transform _monsterTransform;
         private AIAgent _monster;
 
+        private GameObject _cam;
+
         private const string BIRDNAME = "Bird(Clone)";
 
         [UnitySetUp]
@@ -26,6 +28,9 @@ namespace PersonAndGhost.PlayMode.GhostTests
             _anchor.AddComponent<Rigidbody2D>().constraints =
                 RigidbodyConstraints2D.FreezePositionY;
             _anchor.AddComponent<PersonMovement>();
+
+            // TODO: FIx Camera Setup
+            CameraSetup();
 
             GameObject monstePrefab = Resources.Load<GameObject>(Utility.BIRDPREFABPATH);
             _monster = Object.Instantiate(monstePrefab).GetComponent<AIAgent>();
@@ -38,10 +43,24 @@ namespace PersonAndGhost.PlayMode.GhostTests
         {
             _ghostTransform =
                 Utility.RightPlayerManualInstantiation(Vector2.zero).transform;
+
             _possession = _ghostTransform.GetComponent<GhostPossession>();
+
 
             yield return new WaitUntil(() => _possession.IsNearAMonster);
         }
+
+        private void CameraSetup()
+        {
+            _cam = new GameObject("Main Camera");
+            Camera _camCamera = _cam.AddComponent<Camera>();
+            _cam.tag = "MainCamera";
+
+            _camCamera.orthographic = true;
+            _camCamera.orthographicSize = 4;
+
+        }
+
 
         [UnityTearDown]
         public new IEnumerator TearDown()

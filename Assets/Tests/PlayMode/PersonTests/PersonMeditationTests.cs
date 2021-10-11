@@ -100,6 +100,8 @@ namespace PersonAndGhost.PlayMode.PersonTests
             Assert.AreNotEqual(Vector2.zero, _personRigidbody.velocity);
         }
         
+        // TODO: Should this be tested here or in Ghost Anchor Tests?
+        /*
         [UnityTest]
         public IEnumerator IncreaseGhostRangeWhenPersonIsMeditating()
         {
@@ -155,5 +157,6 @@ namespace PersonAndGhost.PlayMode.PersonTests
                 _ghostTransform.position.y, threshold),
                 "Ghost is anchored back to Person in y-axis.");
         }
+        */
     }
 }

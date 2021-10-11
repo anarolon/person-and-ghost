@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using PersonAndGhost.Utils;
 using PersonAndGhost.Person;
@@ -12,14 +13,18 @@ namespace PersonAndGhost.Ghost
         private bool _isPossessing = false;
         private Camera _camera;
 
-        [Header("Ghost bounds")]
+        [Header("Boundary fields")]
+        private bool hasExpandedBoundary = default;
         private Vector2 ghostBound = default;
+        private Dictionary<string, float> _boundaries = default;
 
         public float AnchorRange { get; private set; } = 2.5f;
-
+        public bool HasExpandedBoundary { get => hasExpandedBoundary; set => hasExpandedBoundary = value; }
 
         // TODO: Ask why make this a Property if its private?
         private Vector2 AnchorTransformPosition => _anchor.transform.position;
+
+        
 
         private void Awake()
         {
@@ -28,7 +33,6 @@ namespace PersonAndGhost.Ghost
             AnchorRange = _config.anchorRange;
             _anchorRangeGrowth = _config.anchorRangeGrowth;
 
-            // TODO: Find more efficient way to get the cinemachine camera
             _camera = Camera.main;
         }
 
@@ -50,10 +54,13 @@ namespace PersonAndGhost.Ghost
             }
 
             ghostBound = GetComponent<SpriteRenderer>().bounds.size / 2;
+            _boundaries = GetViewportBoundaries();
         }
+
 
         private void FixedUpdate()
         {
+            hasExpandedBoundary = _anchor.IsMeditating;
             if (!_isPossessing)
             {
                 AdjustDistanceFromAnchor();
@@ -64,7 +71,7 @@ namespace PersonAndGhost.Ghost
         {
             Gizmos.color = Color.yellow;
 
-            if (!_anchor.IsMeditating) {
+            if (!hasExpandedBoundary) {
                 Gizmos.DrawWireSphere(AnchorTransformPosition, AnchorRange);
             }
             //else
@@ -81,34 +88,58 @@ namespace PersonAndGhost.Ghost
         private void AdjustDistanceFromAnchor()
         {
 
-            if (!_anchor.IsMeditating)
+            if (!hasExpandedBoundary)
             {
-                float distanceToAnchor = Vector3.Distance((Vector2)transform.position, AnchorTransformPosition);
-                if (distanceToAnchor > AnchorRange)
-                {
-                    Vector2 distanceToAnchorVector = (Vector2)transform.position - AnchorTransformPosition;
-
-                    distanceToAnchorVector *= AnchorRange / distanceToAnchor;
-                    transform.position = AnchorTransformPosition + distanceToAnchorVector;
-                }
+                transform.position = CalculateAnchorBoundPosition();
             }
 
-            // TODO: Find out if it is necessary to have this be in this method or in Start
-            float leftBound = _camera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x
-                + ghostBound.x;
-            float rightBound = _camera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x
-                - ghostBound.x;
-            float bottomBound = _camera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y
-                + ghostBound.y;
-            float topBound = _camera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y
-                - ghostBound.y;
-
-            Vector2 correctedPos = transform.position;
-            correctedPos.x = Mathf.Clamp(correctedPos.x, leftBound, rightBound);
-            correctedPos.y = Mathf.Clamp(correctedPos.y, bottomBound, topBound);
-            transform.position = correctedPos;
+            transform.position = CalculateCameraBoundPosition();
             
         }
+
+        public Vector2 CalculateAnchorBoundPosition()
+        {
+            float distanceToAnchor = Vector3.Distance((Vector2)transform.position, AnchorTransformPosition);
+            if (distanceToAnchor > AnchorRange)
+            {
+                Vector2 distanceToAnchorVector = (Vector2)transform.position - AnchorTransformPosition;
+
+                distanceToAnchorVector *= AnchorRange / distanceToAnchor;
+                return AnchorTransformPosition + distanceToAnchorVector;
+            }
+            else
+            {
+                return transform.position;
+            }
+        }
+
+        private Dictionary<string, float> GetViewportBoundaries()
+        {
+            Dictionary<string, float> boundaries = new Dictionary<string, float>();
+
+            boundaries.Add("left", _camera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x
+                + ghostBound.x);
+            boundaries.Add("right", _camera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x
+                - ghostBound.x);
+            boundaries.Add("bottom", _camera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y
+                + ghostBound.y);
+            boundaries.Add("top", _camera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y
+                - ghostBound.y);
+
+            return boundaries;
+        }
+
+        public Vector2 CalculateCameraBoundPosition()
+        // TODO: Find out if there is a better place for this function to be in.
+        {
+            _boundaries = GetViewportBoundaries();
+
+            Vector2 correctedPos = transform.position;
+            correctedPos.x = Mathf.Clamp(correctedPos.x, _boundaries["left"], _boundaries["right"]);
+            correctedPos.y = Mathf.Clamp(correctedPos.y, _boundaries["bottom"], _boundaries["top"]);
+            return correctedPos;
+        }
+
 
         private void OnDisable()
         {
