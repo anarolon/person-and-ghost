@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using PersonAndGhost.Utils;
 using PersonAndGhost.Person;
@@ -10,23 +11,29 @@ namespace PersonAndGhost.Ghost
         private float _anchorRangeGrowth = 2;
         private PersonMovement _anchor = default;
         private bool _isPossessing = false;
+        private Camera _camera;
+
+        [Header("Boundary fields")]
+        private bool hasExpandedBoundary = default;
+        private Vector2 ghostBound = default;
+        private Dictionary<string, float> _boundaries = default;
 
         public float AnchorRange { get; private set; } = 2.5f;
+        public bool HasExpandedBoundary { get => hasExpandedBoundary; set => hasExpandedBoundary = value; }
 
-        private float AnchorRangeValue => _anchor.IsMeditating ?
-                AnchorRange * _anchorRangeGrowth : AnchorRange;
-
+        // TODO: Ask why make this a Property if its private?
         private Vector2 AnchorTransformPosition => _anchor.transform.position;
+
+        
 
         private void Awake()
         {
-            if (!_config)
-            {
-                _config = ScriptableObject.CreateInstance<GhostConfig>();
-            }
+            _config ??= ScriptableObject.CreateInstance<GhostConfig>();
 
             AnchorRange = _config.anchorRange;
             _anchorRangeGrowth = _config.anchorRangeGrowth;
+
+            _camera = Camera.main;
         }
 
         private void OnEnable()
@@ -45,10 +52,15 @@ namespace PersonAndGhost.Ghost
                     RigidbodyConstraints2D.FreezePositionY;
                 _anchor = anchor.AddComponent<PersonMovement>();
             }
+
+            ghostBound = GetComponent<SpriteRenderer>().bounds.size / 2;
+            _boundaries = GetViewportBoundaries();
         }
+
 
         private void FixedUpdate()
         {
+            hasExpandedBoundary = _anchor.IsMeditating;
             if (!_isPossessing)
             {
                 AdjustDistanceFromAnchor();
@@ -58,8 +70,14 @@ namespace PersonAndGhost.Ghost
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireCube(AnchorTransformPosition,
-                (AnchorRangeValue * 2) * Vector2.one);
+
+            if (!hasExpandedBoundary) {
+                Gizmos.DrawWireSphere(AnchorTransformPosition, AnchorRange);
+            }
+            //else
+            //{
+            //    Gizmos.DrawWireCube(_camera.transform.position, new Vector3(2*_camera.orthographicSize * _camera.aspect, 2*_camera.orthographicSize, 0));
+            //}
         }
 
         private void UpdatePossession(bool isPossessing)
@@ -69,15 +87,59 @@ namespace PersonAndGhost.Ghost
 
         private void AdjustDistanceFromAnchor()
         {
-            Vector2 positionDifference = AnchorTransformPosition -
-                (Vector2)transform.position;
 
-            if (Mathf.Abs(positionDifference.x) > AnchorRangeValue
-                || Mathf.Abs(positionDifference.y) > AnchorRangeValue)
+            if (!hasExpandedBoundary)
             {
-                transform.position = AnchorTransformPosition;
+                transform.position = CalculateAnchorBoundPosition();
+            }
+
+            transform.position = CalculateCameraBoundPosition();
+            
+        }
+
+        public Vector2 CalculateAnchorBoundPosition()
+        {
+            float distanceToAnchor = Vector3.Distance((Vector2)transform.position, AnchorTransformPosition);
+            if (distanceToAnchor > AnchorRange)
+            {
+                Vector2 distanceToAnchorVector = (Vector2)transform.position - AnchorTransformPosition;
+
+                distanceToAnchorVector *= AnchorRange / distanceToAnchor;
+                return AnchorTransformPosition + distanceToAnchorVector;
+            }
+            else
+            {
+                return transform.position;
             }
         }
+
+        private Dictionary<string, float> GetViewportBoundaries()
+        {
+            Dictionary<string, float> boundaries = new Dictionary<string, float>();
+
+            boundaries.Add("left", _camera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x
+                + ghostBound.x);
+            boundaries.Add("right", _camera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x
+                - ghostBound.x);
+            boundaries.Add("bottom", _camera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y
+                + ghostBound.y);
+            boundaries.Add("top", _camera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y
+                - ghostBound.y);
+
+            return boundaries;
+        }
+
+        public Vector2 CalculateCameraBoundPosition()
+        // TODO: Find out if there is a better place for this function to be in.
+        {
+            _boundaries = GetViewportBoundaries();
+
+            Vector2 correctedPos = transform.position;
+            correctedPos.x = Mathf.Clamp(correctedPos.x, _boundaries["left"], _boundaries["right"]);
+            correctedPos.y = Mathf.Clamp(correctedPos.y, _boundaries["bottom"], _boundaries["top"]);
+            return correctedPos;
+        }
+
 
         private void OnDisable()
         {

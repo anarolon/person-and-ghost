@@ -10,7 +10,7 @@ public class PersonConfig : ScriptableObject
     public float linearDrag = 10f;
 
     [Header("Jump Variables")]
-    public float jumpForce = 6f;
+    public float jumpForce = 10f;
     public float airLinearDrag = 3f;
     public float fallMultiplier = 8f;
     public float lowJumpFallMultiplier = 5f;
@@ -21,4 +21,5 @@ public class PersonConfig : ScriptableObject
 
     [Header("Wall Collision Variables")]
     public float wallRaycastLength = 0.6f;
+
 }
