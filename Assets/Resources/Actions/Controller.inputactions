@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "StolenAction",
+                    "type": "Button",
+                    "id": "c5b555c7-7c0a-4263-bb1f-aa154f27641b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -221,6 +229,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "b79aafce-9c06-448b-a3cb-d172fbad6392",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Possess",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "1D Axis",
                     "id": "778008ee-d66c-4130-ad49-db308dd7c1bf",
                     "path": "1DAxis",
@@ -252,6 +271,17 @@
                     "action": "ToolPickup/Drop",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "0029794c-719d-404b-abaa-42b5f4987b0d",
+                    "path": "<Keyboard>/slash",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StolenAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

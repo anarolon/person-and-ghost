@@ -33,6 +33,7 @@ namespace PersonAndGhost.Utils
         public const string TOOLPICKUPDROPACTIONNAME = "ToolPickup/Drop";
         public const string MEDITATEACTIONNAME = "Meditate";
         public const string POSSESSACTION = "Possess";
+        public const string STOLENACTIONACTIONNAME = "StolenAction";
 
 
         //To be visible, the object most be between 0 and 1 for both X and Y positions

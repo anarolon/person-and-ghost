@@ -82,7 +82,17 @@ namespace PersonAndGhost.Ghost
             {
                 _monster._isJumping = context.action.triggered;
             }
+        }   
+
+        //ON STOLEN ACTION
+        public void OnStolenAction(InputAction.CallbackContext context)
+        {
+            if (IsPossessing)
+            {
+                _monster._isActing = context.action.triggered;
+            }
         }
+
 
         private void UpdateMovement(Vector2 movement)
         {
@@ -94,6 +104,7 @@ namespace PersonAndGhost.Ghost
             _monster.movementBehaviour(_movement);
             gameObject.transform.position = _monster.transform.position;
         }
+
 
         public void ChangePossession()
         {

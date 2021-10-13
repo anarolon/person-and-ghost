@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PersonAndGhost.Utils;
 
 public class AIBird : AIAgent
 {
+    private bool isGrabbing = false;
+    private bool personNearby = false;
+
     public override void Start()
     {
         base.Start();
@@ -42,7 +46,45 @@ public class AIBird : AIAgent
             this.rb.velocity = new Vector2(x, y);
         }
 
-
         this.rb.drag = this.config._linearDrag;
+
+        if (CanAct && personNearby)
+        {
+            ClawAction(isGrabbing);
+            this._isActing = false;
+        }
+    }
+
+    public void ClawAction(bool isGrabbing)
+    {
+        //Person is currently being picked up by Bird, drop them.
+        if(isGrabbing)
+        {
+
+            isGrabbing = false;
+        }
+        //Person is not yet picked up by Bird, pick them up.
+        else
+        {
+            
+            isGrabbing = true;
+        }
+
+
+    }
+
+
+     public override void OnCollisionEnter2D(Collision2D collision) 
+    {
+        if(collision.gameObject.CompareTag(Utility.LEFTPLAYERTAG)) {
+            personNearby = true;
+        }
+    }
+
+    public override void OnCollisionExit2D(Collision2D collision) 
+    {
+        if(collision.gameObject.CompareTag(Utility.LEFTPLAYERTAG)) {
+            personNearby = false;
+        }
     }
 }

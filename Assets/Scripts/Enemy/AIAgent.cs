@@ -10,8 +10,9 @@ public class AIAgent : MonoBehaviour
     public Rigidbody2D rb;    
     public bool isPossessed = false;
     public float xDirection = 1;
-    public bool _isJumping, _isGrounded;
+    public bool _isJumping, _isGrounded, _isActing;
     public bool CanJump => _isJumping && _isGrounded;
+    public bool CanAct => _isActing && isPossessed;
 
     public virtual void Start()
     {
