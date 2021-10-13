@@ -14,6 +14,7 @@ namespace PersonAndGhost.Person
         public FallingState falling;
         public MeditatingState meditate;
         public ClingState cling;
+        public GrappleAimState grappleAim;
 
         [Tooltip("Currently only being used to visualize current player state")]
         [SerializeField] private string _currentState = default;
@@ -48,6 +49,11 @@ namespace PersonAndGhost.Person
         [SerializeField] private GameObject _turret = default;
         [SerializeField] private GameObject _ghostlyInvasion = default;
 
+        [Header("Grappling Fields")]
+        private Vector2 _grapplePoint;
+        private Vector2 _grappleDistanceVector;
+        private float _launchSpeed = 5;
+
         // PROPERTIES
         public GameObject GhostlyInvasion { get => _ghostlyInvasion; }
         public StateMachine MovementSM { get => _movementSM; }
@@ -71,12 +77,15 @@ namespace PersonAndGhost.Person
         {
             _movementSM = new StateMachine();
 
+            // TODO: Make this more flexible
             idle = new IdleState(this, _movementSM);
             movement = new MovementState(this, _movementSM);
             jumping = new JumpingState(this, _movementSM);
             falling = new FallingState(this, _movementSM);
             meditate = new MeditatingState(this, _movementSM);
             cling = new ClingState(this, _movementSM);
+            grappleAim = new GrappleAimState(this, _movementSM);
+
 
             _movementSM.Initialize(idle);
         }
@@ -104,17 +113,17 @@ namespace PersonAndGhost.Person
             _jumped = context.action.triggered;
         }
 
-         public void OnMeditation(InputAction.CallbackContext context)
-    {
-
-        bool triggered = context.action.triggered;
-
-        if (triggered)
+        public void OnMeditation(InputAction.CallbackContext context)
         {
-            IsMeditating = !IsMeditating;
-            _turret.SetActive(IsMeditating);
+
+            bool triggered = context.action.triggered;
+
+            if (triggered)
+            {
+                IsMeditating = !IsMeditating;
+                _turret.SetActive(IsMeditating);
+            }
         }
-    }
 
         public bool IsWalking()
         {
@@ -125,6 +134,7 @@ namespace PersonAndGhost.Person
         {
             _playerRB.velocity = Vector2.zero;
             _playerRB.angularVelocity = 0;
+            _playerRB.gravityScale = 1;
         }
 
         public void Move()
@@ -171,7 +181,49 @@ namespace PersonAndGhost.Person
             _playerRB.gravityScale = 1;
         }
 
+        // GRAPPLE METHODS
+        private void SetGrapplePoint(Vector2 direction)
+        {
+            // TODO: Do Grappling Hook Stuff
+            float grappleDistance = 10;
 
+            // TODO: Only works towards the left and only works for wallLayer for now
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, grappleDistance, _wallLayer);
+            if (hit)
+            {
+                _grapplePoint = hit.point;
+                _grappleDistanceVector = (_grapplePoint - (Vector2)transform.position).normalized;
+                // TODO: Draw pointing indicator on hit point
+            }
+        }
+
+        private void Grapple()
+        {
+            float grappleSpeedMin = 2f;
+            float grappleSpeedMax = 10f;
+            float grappleSpeed = Mathf.Clamp(Vector2.Distance(transform.position, _grappleDistanceVector), grappleSpeedMin, grappleSpeedMax);
+            float grappleMultiplier = 2f;
+
+            _playerRB.gravityScale = 0;
+            _playerRB.AddForce(grappleSpeed * grappleMultiplier * _grappleDistanceVector);
+        }
+
+        public bool DidReachGrapplePoint()
+        {
+            float reachedGrapplepointDistance = 0.5f;
+            return Vector2.Distance(transform.position, _grapplePoint) < reachedGrapplepointDistance;
+            
+        }
+
+        public void GrappleTowardsPoint(Vector2 grappleDirection)
+        {
+            //Vector2 relativePos = targetPoint - (Vector2) transform.position;
+            //_playerRB.AddForce(relativePos * 2, ForceMode2D.Impulse);
+            SetGrapplePoint(grappleDirection);
+            Grapple();
+        }
+
+        // END OF GRAPPLE METHODS
 
         private void MovePlayer(Vector2 movementInput)
         {
