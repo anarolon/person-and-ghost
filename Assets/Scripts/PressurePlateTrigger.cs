@@ -13,12 +13,20 @@ public class PressurePlateTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        if (other.gameObject.CompareTag(Utility.LEFTPLAYERTAG)
-            || other.gameObject.CompareTag(Utility.MONSTERTAG)) 
+        if (_doorObject)
         {
-            if (_doorObject) 
+            if (other.gameObject.CompareTag(Utility.LEFTPLAYERTAG)) 
             {
                 _door.Open();
+            }
+
+            else if (other.gameObject.CompareTag(Utility.MONSTERTAG) 
+                && other.gameObject.TryGetComponent(out AIAgent agent))
+            {
+                if (agent.isPossessed)
+                {
+                    _door.Open();
+                }
             }
         }
     }
