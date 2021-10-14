@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d580dd01616dca45acd9be4bc5501a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorObject: {fileID: 2488269444255915746}
+  _doorObject: {fileID: 2488269444255915746}
 --- !u!1 &2488269444255915746
 GameObject:
   m_ObjectHideFlags: 0
