@@ -23,8 +23,8 @@ public class PersonConfig : ScriptableObject
     public float wallRaycastLength = 0.6f;
 
     [Header("Grapple Fields")]
-    public float grappleDistance = 10;
-    public float reachedGrapplepointDistance = 1;
+    public float grappleDistance = 60;
+    public float reachedGrapplepointDistance = 0.5f;
     public float grappleSpeedMin = 10f;
     public float grappleSpeedMax = 50f;
     public float grappleMultiplier = 50f;

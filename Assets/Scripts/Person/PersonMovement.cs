@@ -66,8 +66,7 @@ namespace PersonAndGhost.Person
         public bool Jumped { get => _jumped; }
         public Vector2 GrapplePoint { get => _grapplePoint; set => _grapplePoint = value; }
         public bool CanGrapple { get => _canGrapple; set => _canGrapple = value; }
-        
-
+        public string CurrentState { get => _currentState; set => _currentState = value; }
 
         void Awake()
         {

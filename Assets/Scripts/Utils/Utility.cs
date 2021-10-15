@@ -23,6 +23,7 @@ namespace PersonAndGhost.Utils
         public const string WALLPREFABPATH = "Prefabs/Wall";
         public const string LINEPREFABPATH = "Prefabs/Line";
         public const string CLIMBINGGAUNTLETPREFABPATH = "Prefabs/Climbing Gauntlet";
+        public const string GRAPPLINGHOOKPREFABPATH = "Prefabs/Grappling Hook";
         public const string CAPSULESPRITE = "Sprites/Capsule";
         public const string CIRCLESPRITEPATH = "Sprites/Circle";
         public const string DIAMONDSPRITEPATH = "Sprites/Diamond";
