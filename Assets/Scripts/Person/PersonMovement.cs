@@ -13,6 +13,7 @@ using PersonAndGhost.Person.States;
         public FallingState falling;
         public MeditatingState meditate;
         public ClingState cling;
+        public CarriedState carried;
 
         [Tooltip("Currently only being used to visualize current player state")]
         [SerializeField] private string _currentState = default;
@@ -49,6 +50,7 @@ using PersonAndGhost.Person.States;
         public bool IsOnGround { get => isOnGround; }
         public bool IsTouchingWall { get => isTouchingWall; }
         public bool IsMeditating { get; set; }
+        public bool IsBeingCarried { get; set; }
         public Vector2 MovementInput { get => _movementInput; }
         public bool Jumped { get => _jumped; }
 
@@ -70,6 +72,7 @@ using PersonAndGhost.Person.States;
             falling = new FallingState(this, _movementSM);
             meditate = new MeditatingState(this, _movementSM);
             cling = new ClingState(this, _movementSM);
+            carried = new CarriedState(this, _movementSM);
 
             _movementSM.Initialize(idle);
         }
@@ -112,7 +115,7 @@ using PersonAndGhost.Person.States;
         {
             CheckCollision();
             // TODO: Do we need this meditation check here?
-            if (IsMeditating)
+            if (IsMeditating || IsBeingCarried)
             {
                 _playerRB.velocity = new Vector2(0, _playerRB.velocity.y);
             }

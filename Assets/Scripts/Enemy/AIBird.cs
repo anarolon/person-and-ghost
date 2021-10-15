@@ -6,7 +6,7 @@ using PersonAndGhost.Utils;
 public class AIBird : AIAgent
 {
     private bool isGrabbing = false;
-    private bool personNearby = false;
+    private AIBird_Claws claws = default;
 
     public override void Start()
     {
@@ -14,6 +14,7 @@ public class AIBird : AIAgent
         this.stateMachine.RegisterState(new AIMoveXState());
         stateMachine.ChangeState(AIStateId.MoveX);
         StartCoroutine(this.StateLoop());
+        claws = gameObject.GetComponentInChildren<AIBird_Claws>();
     }
 
     public override void FixedUpdate()
@@ -48,7 +49,7 @@ public class AIBird : AIAgent
 
         this.rb.drag = this.config._linearDrag;
 
-        if (CanAct && personNearby)
+        if (claws.isPersonNearby && CanAct)
         {
             ClawAction(isGrabbing);
             this._isActing = false;
@@ -59,32 +60,17 @@ public class AIBird : AIAgent
     {
         //Person is currently being picked up by Bird, drop them.
         if(isGrabbing)
-        {
-
+        {      
+            claws.Drop();
             isGrabbing = false;
         }
         //Person is not yet picked up by Bird, pick them up.
         else
         {
-            
+            claws.PickUp();
             isGrabbing = true;
         }
 
-
     }
-
-
-     public override void OnCollisionEnter2D(Collision2D collision) 
-    {
-        if(collision.gameObject.CompareTag(Utility.LEFTPLAYERTAG)) {
-            personNearby = true;
-        }
-    }
-
-    public override void OnCollisionExit2D(Collision2D collision) 
-    {
-        if(collision.gameObject.CompareTag(Utility.LEFTPLAYERTAG)) {
-            personNearby = false;
-        }
-    }
+    
 }
