@@ -21,6 +21,8 @@ namespace PersonAndGhost.Utils
         public const string BIRDPREFABPATH = "Prefabs/Bird";
         public const string GROUNDPREFABPATH = "Prefabs/Ground";
         public const string WALLPREFABPATH = "Prefabs/Wall";
+        public const string BREAK_PLATFORM_PREFAB_PATH = "Prefabs/BreakablePlatform";
+        public const string BREAK_WALL_PREFAB_PATH = "Prefabs/BreakableWall";
         public const string LINEPREFABPATH = "Prefabs/Line";
         public const string CLIMBINGGAUNTLETPREFABPATH = "Prefabs/Climbing Gauntlet";
         public const string HATCHDOORPREFAB = "Prefabs/PressurePlateDoor_Hatch";
