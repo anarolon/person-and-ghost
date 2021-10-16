@@ -33,7 +33,7 @@ namespace PersonAndGhost.Person.States
                 {
                     stateMachine.ChangeState(character.idle);
                 }
-
+                
                 else
                 {
                     stateMachine.ChangeState(character.falling);

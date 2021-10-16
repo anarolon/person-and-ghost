@@ -5,7 +5,7 @@ using PersonAndGhost.Utils;
 
 public class AIBird : AIAgent
 {
-    private bool isGrabbing = false;
+    private bool isCarrying = false;
     private AIBird_Claws claws = default;
 
     public override void Start()
@@ -51,24 +51,24 @@ public class AIBird : AIAgent
 
         if (claws.isPersonNearby && CanAct)
         {
-            ClawAction(isGrabbing);
+            ClawAction();
             this._isActing = false;
         }
     }
 
-    public void ClawAction(bool isGrabbing)
+    public void ClawAction()
     {
-        //Person is currently being picked up by Bird, drop them.
-        if(isGrabbing)
+        //Person is currently being carried by Bird, drop them.
+        if(isCarrying)
         {      
             claws.Drop();
-            isGrabbing = false;
+            isCarrying = false;
         }
-        //Person is not yet picked up by Bird, pick them up.
+        //Person is not being carried by Bird, pick them up.
         else
         {
             claws.PickUp();
-            isGrabbing = true;
+            isCarrying = true;
         }
 
     }
