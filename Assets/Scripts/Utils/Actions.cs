@@ -14,10 +14,6 @@ namespace PersonAndGhost.Utils
         public static Action<Vector2> OnGhostMovementTriggered;
         public static Action<bool> OnPossessionTriggered;
        
-        //Actions for Ghost when possessing enemies. 
-        //When possessing Bird, the use of this will pick up or drop Person if they're below.
-        public static Action<bool> OnStolenActionUse;
-
         public static Action OnPuzzleWin;
         public static Action OnPuzzleFail;
     }

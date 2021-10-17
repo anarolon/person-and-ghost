@@ -5,7 +5,7 @@ using PersonAndGhost.Utils;
 
 public class AIBird : AIAgent
 {
-    private bool isCarrying = false;
+    public bool isCarrying = false;
     private AIBird_Claws claws = default;
 
     public override void Start()
@@ -36,10 +36,9 @@ public class AIBird : AIAgent
     {   
         base.movementBehaviour(movementInput);
         movementInput *= this.config._movementAcceleration;
-
         this.rb.AddForce(movementInput);
-
         var velocity = this.rb.velocity;
+        
         if (Mathf.Abs(velocity.x) > this.config._maxMoveSpeed || Mathf.Abs(velocity.y) > this.config._maxMoveSpeed ) 
         {
             var x = Mathf.Sign(velocity.x) * this.config._maxMoveSpeed;
@@ -49,6 +48,8 @@ public class AIBird : AIAgent
 
         this.rb.drag = this.config._linearDrag;
 
+        // Execute Stolen Action when Person is near Bird's claws 
+        // and the designated Stolen Action key is pressed. 
         if (claws.isPersonNearby && CanAct)
         {
             ClawAction();
@@ -58,13 +59,13 @@ public class AIBird : AIAgent
 
     public void ClawAction()
     {
-        //Person is currently being carried by Bird, drop them.
+        // When Person is currently being carried by Bird, drop them.
         if(isCarrying)
         {      
             claws.Drop();
             isCarrying = false;
         }
-        //Person is not being carried by Bird, pick them up.
+        // When Person is not being carried by Bird, pick them up.
         else
         {
             claws.PickUp();
