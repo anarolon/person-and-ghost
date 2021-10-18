@@ -234,7 +234,7 @@
                     "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardRight",
                     "action": "Possess",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -278,7 +278,7 @@
                     "path": "<Keyboard>/slash",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardRight",
                     "action": "StolenAction",
                     "isComposite": false,
                     "isPartOfComposite": false
