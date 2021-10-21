@@ -117,8 +117,8 @@ namespace PersonAndGhost.Tools
 
         private void AddGravityEffect()
         {
-            toolPolyCollider.enabled = true;
-            toolRb.gravityScale = 0.5f;
+            if(toolPolyCollider) toolPolyCollider.enabled = true;
+            if(toolRb) toolRb.gravityScale = 0.5f;
         }
     }
 }
