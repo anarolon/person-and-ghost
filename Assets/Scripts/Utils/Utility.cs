@@ -21,9 +21,13 @@ namespace PersonAndGhost.Utils
         public const string BIRDPREFABPATH = "Prefabs/Bird";
         public const string GROUNDPREFABPATH = "Prefabs/Ground";
         public const string WALLPREFABPATH = "Prefabs/Wall";
+        public const string BREAK_PLATFORM_PREFAB_PATH = "Prefabs/BreakablePlatform";
+        public const string BREAK_WALL_PREFAB_PATH = "Prefabs/BreakableWall";
         public const string LINEPREFABPATH = "Prefabs/Line";
         public const string CLIMBINGGAUNTLETPREFABPATH = "Prefabs/Climbing Gauntlet";
         public const string GRAPPLINGHOOKPREFABPATH = "Prefabs/Grappling Hook";
+        public const string HATCHDOORPREFAB = "Prefabs/PressurePlateDoor_Hatch";
+        public const string NORMALDOORPREFAB = "Prefabs/PressurePlateDoor_Normal";
         public const string CAPSULESPRITE = "Sprites/Capsule";
         public const string CIRCLESPRITEPATH = "Sprites/Circle";
         public const string DIAMONDSPRITEPATH = "Sprites/Diamond";
@@ -50,6 +54,11 @@ namespace PersonAndGhost.Utils
         public static bool FastApproximately(float a, float b, float threshold)
         {
             return ((a - b) < 0 ? ((a - b) * -1) : (a - b)) <= threshold;
+        }
+
+        public static GameObject GetChildOfGivenType(GameObject parent, System.Type childType)
+        {
+            return parent.GetComponentInChildren(childType).gameObject;
         }
 
         public static PlayerInput InstantiatePlayerWithKeyboard(GameObject player,
