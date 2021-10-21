@@ -19,6 +19,7 @@ namespace PersonAndGhost.Utils
         public const string LEFTPLAYERPREFAB = "Prefabs/Person";
         public const string RIGHTPLAYERPREFABPATH = "Prefabs/Ghost";
         public const string BIRDPREFABPATH = "Prefabs/Bird";
+        public const string CLAWEDBIRDPREFABPATH = "Prefabs/Bird (Clawed)";
         public const string GROUNDPREFABPATH = "Prefabs/Ground";
         public const string WALLPREFABPATH = "Prefabs/Wall";
         public const string BREAK_PLATFORM_PREFAB_PATH = "Prefabs/BreakablePlatform";
