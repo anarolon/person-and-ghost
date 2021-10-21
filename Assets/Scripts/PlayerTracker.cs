@@ -64,7 +64,7 @@ namespace PersonAndGhost
 
                 else if (!Utility.IsVisibleToCamera(_camera, _rightPlayer.position))
                 {
-                    _rightPlayer.position = _leftPlayer.position;
+                    // _rightPlayer.position = _leftPlayer.position;
                 }
 
                 yield return new WaitForFixedUpdate();

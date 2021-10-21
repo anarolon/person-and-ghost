@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3190736947585648112}
   - component: {fileID: 3190736947585648113}
   - component: {fileID: 4822332208879641278}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FrogWizard
   m_TagString: Monster
   m_Icon: {fileID: 0}

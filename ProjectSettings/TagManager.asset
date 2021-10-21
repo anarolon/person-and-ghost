@@ -10,6 +10,11 @@ TagManager:
   - Collectable
   - Ground
   - Tool
+  - FirePoint
+  - Turret
+  - GhostlyInvasion
+  - Shot
+  - Spirit
   layers:
   - Default
   - TransparentFX
@@ -20,9 +25,9 @@ TagManager:
   - Wall
   - Interactable
   - Background
-  - 
-  - 
-  - 
+  - Spirit
+  - Enemy
+  - Breakable
   - 
   - 
   - 
