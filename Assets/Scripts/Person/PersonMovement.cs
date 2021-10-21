@@ -138,9 +138,13 @@ namespace PersonAndGhost.Person
 
         public void ResetVelocity()
         {
-            _playerRB.velocity = Vector2.zero;
-            _playerRB.angularVelocity = 0;
-            _playerRB.gravityScale = 1;
+            if (_playerRB)
+            {
+                _playerRB.velocity = Vector2.zero;
+                _playerRB.angularVelocity = 0;
+                _playerRB.gravityScale = 1;
+            }
+            
         }
 
         public void Move()

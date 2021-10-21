@@ -81,7 +81,7 @@ namespace PersonAndGhost.Person.States
 
         private void SetupGrappleLine()
         {
-            _grappleFiringPoint = GameObject.Instantiate(Resources.Load("Prefabs/GrappleAim")) as GameObject;
+            _grappleFiringPoint ??= GameObject.Instantiate(Resources.Load("Prefabs/GrappleAim")) as GameObject;
             _grappleFiringPoint.transform.SetParent(character.transform);
             _grappleFiringPoint.transform.localPosition = Vector2.zero;
 
