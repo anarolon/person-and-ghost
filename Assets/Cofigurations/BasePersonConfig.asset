@@ -22,3 +22,8 @@ MonoBehaviour:
   groundRaycastLength: 0.6
   groundRaycastOffset: {x: 0.25, y: 0, z: 0}
   wallRaycastLength: 0.3
+  grappleDistance: 60
+  reachedGrapplepointDistance: 0.5
+  grappleSpeedMin: 10
+  grappleSpeedMax: 50
+  grappleMultiplier: 50

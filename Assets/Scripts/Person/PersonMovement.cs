@@ -14,6 +14,7 @@ namespace PersonAndGhost.Person
         public FallingState falling;
         public MeditatingState meditate;
         public ClingState cling;
+        public GrappleAimState grappleAim;
 
         [Tooltip("Currently only being used to visualize current player state")]
         [SerializeField] private string _currentState = default;
@@ -48,6 +49,12 @@ namespace PersonAndGhost.Person
         [SerializeField] private GameObject _turret = default;
         [SerializeField] private GameObject _ghostlyInvasion = default;
 
+        [Header("Grappling Fields")]
+        private Vector2 _grapplePoint;
+        private Vector2 _grappleDistanceVector;
+        private bool _canGrapple = false;
+        
+
         // PROPERTIES
         public GameObject GhostlyInvasion { get => _ghostlyInvasion; }
         public StateMachine MovementSM { get => _movementSM; }
@@ -57,6 +64,9 @@ namespace PersonAndGhost.Person
         public bool IsMeditating { get; set; }
         public Vector2 MovementInput { get => _movementInput; }
         public bool Jumped { get => _jumped; }
+        public Vector2 GrapplePoint { get => _grapplePoint; set => _grapplePoint = value; }
+        public bool CanGrapple { get => _canGrapple; set => _canGrapple = value; }
+        public string CurrentState { get => _currentState; set => _currentState = value; }
 
         void Awake()
         {
@@ -71,12 +81,15 @@ namespace PersonAndGhost.Person
         {
             _movementSM = new StateMachine();
 
+            // TODO: Make this more flexible
             idle = new IdleState(this, _movementSM);
             movement = new MovementState(this, _movementSM);
             jumping = new JumpingState(this, _movementSM);
             falling = new FallingState(this, _movementSM);
             meditate = new MeditatingState(this, _movementSM);
             cling = new ClingState(this, _movementSM);
+            grappleAim = new GrappleAimState(this, _movementSM);
+
 
             _movementSM.Initialize(idle);
         }
@@ -104,17 +117,19 @@ namespace PersonAndGhost.Person
             _jumped = context.action.triggered;
         }
 
-         public void OnMeditation(InputAction.CallbackContext context)
-    {
-
-        bool triggered = context.action.triggered;
-
-        if (triggered)
+        public void OnMeditation(InputAction.CallbackContext context)
         {
-            IsMeditating = !IsMeditating;
-            _turret.SetActive(IsMeditating);
+
+            bool triggered = context.action.triggered;
+
+            //Not handle this behavior in here but in meditating state script.
+            if (triggered)
+            {
+                IsMeditating = !IsMeditating;
+                // TODO: Change this to a public method maybe to call it within meditation state
+                _turret.SetActive(IsMeditating);
+            }
         }
-    }
 
         public bool IsWalking()
         {
@@ -123,22 +138,19 @@ namespace PersonAndGhost.Person
 
         public void ResetVelocity()
         {
-            _playerRB.velocity = Vector2.zero;
-            _playerRB.angularVelocity = 0;
+            if (_playerRB)
+            {
+                _playerRB.velocity = Vector2.zero;
+                _playerRB.angularVelocity = 0;
+                _playerRB.gravityScale = 1;
+            }
+            
         }
 
         public void Move()
         {
             CheckCollision();
-            // TODO: Do we need this meditation check here?
-            if (IsMeditating)
-            {
-                _playerRB.velocity = new Vector2(0, _playerRB.velocity.y);
-            }
-            else
-            {
-                MovePlayer(_movementInput);
-            }
+            MovePlayer(_movementInput);
             // TODO: Do we need this ground check here?
             if (isOnGround)
             {
@@ -171,6 +183,44 @@ namespace PersonAndGhost.Person
             _playerRB.gravityScale = 1;
         }
 
+        public void SetGrapplePoint(Vector2 direction)
+        {
+
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction,
+                _config.grappleDistance, _groundLayer | _wallLayer);
+            if (hit)
+            {
+                _canGrapple = true;
+                _grapplePoint = hit.point;
+                _grappleDistanceVector = (_grapplePoint -
+                    (Vector2)transform.position).normalized;
+            }
+            else
+            {
+                _canGrapple = false;
+                
+            }
+        }
+
+        public void Grapple()
+        {
+            float grappleSpeed = Mathf.Clamp(
+                Vector2.Distance(transform.position, _grapplePoint),
+                _config.grappleSpeedMin, _config.grappleSpeedMax);
+
+            ResetVelocity();
+            _playerRB.gravityScale = 0;
+            _playerRB.AddForce(grappleSpeed * _config.grappleMultiplier
+                * _grappleDistanceVector);
+
+        }
+
+        public bool DidReachGrapplePoint()
+        {
+            return Vector2.Distance(transform.position, _grapplePoint)
+                < _config.reachedGrapplepointDistance;
+            
+        }
 
 
         private void MovePlayer(Vector2 movementInput)

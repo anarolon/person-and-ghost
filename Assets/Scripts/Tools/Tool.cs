@@ -107,15 +107,18 @@ namespace PersonAndGhost.Tools
 
         private void ZeroGravityEffect()
         {
-            toolRb.gravityScale = 0;
-            toolRb.velocity = Vector2.zero;
-            toolPolyCollider.enabled = false;
+            if (toolRb)
+            {
+                toolRb.gravityScale = 0;
+                toolRb.velocity = Vector2.zero;
+                toolPolyCollider.enabled = false;
+            }
         }
 
         private void AddGravityEffect()
         {
-            toolPolyCollider.enabled = true;
-            toolRb.gravityScale = 0.5f;
+            if(toolPolyCollider) toolPolyCollider.enabled = true;
+            if(toolRb) toolRb.gravityScale = 0.5f;
         }
     }
 }
