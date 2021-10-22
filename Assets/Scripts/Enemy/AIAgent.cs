@@ -10,8 +10,9 @@ public class AIAgent : MonoBehaviour
     public Rigidbody2D rb;    
     public bool isPossessed = false;
     public float xDirection = 1;
-    public bool _isJumping, _isGrounded;
+    public bool _isJumping, _isGrounded, _isActing;
     public bool CanJump => _isJumping && _isGrounded;
+    public bool CanAct => _isActing && isPossessed;
 
     public virtual void Start()
     {
@@ -31,7 +32,15 @@ public class AIAgent : MonoBehaviour
     }
 
     public virtual void movementBehaviour(Vector2 movementInput){
-        
+        if(movementInput == Vector2.left) {
+            transform.eulerAngles = new Vector2(0,180);
+        } else if(movementInput == Vector2.right) {
+            transform.eulerAngles = new Vector2(0,0);
+        }
+    }
+
+    public virtual void StolenAction(Vector2 direction = default) {
+
     }
 
     public virtual void OnCollisionEnter2D(Collision2D other) 
