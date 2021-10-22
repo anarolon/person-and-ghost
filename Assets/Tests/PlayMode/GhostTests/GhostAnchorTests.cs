@@ -1,44 +1,70 @@
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 using System.Collections;
 using NUnit.Framework;
 using PersonAndGhost.Ghost;
-using PersonAndGhost.Person;
 using PersonAndGhost.Utils;
 
 namespace PersonAndGhost.PlayMode.GhostTests
 {
-    public class GhostAnchorTests
+    public class GhostAnchorTests: InputTestFixture
     {
+        
         private GhostAnchor _ghostAnchorController;
         private Transform _anchorTransform;
         private Transform _ghostTransform;
 
+        private GameObject _personPrefab;
         private GameObject _cam;
+
+        // Keys
+        private KeyControl _meditationKey => Keyboard.current.eKey;
 
 
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            GameObject anchor = new GameObject("Anchor");
-            GameObject ghost = new GameObject(Utility.RIGHTPLAYERTAG);
+            GameObject groundPrefab
+                = Resources.Load<GameObject>(Utility.GROUNDPREFABPATH);
+            Transform groundTransform = Object.Instantiate(groundPrefab).transform;
+            groundTransform.localScale *= 2.5f;
+
+            //GameObject person = new GameObject("Anchor");
+            _personPrefab = Resources.Load<GameObject>(Utility.LEFTPLAYERPREFAB);
 
             // TODO: Fix Camera Setup
             CameraSetup();
+            
 
-            anchor.AddComponent<Rigidbody2D>().constraints = 
-                RigidbodyConstraints2D.FreezePositionY;
-            anchor.AddComponent<PersonMovement>();
+            yield return new EnterPlayMode();
+        }
+
+        private IEnumerator PlayModeSetUp()
+        {
+           
+            _anchorTransform = Utility.InstantiatePlayerWithKeyboard(
+                _personPrefab, default).gameObject.transform;
+            GameObject ghost = new GameObject(Utility.RIGHTPLAYERTAG);
+
+
+
+            //person.AddComponent<Rigidbody2D>().constraints = 
+            //    RigidbodyConstraints2D.FreezePositionY;
+            //person.AddComponent<PersonMovement>();
+
 
             SpriteRenderer sprRenderer = ghost.AddComponent<SpriteRenderer>();
             // TODO: Switch to using Addressables instead of Resources folder
             sprRenderer.sprite = Resources.Load<Sprite>("Sprites/Capsule");
 
-            _anchorTransform = anchor.transform;
+            //_anchorTransform = person.transform;
             _ghostTransform = ghost.transform;
             _ghostAnchorController = ghost.AddComponent<GhostAnchor>();
 
-            yield return new EnterPlayMode();
+            yield return new WaitForSeconds(1);
+
         }
 
         private void CameraSetup()
@@ -56,8 +82,8 @@ namespace PersonAndGhost.PlayMode.GhostTests
         [UnityTearDown]
         public IEnumerator TearDown()
         {
-            Object.Destroy(_ghostTransform.gameObject);
-            Object.Destroy(_anchorTransform.gameObject);
+            //Object.Destroy(_ghostTransform.gameObject);
+            //Object.Destroy(_anchorTransform.gameObject);
             Object.Destroy(_cam.gameObject);
 
             yield return new ExitPlayMode();
@@ -66,6 +92,7 @@ namespace PersonAndGhost.PlayMode.GhostTests
         [UnityTest]
         public IEnumerator AnchorGhostDefault()
         {
+            yield return PlayModeSetUp();
             float offset = _ghostAnchorController.AnchorRange + 5.0f;
 
             _anchorTransform.position = Vector2.one * offset;
@@ -91,34 +118,38 @@ namespace PersonAndGhost.PlayMode.GhostTests
         [UnityTest]
         public IEnumerator AnchorGhostMeditating()
         {
-            yield return new WaitForSeconds(0);
-            Assert.AreEqual(1, 1);
-            // TODO: Going to need to incorporate person meditation
-            /*
+            yield return PlayModeSetUp();
+
             float offset = _ghostAnchorController.AnchorRange + 2.0f;
+            Vector3 originalPos = _ghostTransform.position;
 
-            // TODO: Make Person meditate
-            _anchorTransform.position = Vector2.zero;
-            _ghostAnchorController.HasExpandedBoundary = true;
+            Press(_meditationKey);
+            yield return new WaitForFixedUpdate();
+            Release(_meditationKey);
+            Assert.AreEqual(1, 1);
 
-            // TODO: Check that Ghost can get past normal boundary
+            //Check that Ghost can get past normal boundary
             _ghostTransform.position = Vector2.one * offset;
             yield return new WaitForFixedUpdate();
             Vector2 boundPosition = _ghostAnchorController.CalculateAnchorBoundPosition();
+            Debug.Log("normal bound pos: " + boundPosition + "; current position: " + (Vector2)_ghostTransform.position);
             Assert.AreNotEqual((Vector2)_ghostTransform.position, boundPosition);
 
-            // TODO: test ghost moving it left
+            // right and up
+            _ghostTransform.position = originalPos;
             offset *= 5;
             _ghostTransform.position = Vector2.one * offset;
             yield return new WaitForFixedUpdate();
-            Vector2 correctedGhostPosition = _ghostAnchorController.CalculateAnchorBoundPosition();
+            Vector2 correctedGhostPosition = _ghostAnchorController.CalculateCameraBoundPosition();
+            Assert.AreEqual((Vector2)_ghostTransform.position, correctedGhostPosition);
+
+            // left and down
+            _ghostTransform.position = originalPos;
+            offset *= 5;
+            _ghostTransform.position = Vector2.one * -offset;
+            yield return new WaitForFixedUpdate();
             correctedGhostPosition = _ghostAnchorController.CalculateCameraBoundPosition();
             Assert.AreEqual((Vector2)_ghostTransform.position, correctedGhostPosition);
-            // TODO: test ghost moving it right
-            // TODO: test ghost moving it bottom
-            // TODO: test ghost moving it up
-
-            */
         }
     }
 }
