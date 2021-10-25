@@ -8,6 +8,7 @@ namespace PersonAndGhost
 {
     public class PlayerTracker : MonoBehaviour
     {
+        /*
         [Header("Game Objects to Track")]
         [SerializeField] GameObject _playerManager = default;
         private Camera _camera = default;
@@ -63,13 +64,9 @@ namespace PersonAndGhost
                     //Actions.OnPuzzleFail();
                 }
 
-                else if (!Utility.IsVisibleToCamera(_camera, _rightPlayer.position))
-                {
-                    // _rightPlayer.position = _leftPlayer.position;
-                }
-
                 yield return new WaitForFixedUpdate();
             }
         }
+        */
     }
 }
