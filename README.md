@@ -1,5 +1,13 @@
+# Person & Ghost
 ## What is Person & Ghost?
 Person & Ghost is a two-dimensional, story-driven, cooperative puzzle game in which two players are confined in a castle and must go down its floors while overcoming hazards and obstacles to reach its main entrance and escape. The game’s narrative will revolve around Person’s journey to bring Ghost, their once best friend, back to life. Person & Ghost will be a software product for audiences interested in co-op puzzle games with narrative exploring realistic personal and interpersonal topics such as grief, friendship, cooperation, reconciliation, and forgiveness. 
+
+## Backstory
+Person and their best friend part ways after a large disagreement. Several years of apathy and silence between the two are broken when Person receives news of their friend's death. The once close friend falls into a deep depression, struck with guilt and denial. Until one day, when Person desperately packed all they could and departed their village in a person-to-person journey to unearth the source of a rumor. This rumor, which they heard in the village tavern, entertained the existence of Barzakh, a mystical castle mentioned in several old fairytales. 
+
+After weeks of travel, Person’s long journey leads them to the home of an aging hermit. Although his knowledge of the subject was rather limited, the hermit agreed to aid Person’s cause. He recounted about a time in his younger years as an adventurer when he came across a curious abandoned castle which, upon exploring its entirety for objects to sell, only yielded a dusty parchment containing some sort of incantation. Having no discernable value, the parchment ended up stuffed among the hoarded tomes in his home. To Person’s fortune, the hermit was happy to entrust the parchment to them together with the location of the castle which was seemingly lost in time. 
+
+Upon reaching the deteriorating castle and climbing their way to the top, Person chants the incantation to bring their once best friend, now to be referred to as Ghost, back from the clutches of death. 
 
 ## Motivations
 The inception of this indie game project was heavily influenced by our passion for video games and their development. We decided to nurture and bring this idea to life as our capstone project since we wanted to create a product that leveraged our experience as software engineers, our creativity, and our knowledge of Unity’s Real-Time Development Platform. 
