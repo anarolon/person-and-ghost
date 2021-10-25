@@ -84,6 +84,22 @@ namespace PersonAndGhost.Ghost
             }
         }
 
+        public void OnStolenAction(InputAction.CallbackContext context)
+        {
+            if (context.action.triggered && IsPossessing)
+            {
+                _monster.StolenAction();
+            }
+        }
+
+        public void OnStolenActionDown(InputAction.CallbackContext context)
+        {
+            if (context.action.triggered && IsPossessing)
+            {
+                _monster.StolenAction(Vector2.down);
+            }
+        }
+
         private void UpdateMovement(Vector2 movement)
         {
             _movement = movement;

@@ -19,6 +19,7 @@ namespace PersonAndGhost.Utils
         public const string LEFTPLAYERPREFAB = "Prefabs/Person";
         public const string RIGHTPLAYERPREFABPATH = "Prefabs/Ghost";
         public const string BIRDPREFABPATH = "Prefabs/Bird";
+        public const string BUFFBOYPREFABPATH = "Prefabs/BuffBoy";
         public const string GROUNDPREFABPATH = "Prefabs/Ground";
         public const string WALLPREFABPATH = "Prefabs/Wall";
         public const string BREAK_PLATFORM_PREFAB_PATH = "Prefabs/BreakablePlatform";
@@ -37,6 +38,8 @@ namespace PersonAndGhost.Utils
         public const string PLAYERACTIONMAP = "Player";
         public const string MOVEMENTACTION = "Movement";
         public const string JUMPACTION = "Jump";
+        public const string STOLENACTION = "StolenAction";
+        public const string STOLENACTIONDOWN = "StolenActionDown";
         public const string TOOLACTIONACTIONNAME = "ToolAction";
         public const string TOOLPICKUPDROPACTIONNAME = "ToolPickup/Drop";
         public const string MEDITATEACTIONNAME = "Meditate";
@@ -144,6 +147,8 @@ namespace PersonAndGhost.Utils
             {
                     ghostPossesion.OnPossession,
                     ghostPossesion.OnMonsterJump,
+                    ghostPossesion.OnStolenAction,
+                    ghostPossesion.OnStolenActionDown,
                     ghostMovement.OnMove
             };
 
@@ -151,6 +156,8 @@ namespace PersonAndGhost.Utils
             {
                 POSSESSACTION,
                 JUMPACTION,
+                STOLENACTION,
+                STOLENACTIONDOWN,
                 MOVEMENTACTION
             };
 
