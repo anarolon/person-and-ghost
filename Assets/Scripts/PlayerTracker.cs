@@ -50,6 +50,7 @@ namespace PersonAndGhost
             StartCoroutine(TrackPlayersTransform());
         }
          
+        // TODO: Why is this a coroutine and not something we do in update function?
         private IEnumerator TrackPlayersTransform()
         {
             while (_playerManager)
@@ -57,9 +58,9 @@ namespace PersonAndGhost
 
                 if (!Utility.IsVisibleToCamera(_camera, _leftPlayer.position))
                 {
-                    Destroy(_playerManager);
+                    //Destroy(_playerManager);
 
-                    Actions.OnPuzzleFail();
+                    //Actions.OnPuzzleFail();
                 }
 
                 else if (!Utility.IsVisibleToCamera(_camera, _rightPlayer.position))
