@@ -8,10 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: Assets/Scenes/Level 1-1.unity
-    guid: f4e9470e50016a04ebce6d7502f79a80
   - enabled: 1
+    path: Assets/Scenes/Room 1-1.unity
+    guid: f4e9470e50016a04ebce6d7502f79a80
+  - enabled: 0
     path: Assets/Scenes/PlayGround.unity
     guid: d21566da4755a9b45acc64d799814115
   m_configObjects:
