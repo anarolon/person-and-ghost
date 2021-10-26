@@ -6,7 +6,7 @@ using PersonAndGhost.Utils;
 public class AIBird : AIAgent
 {
     public bool isCarrying = false;
-    private AIBird_Claws claws = default;
+    public AIBird_Claws claws = default;
 
     public override void Start()
     {

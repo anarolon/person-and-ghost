@@ -41,8 +41,7 @@ namespace PersonAndGhost.Utils
         public const string TOOLPICKUPDROPACTIONNAME = "ToolPickup/Drop";
         public const string MEDITATEACTIONNAME = "Meditate";
         public const string POSSESSACTION = "Possess";
-        public const string STOLENACTIONACTIONNAME = "StolenAction";
-
+        public const string STOLENACTION = "StolenAction";
 
         //To be visible, the object most be between 0 and 1 for both X and Y positions
         public static bool IsVisibleToCamera(Camera mainCamera, Vector3 objectPosition)
@@ -145,6 +144,7 @@ namespace PersonAndGhost.Utils
             {
                     ghostPossesion.OnPossession,
                     ghostPossesion.OnMonsterJump,
+                    ghostPossesion.OnStolenAction,
                     ghostMovement.OnMove
             };
 
@@ -152,6 +152,7 @@ namespace PersonAndGhost.Utils
             {
                 POSSESSACTION,
                 JUMPACTION,
+                STOLENACTION,
                 MOVEMENTACTION
             };
 

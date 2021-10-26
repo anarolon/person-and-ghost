@@ -19,7 +19,7 @@ public class AIBird_Claws : MonoBehaviour
 
     private void Update()
     {
-        // Continue carrying Person after Ghost picks them up 
+        // Continue carrying Person after Ghost picks them up
         // as long as conditions are met.
         if(isCarrying && bird.isPossessed && personNearby && person != null)
         {
@@ -30,7 +30,7 @@ public class AIBird_Claws : MonoBehaviour
         else if((!bird.isPossessed || !personNearby) && person != null)
         {
             Drop();
-            bird.isCarrying = false;            
+            bird.isCarrying = false;
         }
     }
 
