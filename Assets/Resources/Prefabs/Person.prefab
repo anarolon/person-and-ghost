@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3585288843904447370}
   - component: {fileID: 2857880635292040680}
   - component: {fileID: -2928174825496870827}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Person
   m_TagString: Person
   m_Icon: {fileID: 0}
@@ -267,6 +267,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 38f23bbd-521f-4086-b584-531606d9418a
     m_ActionName: Player/Shoot[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: de1cbc1c-a042-4df1-81a8-61d9eb6c1161
+    m_ActionName: Player/StolenAction[/Keyboard/slash]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 88855732-37ac-4ca9-9c17-4bd20f8a9548
+    m_ActionName: Player/StolenActionDown[/Keyboard/downArrow,/Keyboard/slash]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: KeyboardLeft
   m_DefaultActionMap: Player

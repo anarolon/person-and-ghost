@@ -35,7 +35,8 @@ namespace PersonAndGhost.Tools
 
             isPickedUp = false;
 
-            ZeroGravityEffect();
+            //ZeroGravityEffect();
+            AddGravityEffect();
         }
 
 

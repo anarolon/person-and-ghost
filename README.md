@@ -1,37 +1,55 @@
-## Welcome to GitHub Pages
+## What is Person & Ghost?
+Person & Ghost is a two-dimensional, story-driven, cooperative puzzle game in which two players are confined in a castle and must go down its floors while overcoming hazards and obstacles to reach its main entrance and escape. The game’s narrative will revolve around Person’s journey to bring Ghost, their once best friend, back to life. Person & Ghost will be a software product for audiences interested in co-op puzzle games with narrative exploring realistic personal and interpersonal topics such as grief, friendship, cooperation, reconciliation, and forgiveness. 
 
-You can use the [editor on GitHub](https://github.com/anarolon/person-and-ghost/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+## Motivations
+The inception of this indie game project was heavily influenced by our passion for video games and their development. We decided to nurture and bring this idea to life as our capstone project since we wanted to create a product that leveraged our experience as software engineers, our creativity, and our knowledge of Unity’s Real-Time Development Platform. 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Goals
+Our main goal is create a user-friendly cooperative video game which delivers an overall experience that friends will be able to not only enjoy together, but also bond over. Our secondary goal, whose successful completion is derived from that of our main goal, is to create a product capable of inspiring aspiring and established game developers in Puerto Rico, thus contributing to the growth of the local game development industry and its market.
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## About us
 
-```markdown
-Syntax highlighted code block
+### Michael Delgado 
 
-# Header 1
-## Header 2
-### Header 3
+- Role: Project Manager & Software Developer 
 
-- Bulleted
-- List
+- About me: Senior Software Engineer at UPRM. I loves to play video games with my friends and family.
 
-1. Numbered
-2. List
+- Email: michael.delgado1@upr.edu 
 
-**Bold** and _Italic_ and `Code` text
+- LinkedIn: https://www.linkedin.com/in/michael-delgado-337127192/  
 
-[Link](url) and ![Image](src)
-```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### Yeniel Díaz
 
-### Jekyll Themes
+- Role: Project Manager & Software Developer 
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/anarolon/person-and-ghost/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+- About me: Software Engineering undergraduate in UPRM. Experienced in working with Unity, Web Scraping, Python, SQL, Java, C#, JavaScript, HTML, CSS. My hobbies include Reading, Drawing, Volleyball and Fighting Games.
 
-### Support or Contact
+- Email: yenieljosediaz@gmail.com 
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+- LinkedIn: https://www.linkedin.com/in/yeniel-diaz-a9652a16b/ 
+
+
+### Jean Rodríguez 
+
+- Role: Narrative Designer & Software Developer 
+
+- About me: Senior Software Engineer at UPRM. I love reading, learning, writing, creating, innovating, watching films and television series, and playing video games and tabletop role-playing games. I have been an avid gamer ever from the moment I could hold a Gameboy Advance and my favorite video game genre is role-playing, specifically Japanese role-playing games (JRPGs). 
+
+- Email: eng.jeanrodriguez@gmail.com 
+
+- LinkedIn: https://www.linkedin.com/in/jean-rodriguez-7990/  
+
+
+### Chaliana Rolón Ojeda 
+
+- Role: Project Manager & Software Developer 
+
+- About me: Senior Software Engineer at UPRM. 
+
+- Email: chaliana.rolon@upr.edu 
+
+- LinkedIn: https://www.linkedin.com/in/chaliana-rolon-ojeda/ 
+
