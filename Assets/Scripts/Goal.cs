@@ -27,7 +27,7 @@ namespace PersonAndGhost
 
             if (_isCollidingWithLeftPlayer && _isCollidingWithRightPlayer)
             {
-                Actions.OnPuzzleWin();
+                Actions.OnRoomStateChange(true);
                 Destroy(this.gameObject);
             }
         }
