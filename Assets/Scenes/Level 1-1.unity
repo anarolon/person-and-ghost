@@ -699,7 +699,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 507860191}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.556591, y: -4.07, z: -10}
+  m_LocalPosition: {x: -6.688889, y: -4.07, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1986045201}
@@ -836,7 +836,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.44805717, y: -1.0014853, z: -10}
+  m_LocalPosition: {x: -1.7710385, y: -1.0014853, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2185,8 +2185,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e1859e87831cb4099ef796c60410b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _winningMessage: You Win!!!
-  _losingMessage: You Lose!!!
+  timeToWaitBeforeLoadingScene: 2
+  _winningRoomMessage: Room Won!!!
+  _losingRoomMessage: Room Lost!!!
+  _winningFloorMessage: Floor Won!!!
   _gameResultTextBox: {fileID: 127427613}
   _collectableTextBox: {fileID: 488835374}
 --- !u!4 &1916133426
