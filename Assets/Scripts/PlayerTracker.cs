@@ -8,6 +8,7 @@ namespace PersonAndGhost
 {
     public class PlayerTracker : MonoBehaviour
     {
+        /*
         [Header("Game Objects to Track")]
         [SerializeField] GameObject _playerManager = default;
         private Camera _camera = default;
@@ -50,6 +51,7 @@ namespace PersonAndGhost
             StartCoroutine(TrackPlayersTransform());
         }
          
+        // TODO: Why is this a coroutine and not something we do in update function?
         private IEnumerator TrackPlayersTransform()
         {
             while (_playerManager)
@@ -57,9 +59,9 @@ namespace PersonAndGhost
 
                 if (!Utility.IsVisibleToCamera(_camera, _leftPlayer.position))
                 {
-                    Destroy(_playerManager);
+                    //Destroy(_playerManager);
 
-                    Actions.OnPuzzleFail();
+                    //Actions.OnRoomStateChange(false);
                 }
 
                 else if (!Utility.IsVisibleToCamera(_camera, _rightPlayer.position))
@@ -70,5 +72,6 @@ namespace PersonAndGhost
                 yield return new WaitForFixedUpdate();
             }
         }
+        */
     }
 }

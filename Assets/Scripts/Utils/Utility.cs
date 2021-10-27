@@ -3,6 +3,8 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 using PersonAndGhost.Ghost;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 namespace PersonAndGhost.Utils
 {
@@ -195,6 +197,33 @@ namespace PersonAndGhost.Utils
                 = NamesListToEventList(input.currentActionMap, actionNames);
 
             AddListenerToActionEventList(input, unityEvents);
+        }
+
+        public static IEnumerator SceneHandler(bool hasWon, float timeToWaitBeforeLoadingScene)
+        {
+            int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+            yield return new WaitForSecondsRealtime(timeToWaitBeforeLoadingScene);
+
+            if (hasWon)
+            {
+                if (sceneIndex + 1 < SceneManager.sceneCountInBuildSettings)
+                {
+                    Time.timeScale = 1;
+
+                    SceneManager.LoadSceneAsync(sceneIndex + 1);
+                }
+
+                else
+                {
+                    Actions.OnFloorStateChange(true);
+                }
+            }
+
+            else
+            {
+                SceneManager.LoadSceneAsync(sceneIndex);
+            }
         }
 
         private static Keyboard GetKeyboard()
