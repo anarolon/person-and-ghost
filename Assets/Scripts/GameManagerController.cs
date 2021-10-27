@@ -1,73 +1,92 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using PersonAndGhost.Utils;
 
-public class GameManagerController : MonoBehaviour
+namespace PersonAndGhost
 {
-    [Header("User Interface Fields")]
-    [SerializeField] private string _winningMessage = "You Win!!!";
-    [SerializeField] private string _losingMessage = "You Lose!!!";
-    [SerializeField] private Text _gameResultTextBox = default;
-    [SerializeField] private Text _collectableTextBox = default;
-
-
-    private void Start() 
+    public class GameManagerController : MonoBehaviour
     {
-        if (_gameResultTextBox == null || _collectableTextBox == null)
-        {
-            Canvas uiCanvas = FindObjectOfType<Canvas>();
-            Text[] uiTextBoxes = uiCanvas.GetComponentsInChildren<Text>();
+        public float timeToWaitBeforeLoadingScene = 2;
 
-            for (int i = 0; i < uiTextBoxes.Length; i++)
+        [Header("User Interface Fields")]
+        [SerializeField] private string _winningRoomMessage = "Room Won!!!";
+        [SerializeField] private string _losingRoomMessage = "Room Lost!!!";
+        [SerializeField] private string _winningFloorMessage = "Floor Won!!!";
+        [SerializeField] private Text _gameResultTextBox = default;
+        [SerializeField] private Text _collectableTextBox = default;
+
+        private void Start()
+        {
+            if (_gameResultTextBox == null || _collectableTextBox == null)
             {
-                if (uiTextBoxes[i].name == "GameStateText")
+                Canvas uiCanvas = FindObjectOfType<Canvas>();
+                Text[] uiTextBoxes = uiCanvas.GetComponentsInChildren<Text>();
+
+                for (int i = 0; i < uiTextBoxes.Length; i++)
                 {
-                    _gameResultTextBox ??= uiTextBoxes[i];
+                    if (uiTextBoxes[i].name == "GameStateText")
+                    {
+                        _gameResultTextBox ??= uiTextBoxes[i];
+                    }
+                    else if (uiTextBoxes[i].name == "CollectablesAmountText")
+                    {
+                        _collectableTextBox ??= uiTextBoxes[i];
+                    }
                 }
-                else if (uiTextBoxes[i].name == "CollectablesAmountText")
-                {
-                    _collectableTextBox ??= uiTextBoxes[i];
-                }
+
+                Debug.LogWarning("Either Game Result Text Box or Collectable Text Box are " +
+                    "null.");
+            }
+        }
+
+        private void OnEnable()
+        {
+            Actions.OnRoomStateChange += HandleRoomStateChange;
+            Actions.OnFloorStateChange += HandleFloorStateChange;
+            Actions.OnCollectableCollected += UpdateCollectableCount;
+        }
+        
+        private void OnDisable()
+        {
+            Actions.OnRoomStateChange -= HandleRoomStateChange;
+            Actions.OnFloorStateChange -= HandleFloorStateChange;
+            Actions.OnCollectableCollected -= UpdateCollectableCount;
+        }
+
+        private void HandleRoomStateChange(bool hasWon)
+        {
+            if (hasWon)
+            {
+                //Debug.Log("Players Won Room");
+
+                _gameResultTextBox.text = _winningRoomMessage;
             }
 
-            Debug.LogWarning("Either Game Result Text Box or Collectable Text Box are " +
-                "null.");
+            else
+            {
+                //Debug.Log("Players Lost Room");
+
+                _gameResultTextBox.text = _losingRoomMessage;
+            }
+
+            StartCoroutine(Utility.SceneHandler(hasWon, timeToWaitBeforeLoadingScene));
         }
-    }
 
-    private void OnEnable()
-    {
-        Actions.OnRoomStateChange += HandleRoomStateChange;
-        Actions.OnCollectableCollected += UpdateCollectableCount;
-    }
-
-    private void OnDisable()
-    {
-        Actions.OnRoomStateChange -= HandleRoomStateChange;
-        Actions.OnCollectableCollected -= UpdateCollectableCount;
-    }
-
-    private void HandleRoomStateChange(bool hasWon)
-    {
-        if (hasWon)
+        private void HandleFloorStateChange(bool hasWon)
         {
-            //Debug.Log("Players Won Room");
+            if (hasWon)
+            {
+                //Debug.Log("Players Won Floor");
 
-            _gameResultTextBox.text = _winningMessage;
+                _gameResultTextBox.text = _winningFloorMessage;
+
+                Time.timeScale = 0;
+            }
         }
 
-        else
+        private void UpdateCollectableCount(int amount)
         {
-            //Debug.Log("Players Lost Room");
-
-            _gameResultTextBox.text = _losingMessage;
+            _collectableTextBox.text = amount.ToString();
         }
-    }
-
-    private void UpdateCollectableCount(int amount)
-    {
-        _collectableTextBox.text = amount.ToString();
     }
 }
