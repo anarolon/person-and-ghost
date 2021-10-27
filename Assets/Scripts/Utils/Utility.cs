@@ -20,12 +20,14 @@ namespace PersonAndGhost.Utils
         public const string RIGHTPLAYERPREFABPATH = "Prefabs/Ghost";
         public const string BIRDPREFABPATH = "Prefabs/Bird";
         public const string CLAWEDBIRDPREFABPATH = "Prefabs/Bird (Clawed)";
+        public const string BUFFBOYPREFABPATH = "Prefabs/BuffBoy";
         public const string GROUNDPREFABPATH = "Prefabs/Ground";
         public const string WALLPREFABPATH = "Prefabs/Wall";
         public const string BREAK_PLATFORM_PREFAB_PATH = "Prefabs/BreakablePlatform";
         public const string BREAK_WALL_PREFAB_PATH = "Prefabs/BreakableWall";
         public const string LINEPREFABPATH = "Prefabs/Line";
         public const string CLIMBINGGAUNTLETPREFABPATH = "Prefabs/Climbing Gauntlet";
+        public const string GRAPPLINGHOOKPREFABPATH = "Prefabs/Grappling Hook";
         public const string HATCHDOORPREFAB = "Prefabs/PressurePlateDoor_Hatch";
         public const string NORMALDOORPREFAB = "Prefabs/PressurePlateDoor_Normal";
         public const string CAPSULESPRITE = "Sprites/Capsule";
@@ -37,11 +39,12 @@ namespace PersonAndGhost.Utils
         public const string PLAYERACTIONMAP = "Player";
         public const string MOVEMENTACTION = "Movement";
         public const string JUMPACTION = "Jump";
+        public const string STOLENACTION = "StolenAction";
+        public const string STOLENACTIONDOWN = "StolenActionDown";
         public const string TOOLACTIONACTIONNAME = "ToolAction";
         public const string TOOLPICKUPDROPACTIONNAME = "ToolPickup/Drop";
         public const string MEDITATEACTIONNAME = "Meditate";
         public const string POSSESSACTION = "Possess";
-        public const string STOLENACTION = "StolenAction";
 
         //To be visible, the object most be between 0 and 1 for both X and Y positions
         public static bool IsVisibleToCamera(Camera mainCamera, Vector3 objectPosition)
@@ -145,6 +148,7 @@ namespace PersonAndGhost.Utils
                     ghostPossesion.OnPossession,
                     ghostPossesion.OnMonsterJump,
                     ghostPossesion.OnStolenAction,
+                    ghostPossesion.OnStolenActionDown,
                     ghostMovement.OnMove
             };
 
@@ -153,6 +157,7 @@ namespace PersonAndGhost.Utils
                 POSSESSACTION,
                 JUMPACTION,
                 STOLENACTION,
+                STOLENACTIONDOWN,
                 MOVEMENTACTION
             };
 

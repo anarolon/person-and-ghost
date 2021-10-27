@@ -4,10 +4,14 @@ using UnityEngine;
 
 namespace PersonAndGhost.Tools
 {
+    // TDOO: Require Spring joint 2d component
     public class GrapplingHook : Tool
     {
         private PersonMovement _obtainerController = default;
         private StateMachine _obtainerStateMachine = default;
+
+        [SerializeField] private LayerMask _wallLayer;
+
 
         protected override void ToolAction(GameObject obtainer)
         {
@@ -15,8 +19,7 @@ namespace PersonAndGhost.Tools
 
             if (_obtainerController != null && _obtainerStateMachine != null)
             {
-                // TODO: Do Grappling Hook Stuff
-                Debug.Log("Grapple!");
+                _obtainerStateMachine.ChangeState(_obtainerController.grappleAim);
             }
         }
 

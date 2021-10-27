@@ -220,6 +220,14 @@ MonoBehaviour:
     m_ActionId: 732b94ea-54c0-4347-a406-cd0951d773e2
     m_ActionName: Player/Possess[/Keyboard/numpadEnter]
   - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 83a7bb66-bcd4-446c-bf80-b6d114d82fb8
+    m_ActionName: Player/Aim[/Keyboard/d,/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 38f23bbd-521f-4086-b584-531606d9418a
+    m_ActionName: Player/Shoot[/Keyboard/space]
+  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: -7710059561463754582}
         m_TargetAssemblyTypeName: PersonAndGhost.Ghost.GhostPossession, Scripts
@@ -233,8 +241,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: c5b555c7-7c0a-4263-bb1f-aa154f27641b
+    m_ActionId: de1cbc1c-a042-4df1-81a8-61d9eb6c1161
     m_ActionName: Player/StolenAction[/Keyboard/slash]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -7710059561463754582}
+        m_TargetAssemblyTypeName: PersonAndGhost.Ghost.GhostPossession, Scripts
+        m_MethodName: OnStolenActionDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 88855732-37ac-4ca9-9c17-4bd20f8a9548
+    m_ActionName: Player/StolenActionDown[/Keyboard/downArrow,/Keyboard/slash]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: KeyboardRight
   m_DefaultActionMap: Player

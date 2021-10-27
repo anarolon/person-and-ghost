@@ -72,7 +72,15 @@
                 {
                     "name": "StolenAction",
                     "type": "Button",
-                    "id": "c5b555c7-7c0a-4263-bb1f-aa154f27641b",
+                    "id": "de1cbc1c-a042-4df1-81a8-61d9eb6c1161",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "StolenActionDown",
+                    "type": "Button",
+                    "id": "88855732-37ac-4ca9-9c17-4bd20f8a9548",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -334,7 +342,7 @@
                 },
                 {
                     "name": "",
-                    "id": "0029794c-719d-404b-abaa-42b5f4987b0d",
+                    "id": "f38522e9-06d7-4c91-8f1a-caf4084bbc53",
                     "path": "<Keyboard>/slash",
                     "interactions": "",
                     "processors": "",
@@ -342,6 +350,40 @@
                     "action": "StolenAction",
                     "isComposite": false,
                     "isPartOfComposite": false
+
+                },
+                {
+                    "name": "Button With One Modifier",
+                    "id": "dd96363d-0ce1-40ba-8c60-fbde53b494eb",
+                    "path": "ButtonWithOneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StolenActionDown",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "21ade287-4e5e-48a5-841e-6a7fe6b05b1e",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardRight",
+                    "action": "StolenActionDown",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "button",
+                    "id": "46211de9-840e-4a68-9f83-8420ff925900",
+                    "path": "<Keyboard>/slash",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardRight",
+                    "action": "StolenActionDown",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
