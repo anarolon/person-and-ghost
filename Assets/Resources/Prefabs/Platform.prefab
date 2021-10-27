@@ -122,7 +122,7 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4633571787521614256}
+  m_GameObject: {fileID: 8279424919658274855}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 5167739571822650626}
   m_Layer: 3
   m_Name: Platform Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
