@@ -253,6 +253,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "b79aafce-9c06-448b-a3cb-d172fbad6392",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardRight",
+                    "action": "Possess",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "1D Axis",
                     "id": "778008ee-d66c-4130-ad49-db308dd7c1bf",
                     "path": "1DAxis",
@@ -339,6 +350,7 @@
                     "action": "StolenAction",
                     "isComposite": false,
                     "isPartOfComposite": false
+
                 },
                 {
                     "name": "Button With One Modifier",

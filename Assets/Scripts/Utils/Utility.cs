@@ -21,6 +21,7 @@ namespace PersonAndGhost.Utils
         public const string LEFTPLAYERPREFAB = "Prefabs/Person";
         public const string RIGHTPLAYERPREFABPATH = "Prefabs/Ghost";
         public const string BIRDPREFABPATH = "Prefabs/Bird";
+        public const string CLAWEDBIRDPREFABPATH = "Prefabs/Bird (Clawed)";
         public const string BUFFBOYPREFABPATH = "Prefabs/BuffBoy";
         public const string GROUNDPREFABPATH = "Prefabs/Ground";
         public const string WALLPREFABPATH = "Prefabs/Wall";
@@ -46,7 +47,6 @@ namespace PersonAndGhost.Utils
         public const string TOOLPICKUPDROPACTIONNAME = "ToolPickup/Drop";
         public const string MEDITATEACTIONNAME = "Meditate";
         public const string POSSESSACTION = "Possess";
-
 
         //To be visible, the object most be between 0 and 1 for both X and Y positions
         public static bool IsVisibleToCamera(Camera mainCamera, Vector3 objectPosition)

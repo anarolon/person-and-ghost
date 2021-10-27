@@ -45,7 +45,7 @@ namespace PersonAndGhost
             Actions.OnFloorStateChange += HandleFloorStateChange;
             Actions.OnCollectableCollected += UpdateCollectableCount;
         }
-
+        
         private void OnDisable()
         {
             Actions.OnRoomStateChange -= HandleRoomStateChange;

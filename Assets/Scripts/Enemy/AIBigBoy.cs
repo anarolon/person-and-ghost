@@ -20,12 +20,16 @@ public class AIBigBoy : AIAgent
     public override IEnumerator StateLoop()
     {
         yield return new WaitUntil(() => stateMachine.currentState == initialState);
-        while(stateMachine.currentState != AIStateId.Possessed) {
+        while(stateMachine.currentState != AIStateId.Possessed) 
+        {
             this.stateMachine.ChangeState(AIStateId.Idle);
             yield return new WaitForSeconds(this.config._doIdleFrequency);
             this.xDirection *= -1;
-            this.stateMachine.ChangeState(AIStateId.MoveX);
-            yield return new WaitForSeconds(this.config._changeDirectionFrequency);
+            if (stateMachine.currentState != AIStateId.Possessed)
+            {
+                this.stateMachine.ChangeState(AIStateId.MoveX);
+                yield return new WaitForSeconds(this.config._changeDirectionFrequency);
+            }
         }
     }
 
