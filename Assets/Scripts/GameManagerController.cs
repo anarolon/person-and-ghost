@@ -39,31 +39,31 @@ public class GameManagerController : MonoBehaviour
 
     private void OnEnable()
     {
-        Actions.OnPuzzleWin += HandlePuzzleWin;
-        Actions.OnPuzzleFail += HandlePuzzleFail;
+        Actions.OnRoomStateChange += HandleRoomStateChange;
         Actions.OnCollectableCollected += UpdateCollectableCount;
     }
 
     private void OnDisable()
     {
-        Actions.OnPuzzleWin -= HandlePuzzleWin;
-        Actions.OnPuzzleFail -= HandlePuzzleFail;
+        Actions.OnRoomStateChange -= HandleRoomStateChange;
         Actions.OnCollectableCollected -= UpdateCollectableCount;
     }
 
-    private void HandlePuzzleWin()
+    private void HandleRoomStateChange(bool hasWon)
     {
-        Debug.Log("Player Won");
-        _gameResultTextBox.text = _winningMessage;
+        if (hasWon)
+        {
+            //Debug.Log("Players Won Room");
 
-        Time.timeScale = 0;
-    }
+            _gameResultTextBox.text = _winningMessage;
+        }
 
-    private void HandlePuzzleFail()
-    {
-        Debug.Log("Player Lost");
-        _gameResultTextBox.text = _losingMessage;
-        
+        else
+        {
+            //Debug.Log("Players Lost Room");
+
+            _gameResultTextBox.text = _losingMessage;
+        }
     }
 
     private void UpdateCollectableCount(int amount)

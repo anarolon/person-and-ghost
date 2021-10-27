@@ -59,7 +59,7 @@ namespace PersonAndGhost
                 {
                     Destroy(_playerManager);
 
-                    Actions.OnPuzzleFail();
+                    Actions.OnRoomStateChange(false);
                 }
 
                 else if (!Utility.IsVisibleToCamera(_camera, _rightPlayer.position))
