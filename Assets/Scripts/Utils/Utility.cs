@@ -209,6 +209,8 @@ namespace PersonAndGhost.Utils
             {
                 if (sceneIndex + 1 < SceneManager.sceneCountInBuildSettings)
                 {
+                    Time.timeScale = 1;
+
                     SceneManager.LoadSceneAsync(sceneIndex + 1);
                 }
 

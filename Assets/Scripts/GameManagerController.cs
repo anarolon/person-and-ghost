@@ -60,6 +60,8 @@ namespace PersonAndGhost
                 //Debug.Log("Players Won Room");
 
                 _gameResultTextBox.text = _winningRoomMessage;
+
+                Time.timeScale = 0;
             }
 
             else
