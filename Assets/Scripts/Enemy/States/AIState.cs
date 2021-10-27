@@ -7,7 +7,8 @@ public enum AIStateId {
     MoveX,
     MoveY,
     Jump,
-    Possessed
+    Possessed,
+    Action
 }
 
 public interface AIState

@@ -20,7 +20,8 @@ public class AIJumpState : AIState
 
     public void Update(AIAgent agent)
     {
-        if(agent.CanJump){
+        if(agent.CanJump)
+        {
             agent.rb.drag = agent.config._airLinearDrag;
             agent.rb.velocity = new Vector2(agent.xDirection * agent.config._maxMoveSpeed, 0f);
             agent.rb.AddForce(Vector2.up * agent.config._jumpForce, ForceMode2D.Impulse);
