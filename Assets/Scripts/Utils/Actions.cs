@@ -15,5 +15,6 @@ namespace PersonAndGhost.Utils
         public static Action<bool> OnPossessionTriggered;
 
         public static Action<bool> OnRoomStateChange;
+        public static Action<bool> OnFloorStateChange;
     }
 }
