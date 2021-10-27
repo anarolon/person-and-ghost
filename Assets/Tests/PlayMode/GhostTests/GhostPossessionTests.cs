@@ -19,7 +19,7 @@ namespace PersonAndGhost.PlayMode.GhostTests
 
         private GameObject _cam;
 
-        private const string BIRDNAME = "Bird(Clone)";
+        private const string BIRDNAME = "Bird (Clawed)(Clone)";
 
         [UnitySetUp]
         public IEnumerator SetUp()
@@ -32,7 +32,7 @@ namespace PersonAndGhost.PlayMode.GhostTests
             // TODO: FIx Camera Setup
             CameraSetup();
 
-            GameObject monstePrefab = Resources.Load<GameObject>(Utility.BIRDPREFABPATH);
+            GameObject monstePrefab = Resources.Load<GameObject>(Utility.CLAWEDBIRDPREFABPATH);
             _monster = Object.Instantiate(monstePrefab).GetComponent<AIAgent>();
             _monsterTransform = _monster.transform;
 
