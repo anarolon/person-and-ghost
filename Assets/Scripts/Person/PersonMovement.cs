@@ -14,6 +14,7 @@ namespace PersonAndGhost.Person
         public FallingState falling;
         public MeditatingState meditate;
         public ClingState cling;
+        public CarriedState carried;
         public GrappleAimState grappleAim;
 
         [Tooltip("Currently only being used to visualize current player state")]
@@ -62,6 +63,7 @@ namespace PersonAndGhost.Person
         public bool IsOnGround { get => isOnGround; }
         public bool IsTouchingWall { get => isTouchingWall; }
         public bool IsMeditating { get; set; }
+        public bool IsBeingCarried { get; set; }
         public Vector2 MovementInput { get => _movementInput; }
         public bool Jumped { get => _jumped; }
         public Vector2 GrapplePoint { get => _grapplePoint; set => _grapplePoint = value; }
@@ -88,8 +90,8 @@ namespace PersonAndGhost.Person
             falling = new FallingState(this, _movementSM);
             meditate = new MeditatingState(this, _movementSM);
             cling = new ClingState(this, _movementSM);
+            carried = new CarriedState(this, _movementSM);
             grappleAim = new GrappleAimState(this, _movementSM);
-
 
             _movementSM.Initialize(idle);
         }
@@ -151,6 +153,7 @@ namespace PersonAndGhost.Person
         {
             CheckCollision();
             MovePlayer(_movementInput);
+
             // TODO: Do we need this ground check here?
             if (isOnGround)
             {
