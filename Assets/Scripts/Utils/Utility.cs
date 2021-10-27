@@ -3,6 +3,8 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 using PersonAndGhost.Ghost;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 namespace PersonAndGhost.Utils
 {
@@ -19,6 +21,7 @@ namespace PersonAndGhost.Utils
         public const string LEFTPLAYERPREFAB = "Prefabs/Person";
         public const string RIGHTPLAYERPREFABPATH = "Prefabs/Ghost";
         public const string BIRDPREFABPATH = "Prefabs/Bird";
+        public const string CLAWEDBIRDPREFABPATH = "Prefabs/Bird (Clawed)";
         public const string BUFFBOYPREFABPATH = "Prefabs/BuffBoy";
         public const string GROUNDPREFABPATH = "Prefabs/Ground";
         public const string WALLPREFABPATH = "Prefabs/Wall";
@@ -44,7 +47,6 @@ namespace PersonAndGhost.Utils
         public const string TOOLPICKUPDROPACTIONNAME = "ToolPickup/Drop";
         public const string MEDITATEACTIONNAME = "Meditate";
         public const string POSSESSACTION = "Possess";
-
 
         //To be visible, the object most be between 0 and 1 for both X and Y positions
         public static bool IsVisibleToCamera(Camera mainCamera, Vector3 objectPosition)
@@ -195,6 +197,33 @@ namespace PersonAndGhost.Utils
                 = NamesListToEventList(input.currentActionMap, actionNames);
 
             AddListenerToActionEventList(input, unityEvents);
+        }
+
+        public static IEnumerator SceneHandler(bool hasWon, float timeToWaitBeforeLoadingScene)
+        {
+            int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+            yield return new WaitForSecondsRealtime(timeToWaitBeforeLoadingScene);
+
+            if (hasWon)
+            {
+                if (sceneIndex + 1 < SceneManager.sceneCountInBuildSettings)
+                {
+                    Time.timeScale = 1;
+
+                    SceneManager.LoadSceneAsync(sceneIndex + 1);
+                }
+
+                else
+                {
+                    Actions.OnFloorStateChange(true);
+                }
+            }
+
+            else
+            {
+                SceneManager.LoadSceneAsync(sceneIndex);
+            }
         }
 
         private static Keyboard GetKeyboard()

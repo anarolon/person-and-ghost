@@ -54,7 +54,7 @@ namespace PersonAndGhost.Ghost
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.CompareTag(Utility.MONSTERTAG))
+            if (collision.gameObject.CompareTag(Utility.MONSTERTAG) && !IsPossessing)
             {
                 _nearbyMonster = collision.gameObject.GetComponent<AIAgent>();
             }
@@ -62,7 +62,7 @@ namespace PersonAndGhost.Ghost
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject.CompareTag(Utility.MONSTERTAG))
+            if (collision.gameObject.CompareTag(Utility.MONSTERTAG) && !IsPossessing)
             {
                 _nearbyMonster = null;
             }
@@ -82,13 +82,14 @@ namespace PersonAndGhost.Ghost
             {
                 _monster._isJumping = context.action.triggered;
             }
-        }
+        }   
 
         public void OnStolenAction(InputAction.CallbackContext context)
         {
             if (context.action.triggered && IsPossessing)
             {
                 _monster.StolenAction();
+                _monster._isActing = true;
             }
         }
 
@@ -111,6 +112,7 @@ namespace PersonAndGhost.Ghost
             gameObject.transform.position = _monster.transform.position;
         }
 
+
         public void ChangePossession()
         {
             IsPossessing = !IsPossessing;
@@ -125,13 +127,15 @@ namespace PersonAndGhost.Ghost
                 // Do nothing
             }
 
+            // Possess the nearby creature.
             if (IsPossessing)
             {
                 _monster = _nearbyMonster;
                 _monster.stateMachine.ChangeState(AIStateId.Possessed);
                 _renderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
             }
-
+            
+            // Release the possessed creature.
             else
             {
                 _monster.stateMachine.ChangeState(_monster.initialState);

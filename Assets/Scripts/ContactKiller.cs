@@ -15,7 +15,7 @@ namespace PersonAndGhost
             {
                 Destroy(gameObjectToDestroy.transform.parent.gameObject);
 
-                Actions.OnPuzzleFail();
+                Actions.OnRoomStateChange(false);
             }
 
             else if (gameObjectToDestroy.CompareTag(Utility.MONSTERTAG))
