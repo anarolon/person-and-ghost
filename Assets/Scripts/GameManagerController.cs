@@ -120,10 +120,10 @@ namespace PersonAndGhost
                 Debug.Log(solvedRoomCount);
                 if (solvedRoomCount % 3 == 0)
                 {
+                    Debug.Log("Floor Complete");
                     Actions.OnFloorStateChange(hasWon);
                 }
 
-                // TODO: Differentiate between going to the next room and going to the next floor
                 if (sceneIndex + 1 < SceneManager.sceneCountInBuildSettings)
                 {
 
@@ -131,8 +131,6 @@ namespace PersonAndGhost
 
                     SceneManager.LoadSceneAsync(sceneIndex + 1);
                 }
-
-                // TODO: Close game on last scene
                 else
                 {
                     Application.Quit();
@@ -141,6 +139,7 @@ namespace PersonAndGhost
 
             else
             {
+                Debug.Log("Game Over");
                 SceneManager.LoadSceneAsync(sceneIndex);
             }
         }
