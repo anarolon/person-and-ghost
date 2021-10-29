@@ -15,6 +15,7 @@ TagManager:
   - GhostlyInvasion
   - Shot
   - Spirit
+  - Movable
   layers:
   - Default
   - TransparentFX

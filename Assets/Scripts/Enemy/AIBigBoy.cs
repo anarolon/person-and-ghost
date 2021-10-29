@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class AIBigBoy : AIAgent
 {
-    
+    [SerializeField] private Transform _grabPoint;
+    [SerializeField] private LayerMask _interactableLayer;
+    [SerializeField] private float movableDistance = 0.5f;
+    GameObject movableItem;
+    public bool isGrabbing = false;
+
     public override void Start()
-    {
+    { 
         base.Start();
         this.stateMachine.RegisterState(new AIMoveXState());
         StartCoroutine(this.StateLoop());
@@ -50,5 +55,39 @@ public class AIBigBoy : AIAgent
         }
 
         this.rb.drag = this.config._linearDrag;
+    }
+
+    private IEnumerator Grab() 
+    {   
+        Physics2D.queriesStartInColliders = false;
+        // Might need to replace transform.right with (Vector2.right * transform.localScale.x)
+        // once directions are fixed for Ghost (?) 
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, movableDistance, _interactableLayer);
+        
+        if (hit.collider != null && hit.collider.gameObject.CompareTag("Movable") ) 
+        {
+            movableItem = hit.collider.gameObject;
+            movableItem.GetComponent<FixedJoint2D>().enabled = true;
+            movableItem.GetComponent<Movable>().isBeingPushed = true;
+            movableItem.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
+            isGrabbing = true;
+        }
+        
+        yield return null;
+    }
+
+    public override void StolenAction(Vector2 direction = default) 
+    {
+        if(isGrabbing)
+        {
+            StopCoroutine(Grab());
+            movableItem.GetComponent<FixedJoint2D>().enabled = false;
+            movableItem.GetComponent<Movable>().isBeingPushed = false;
+            isGrabbing = false;
+        }
+        else
+        {
+            StartCoroutine(Grab());
+        }
     }
 }
