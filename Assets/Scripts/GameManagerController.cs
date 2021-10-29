@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using PersonAndGhost.Utils;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 namespace PersonAndGhost
 {
@@ -19,6 +20,9 @@ namespace PersonAndGhost
 
         public static GameManagerController instance = null;
         public static int solvedRoomCount = 0;
+
+        [Header("Input System Variables")]
+        private bool _pausePress = default;
 
         private void Awake()
         {
@@ -69,6 +73,17 @@ namespace PersonAndGhost
             Actions.OnFloorStateChange -= HandleFloorStateChange;
             Actions.OnCollectableCollected -= UpdateCollectableCount;
         }
+
+        // **************PAUSE MENU METHOD
+        public void OnPauseGame(InputAction.CallbackContext context)
+        {
+            _pausePress = context.action.triggered;
+            if (_pausePress)
+            {
+                Actions.OnGamePause();
+            }
+        }
+        // PAUSE MENU METHOD*****************
 
         private void HandleRoomStateChange(bool hasWon)
         {

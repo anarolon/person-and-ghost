@@ -16,5 +16,8 @@ namespace PersonAndGhost.Utils
 
         public static Action<bool> OnRoomStateChange;
         public static Action<bool> OnFloorStateChange;
+
+        public static Action OnGamePause;
+        public static Action OnGameUnPause;
     }
 }
