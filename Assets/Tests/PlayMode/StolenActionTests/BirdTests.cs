@@ -122,6 +122,7 @@ namespace PersonAndGhost.PlayMode
             Release(Keyboard.current.slashKey);
             Press(Keyboard.current.slashKey);
             yield return new WaitForFixedUpdate();
+            Release(Keyboard.current.slashKey);
             Assert.False(_person.IsBeingCarried);
         }
 

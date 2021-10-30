@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Movable : MonoBehaviour 
 {
-    public bool isBeingPushed;
+    public bool isBeingMoved;
     float xPos;
 
     public void Start()
@@ -13,7 +13,7 @@ public class Movable : MonoBehaviour
     }
     public void Update()
     {
-        if(isBeingPushed == false)
+        if(isBeingMoved == false)
         {
             transform.position = new Vector3(xPos, transform.position.y);
         }

@@ -68,7 +68,7 @@ public class AIBigBoy : AIAgent
         {
             movableItem = hit.collider.gameObject;
             movableItem.GetComponent<FixedJoint2D>().enabled = true;
-            movableItem.GetComponent<Movable>().isBeingPushed = true;
+            movableItem.GetComponent<Movable>().isBeingMoved = true;
             movableItem.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
             isGrabbing = true;
         }
@@ -82,7 +82,7 @@ public class AIBigBoy : AIAgent
         {
             StopCoroutine(Grab());
             movableItem.GetComponent<FixedJoint2D>().enabled = false;
-            movableItem.GetComponent<Movable>().isBeingPushed = false;
+            movableItem.GetComponent<Movable>().isBeingMoved = false;
             isGrabbing = false;
         }
         else
