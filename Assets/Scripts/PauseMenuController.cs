@@ -28,11 +28,15 @@ public class PauseMenuController : MonoBehaviour
     {
         if (_pauseMenuPanel && !_pauseMenuPanel.activeSelf)
         {
-            EventSystem.current.SetSelectedGameObject(null);
-            if (_pauseFirstButton)
+            if (EventSystem.current)
             {
-                EventSystem.current.SetSelectedGameObject(_pauseFirstButton);
-            }  
+                EventSystem.current.SetSelectedGameObject(null);
+                if (_pauseFirstButton)
+                {
+                    EventSystem.current.SetSelectedGameObject(_pauseFirstButton);
+                }
+            }
+            
                
                     
             _pauseMenuPanel.SetActive(true);
