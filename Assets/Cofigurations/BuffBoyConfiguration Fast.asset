@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f7625711c5257c4bac2ed37d21ab2c5, type: 3}
+  m_Name: BuffBoyConfiguration Fast
+  m_EditorClassIdentifier: 
+  _movementAcceleration: 20
+  _maxMoveSpeed: 12
+  _linearDrag: 10
+  _changeDirectionFrequency: 3
+  _doIdleFrequency: 3
+  _jumpForce: 10
+  _airLinearDrag: 3.75
+  _fallMultiplier: 12
+  _lowJumpFallMultiplier: 7.5
+  _doJumpFrequency: 5

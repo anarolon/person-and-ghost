@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using PersonAndGhost.Utils;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 namespace PersonAndGhost
 {
@@ -14,6 +16,21 @@ namespace PersonAndGhost
         [SerializeField] private string _winningFloorMessage = "Floor Won!!!";
         [SerializeField] private Text _gameResultTextBox = default;
         [SerializeField] private Text _collectableTextBox = default;
+
+        public static GameManagerController instance = null;
+        public static int solvedRoomCount = 0;
+
+        private void Awake()
+        {
+            if (instance != null && instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                instance = this;
+            }
+        }
 
         private void Start()
         {
@@ -60,6 +77,7 @@ namespace PersonAndGhost
                 //Debug.Log("Players Won Room");
 
                 _gameResultTextBox.text = _winningRoomMessage;
+                solvedRoomCount++;
 
                 Time.timeScale = 0;
             }
@@ -71,7 +89,7 @@ namespace PersonAndGhost
                 _gameResultTextBox.text = _losingRoomMessage;
             }
 
-            StartCoroutine(Utility.SceneHandler(hasWon, timeToWaitBeforeLoadingScene));
+            StartCoroutine(LoadScene(hasWon, timeToWaitBeforeLoadingScene));
         }
 
         private void HandleFloorStateChange(bool hasWon)
@@ -89,6 +107,41 @@ namespace PersonAndGhost
         private void UpdateCollectableCount(int amount)
         {
             _collectableTextBox.text = amount.ToString();
+        }
+
+        private IEnumerator LoadScene(bool hasWon, float timeToWaitBeforeLoadingScene)
+        {
+            int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+            yield return new WaitForSecondsRealtime(timeToWaitBeforeLoadingScene);
+
+            if (hasWon)
+            {
+                Debug.Log(solvedRoomCount);
+                if (solvedRoomCount % 3 == 0)
+                {
+                    Debug.Log("Floor Complete");
+                    Actions.OnFloorStateChange(hasWon);
+                }
+
+                if (sceneIndex + 1 < SceneManager.sceneCountInBuildSettings)
+                {
+
+                    Time.timeScale = 1;
+
+                    SceneManager.LoadSceneAsync(sceneIndex + 1);
+                }
+                else
+                {
+                    Application.Quit();
+                }
+            }
+
+            else
+            {
+                Debug.Log("Game Over");
+                SceneManager.LoadSceneAsync(sceneIndex);
+            }
         }
     }
 }

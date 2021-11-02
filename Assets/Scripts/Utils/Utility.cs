@@ -201,6 +201,7 @@ namespace PersonAndGhost.Utils
             AddListenerToActionEventList(input, unityEvents);
         }
 
+        // TODO: Decide if we should keep this here or move it fully t GameManagerController Script
         public static IEnumerator SceneHandler(bool hasWon, float timeToWaitBeforeLoadingScene)
         {
             int sceneIndex = SceneManager.GetActiveScene().buildIndex;
