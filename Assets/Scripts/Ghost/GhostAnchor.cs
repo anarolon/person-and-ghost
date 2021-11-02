@@ -22,7 +22,7 @@ namespace PersonAndGhost.Ghost
         public bool HasExpandedBoundary { get => hasExpandedBoundary; set => hasExpandedBoundary = value; }
 
         // TODO: Ask why make this a Property if its private?
-        private Vector2 AnchorTransformPosition => _anchor.transform.position;
+        private Vector2 AnchorPosition => _anchor.transform.position;
 
         
 
@@ -72,7 +72,7 @@ namespace PersonAndGhost.Ghost
             Gizmos.color = Color.yellow;
 
             if (!hasExpandedBoundary) {
-                Gizmos.DrawWireSphere(AnchorTransformPosition, AnchorRange);
+                Gizmos.DrawWireSphere(AnchorPosition, AnchorRange);
             }
             //else
             //{
@@ -99,13 +99,13 @@ namespace PersonAndGhost.Ghost
 
         public Vector2 CalculateAnchorBoundPosition()
         {
-            float distanceToAnchor = Vector3.Distance((Vector2)transform.position, AnchorTransformPosition);
+            float distanceToAnchor = Vector3.Distance((Vector2)transform.position, AnchorPosition);
             if (distanceToAnchor > AnchorRange)
             {
-                Vector2 distanceToAnchorVector = (Vector2)transform.position - AnchorTransformPosition;
+                Vector2 distanceToAnchorVector = (Vector2)transform.position - AnchorPosition;
 
                 distanceToAnchorVector *= AnchorRange / distanceToAnchor;
-                return AnchorTransformPosition + distanceToAnchorVector;
+                return AnchorPosition + distanceToAnchorVector;
             }
             else
             {
