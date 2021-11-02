@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 using UnityEngine.TestTools;
 using PersonAndGhost.Utils;
 using PersonAndGhost.Ghost;
@@ -20,6 +21,14 @@ namespace PersonAndGhost.PlayMode.GhostTests
         private GameObject _cam;
 
         private const string BIRDNAME = "Bird (Clawed)(Clone)";
+
+        // Keys
+        private KeyControl _possessKey => Keyboard.current.numpadEnterKey;
+        private KeyControl _moveUpKey => Keyboard.current.upArrowKey;
+        private KeyControl _moveDownKey => Keyboard.current.downArrowKey;
+        private KeyControl _moveLeftKey => Keyboard.current.leftArrowKey;
+        private KeyControl _moveRightKey => Keyboard.current.rightArrowKey;
+
 
         [UnitySetUp]
         public IEnumerator SetUp()
@@ -92,15 +101,15 @@ namespace PersonAndGhost.PlayMode.GhostTests
             Assert.False(_possession.IsPossessing);
             Assert.AreNotEqual(AIStateId.Possessed, _monster.stateMachine.currentState);
 
-            Press(Keyboard.current.numpadEnterKey);
+            Press(_possessKey);
 
             yield return new WaitForFixedUpdate();
 
             Assert.True(_possession.IsPossessing);
             Assert.AreEqual(AIStateId.Possessed, _monster.stateMachine.currentState);
 
-            Release(Keyboard.current.numpadEnterKey);
-            Press(Keyboard.current.numpadEnterKey);
+            Release(_possessKey);
+            Press(_possessKey);
 
             yield return new WaitForFixedUpdate();
 
@@ -117,15 +126,15 @@ namespace PersonAndGhost.PlayMode.GhostTests
         {
             yield return PlayModeSetUp();
 
-            Press(Keyboard.current.numpadEnterKey);
+            Press(_possessKey);
 
             yield return new WaitForFixedUpdate();
 
-            Release(Keyboard.current.numpadEnterKey);
+            Release(_possessKey);
 
             float monsterPreviousPos = _monsterTransform.position.x;
 
-            Press(Keyboard.current.rightArrowKey);
+            Press(_moveRightKey);
 
             yield return new WaitForFixedUpdate();
 
@@ -144,15 +153,15 @@ namespace PersonAndGhost.PlayMode.GhostTests
         {
             yield return PlayModeSetUp();
 
-            Press(Keyboard.current.numpadEnterKey);
+            Press(_possessKey);
 
             yield return new WaitForFixedUpdate();
 
-            Release(Keyboard.current.numpadEnterKey);
+            Release(_possessKey);
 
             float monsterPreviousPos = _monsterTransform.position.x;
 
-            Press(Keyboard.current.leftArrowKey);
+            Press(_moveLeftKey);
 
             yield return new WaitForFixedUpdate();
 
@@ -170,15 +179,15 @@ namespace PersonAndGhost.PlayMode.GhostTests
             //Identify flying monster
             Assert.AreEqual(BIRDNAME, _monsterTransform.gameObject.name);
 
-            Press(Keyboard.current.numpadEnterKey);
+            Press(_possessKey);
 
             yield return new WaitForFixedUpdate();
 
-            Release(Keyboard.current.numpadEnterKey);
+            Release(_possessKey);
 
             float monsterPreviousPos = _monsterTransform.position.y;
 
-            Press(Keyboard.current.upArrowKey);
+            Press(_moveUpKey);
 
             yield return new WaitForFixedUpdate();
 
@@ -196,15 +205,15 @@ namespace PersonAndGhost.PlayMode.GhostTests
             //Identify flying monster
             Assert.AreEqual(BIRDNAME, _monsterTransform.gameObject.name);
 
-            Press(Keyboard.current.numpadEnterKey);
+            Press(_possessKey);
 
             yield return new WaitForFixedUpdate();
 
-            Release(Keyboard.current.numpadEnterKey);
+            Release(_possessKey);
 
             float monsterPreviousPos = _monsterTransform.position.y;
 
-            Press(Keyboard.current.downArrowKey);
+            Press(_moveDownKey);
 
             yield return new WaitForFixedUpdate();
 
@@ -212,6 +221,40 @@ namespace PersonAndGhost.PlayMode.GhostTests
                 "Monster Moved to the down.");
             Assert.True(Utility.FastApproximately(_ghostTransform.position.y, 
                 _monsterTransform.position.y, 0.05f), "Ghost is following Monster.");
+        }
+
+        [UnityTest]
+        public IEnumerator SpiritBarTest()
+        {
+            //This test will cause a bunch of logs notifying that there is no spirit bar slider in the scene
+            yield return PlayModeSetUp();
+
+            Assert.False(_possession.IsPossessing);
+            Assert.AreNotEqual(AIStateId.Possessed, _monster.stateMachine.currentState);
+            float initialSpiritEnergy = _possession.SpiritEnergy;
+
+            Press(_possessKey);
+
+            yield return new WaitForSeconds(0.5f);
+
+            Assert.True(_possession.IsPossessing);
+            Assert.AreEqual(AIStateId.Possessed, _monster.stateMachine.currentState);
+            float drainedSpiritEnergy = _possession.SpiritEnergy;
+            Assert.Less(drainedSpiritEnergy, initialSpiritEnergy);
+            
+
+            Release(_possessKey);
+            Press(_possessKey);
+
+            yield return new WaitForSeconds(0.5f);
+
+            Assert.False(_possession.IsPossessing);
+            Assert.AreNotEqual(AIStateId.Possessed, _monster.stateMachine.currentState);
+            Assert.Greater(_possession.SpiritEnergy, drainedSpiritEnergy);
+
+            yield return new WaitUntil(() => !_possession.IsNearAMonster);
+
+            Assert.False(_possession.IsNearAMonster);
         }
     }
 }
