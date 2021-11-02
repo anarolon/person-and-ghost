@@ -11,6 +11,7 @@ namespace PersonAndGhost.PlayMode
     public class PauseMenuTests
     {
         private string CurrentSceneName => SceneManager.GetActiveScene().name;
+        private int sceneToLoad = 0;
 
         private GameObject _gameUIPrefab = default;
         private GameObject _gameManagerPrefab = default;
@@ -43,7 +44,6 @@ namespace PersonAndGhost.PlayMode
         public IEnumerator TearDown()
         {
             //Object.Destroy(_gameUIPrefab);
-
             yield return new ExitPlayMode();
         }
 
@@ -61,11 +61,11 @@ namespace PersonAndGhost.PlayMode
             Assert.AreEqual(Time.timeScale, 1);
         }
 
-        /*
+        // TODO: Figure out how to unload the scene so that the other test runs appropriately
         [UnityTest]
-        public IEnumerator RoomResetTest()
+        public IEnumerator ZRoomResetTest()
         {
-            SceneManager.LoadSceneAsync(0);
+            SceneManager.LoadSceneAsync(sceneToLoad);
             yield return new WaitForSeconds(1);
 
             string sceneName = CurrentSceneName;
@@ -73,9 +73,13 @@ namespace PersonAndGhost.PlayMode
             yield return new WaitForSeconds(1);
             Assert.AreEqual(sceneName, CurrentSceneName);
 
+            SceneManager.UnloadSceneAsync(sceneToLoad);
+            yield return new ExitPlayMode();
+
+
 
         }
-        */
+        
 
         
     }
