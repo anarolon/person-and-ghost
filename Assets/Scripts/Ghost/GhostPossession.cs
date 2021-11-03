@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using PersonAndGhost.Utils;
 
@@ -15,6 +16,20 @@ namespace PersonAndGhost.Ghost
 
         public bool IsPossessing { get; private set; } = false;
         public bool IsNearAMonster => _nearbyMonster;
+
+        
+        [Header("Spirit Bar Fields")]
+        [SerializeField] private float _spiritEnergy = 0;
+        [SerializeField] private float _maxSpiritEnergy = 100;
+        [SerializeField] private float _minSpiritEnergy = 0;
+        [SerializeField] private float _spiritEnergyDrainSpeed = 0.5f;
+        [SerializeField] private float _spiritEnergyRestoreSpeed = 1;
+        public float SpiritEnergy { get => _spiritEnergy; set => _spiritEnergy = value; }
+
+        [Header("SpiritBar UI Fields")]
+        private Slider _spiritBarSlider;
+
+
 
         private void Awake()
         {
@@ -39,16 +54,27 @@ namespace PersonAndGhost.Ghost
             collider.size = _config.size;
         }
 
+        private void Start()
+        {
+            _spiritBarSlider ??= FindObjectOfType<Slider>();
+            _spiritEnergy = _maxSpiritEnergy;
+        }
+
         private void OnEnable()
         {
             Actions.OnGhostMovementTriggered += UpdateMovement;
+        }
+
+        private void Update()
+        {
+            SpiritBarUpdate();
         }
 
         private void FixedUpdate()
         {
             if (IsPossessing && _monster)
             {
-                MoveMonster();
+                MoveMonster();  
             }
         }
 
@@ -142,6 +168,41 @@ namespace PersonAndGhost.Ghost
                 _renderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
                 _monster = null;
             }
+        }
+
+        private void SpiritBarUpdate()
+        {
+            if (IsPossessing && _monster)
+            {
+                _spiritEnergy -= _spiritEnergyDrainSpeed * Time.deltaTime;
+                if (_spiritEnergy <= _minSpiritEnergy)
+                {
+                    ChangePossession();
+                }
+
+            }
+            else if (!IsPossessing)
+            {
+                _spiritEnergy += _spiritEnergyRestoreSpeed * Time.deltaTime;
+            }
+
+            _spiritEnergy = 
+                Mathf.Clamp(_spiritEnergy, _minSpiritEnergy, _maxSpiritEnergy);
+
+            SpiritBarUIUpdate();
+        }
+
+        private void SpiritBarUIUpdate()
+        {
+            if (_spiritBarSlider)
+            {
+                _spiritBarSlider.value = _spiritEnergy / _maxSpiritEnergy;
+            }
+            else
+            {
+                Debug.Log("No Spirit Bar Slider in the Scene");
+            }
+            
         }
 
         private void OnDisable()
