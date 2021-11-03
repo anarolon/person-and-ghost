@@ -180,6 +180,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.2185077}
   m_EdgeRadius: 0
+--- !u!1 &87738241 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7867938274543437768, guid: a3bcea609cfb9ad47ad2d7400ca5323e, type: 3}
+  m_PrefabInstance: {fileID: 1800185020}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &114160478
 GameObject:
   m_ObjectHideFlags: 0
@@ -1816,8 +1821,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7248009032450900588, guid: 56b41f378fe0edc488ed8676b89dcc18, type: 3}
       propertyPath: m_Name
-      value: GameManager (1)
+      value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7248009032450900589, guid: 56b41f378fe0edc488ed8676b89dcc18, type: 3}
+      propertyPath: _gameUI
+      value: 
+      objectReference: {fileID: 87738241}
     - target: {fileID: 7248009032450900590, guid: 56b41f378fe0edc488ed8676b89dcc18, type: 3}
       propertyPath: m_RootOrder
       value: 6

@@ -48,8 +48,7 @@ MonoBehaviour:
   _winningRoomMessage: Room Won!!!
   _losingRoomMessage: Room Lost!!!
   _winningFloorMessage: Floor Won!!!
-  _gameResultTextBox: {fileID: 0}
-  _collectableTextBox: {fileID: 0}
+  _gameUI: {fileID: 3498482285953255441, guid: d0616ef035252c645ab36be72b51d8ff, type: 3}
 --- !u!114 &3499969884848086661
 MonoBehaviour:
   m_ObjectHideFlags: 0

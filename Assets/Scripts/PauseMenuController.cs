@@ -1,69 +1,78 @@
 using PersonAndGhost.Utils;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
-public class PauseMenuController : MonoBehaviour
+namespace PersonAndGhost
 {
-    private GameObject _pauseMenuPanel;
-    // TODO: Code a way to make sure _pauseFirstButton is set to an object
-    [SerializeField] private GameObject _pauseFirstButton;
+    public class PauseMenuController : MonoBehaviour
+    {
+        private GameObject _pauseMenuPanel;
+        // TODO: Code a way to make sure _pauseFirstButton is set to an object
+        [SerializeField] private GameObject _pauseFirstButton;
 
-    private void Start()
-    {
-        _pauseMenuPanel = transform.GetChild(0).gameObject;
-    }
-
-    private void OnEnable()
-    {
-        Actions.OnGamePause += HandleGamePause;
-        // TODO: Subscribe to HandleGameUnPause as well and have GameManager call it if it is pressed when the pause menu is already active
-    }
-    private void OnDisable()
-    {
-        Actions.OnGamePause -= HandleGamePause;
-    }
-
-    private void HandleGamePause()
-    {
-        if (_pauseMenuPanel && !_pauseMenuPanel.activeSelf)
+        private void Start()
         {
-            if (EventSystem.current)
+            _pauseMenuPanel = transform.GetChild(0).gameObject;
+        }
+
+        private void OnEnable()
+        {
+            Actions.OnGamePause += HandleGamePause;
+            // TODO: Subscribe to HandleGameUnPause as well 
+            //and have GameManager call it if it is pressed 
+            //when the pause menu is already active
+        }
+        private void OnDisable()
+        {
+            Actions.OnGamePause -= HandleGamePause;
+        }
+
+        private void HandleGamePause()
+        {
+            if (_pauseMenuPanel && !_pauseMenuPanel.activeSelf)
             {
-                EventSystem.current.SetSelectedGameObject(null);
-                if (_pauseFirstButton)
+                if (EventSystem.current)
                 {
-                    EventSystem.current.SetSelectedGameObject(_pauseFirstButton);
+                    EventSystem.current.SetSelectedGameObject(null);
+                    if (_pauseFirstButton)
+                    {
+                        EventSystem.current.SetSelectedGameObject(_pauseFirstButton);
+                    }
                 }
-            }
             
                
                     
-            _pauseMenuPanel.SetActive(true);
-            Time.timeScale = 0;
+                _pauseMenuPanel.SetActive(true);
+                Time.timeScale = 0;
+            }
         }
-    }
 
-    // PUBLIC METHODS FOR THE BUTTONS TO CALL
-    public void HandleGameUnPause()
-    {
-        if (_pauseMenuPanel && _pauseMenuPanel.activeSelf)
+        // PUBLIC METHODS FOR THE BUTTONS TO CALL
+        public void HandleGameUnPause()
         {
-            _pauseMenuPanel.SetActive(false);
-            Time.timeScale = 1;
+            if (_pauseMenuPanel && _pauseMenuPanel.activeSelf)
+            {
+                _pauseMenuPanel.SetActive(false);
+                Time.timeScale = 1;
+            }
         }
-    }
 
-    public void RoomReset()
-    {
-        HandleGameUnPause();
-        StopAllCoroutines(); // Just in case
-        StartCoroutine(Utility.SceneHandler(false, 0));
+        public void RoomReset()
+        {
+            int sceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-    }
+            SceneManager.LoadSceneAsync(sceneIndex);
 
-    public void QuitGame()
-    {
-        Application.Quit();
+            if (Time.timeScale == 0)
+            {
+                HandleGameUnPause();
+            }
+        }
+
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
     }
 }
