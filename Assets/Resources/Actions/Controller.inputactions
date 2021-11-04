@@ -350,7 +350,6 @@
                     "action": "StolenAction",
                     "isComposite": false,
                     "isPartOfComposite": false
-
                 },
                 {
                     "name": "Button With One Modifier",
@@ -384,6 +383,33 @@
                     "action": "StolenActionDown",
                     "isComposite": false,
                     "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "GameManager",
+            "id": "e606d467-f347-4b02-bc9d-249bfc7b0391",
+            "actions": [
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "4c564aa7-642e-4969-a294-ff93e8d31bd8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c232083d-85aa-47aa-82f4-36fc3b3a68df",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardLeft",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7248009032450900590}
   - component: {fileID: 7248009032450900589}
+  - component: {fileID: 3499969884848086661}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -43,7 +44,94 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e1859e87831cb4099ef796c60410b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _winningMessage: You Win!!!
-  _losingMessage: You Lose!!!
-  _gameResultTextBox: {fileID: 0}
-  _collectableTextBox: {fileID: 0}
+  timeToWaitBeforeLoadingScene: 2
+  _winningRoomMessage: Room Won!!!
+  _losingRoomMessage: Room Lost!!!
+  _winningFloorMessage: Floor Won!!!
+  _gameUI: {fileID: 3498482285953255441, guid: d0616ef035252c645ab36be72b51d8ff, type: 3}
+--- !u!114 &3499969884848086661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7248009032450900588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 38adbdfe9d6ba4b4db945ce4789d1d0a, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 71f8a01e-5d4d-43c6-ad40-5be8d2655c6e
+    m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 700cd301-a9dc-4853-9498-e6e0c7b79339
+    m_ActionName: Player/Jump[/Keyboard/space,/Keyboard/rightShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 82743701-ab72-492d-a462-eb8891d1db4a
+    m_ActionName: Player/ToolAction[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 459568e2-cfec-430c-9ae7-46a3c4d8c34c
+    m_ActionName: Player/ToolPickup/Drop[/Keyboard/z,/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 94671c72-b476-4a8f-b3a9-ee2c21f09f6d
+    m_ActionName: Player/Meditate[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 732b94ea-54c0-4347-a406-cd0951d773e2
+    m_ActionName: Player/Possess[/Keyboard/numpadEnter,/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 83a7bb66-bcd4-446c-bf80-b6d114d82fb8
+    m_ActionName: Player/Aim[/Keyboard/d,/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 38f23bbd-521f-4086-b584-531606d9418a
+    m_ActionName: Player/Shoot[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: de1cbc1c-a042-4df1-81a8-61d9eb6c1161
+    m_ActionName: Player/StolenAction[/Keyboard/slash]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 88855732-37ac-4ca9-9c17-4bd20f8a9548
+    m_ActionName: Player/StolenActionDown[/Keyboard/downArrow,/Keyboard/slash]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7248009032450900589}
+        m_TargetAssemblyTypeName: PersonAndGhost.GameManagerController, Scripts
+        m_MethodName: OnPauseGame
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4c564aa7-642e-4969-a294-ff93e8d31bd8
+    m_ActionName: GameManager/Pause[/Keyboard/escape]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: KeyboardLeft
+  m_DefaultActionMap: GameManager
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}

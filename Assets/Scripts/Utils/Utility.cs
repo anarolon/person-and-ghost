@@ -18,6 +18,8 @@ namespace PersonAndGhost.Utils
         public const string GHOSTLYINNVASIONTAG = "GhostlyInvasion";
         public const string LEFTCONTROLSCHEME = "KeyboardLeft";
         public const string RIGHTCONTROLSCHEME = "KeyboardRight";
+        public const string GAMEUIPREFABPATH = "Prefabs/User Interface";
+        public const string GAMEMANAGERPREFABPATH = "Prefabs/GameManager";
         public const string LEFTPLAYERPREFAB = "Prefabs/Person";
         public const string RIGHTPLAYERPREFABPATH = "Prefabs/Ghost";
         public const string BIRDPREFABPATH = "Prefabs/Bird";
