@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scale: {x: 0.5, y: 0.5, z: 0.5}
   sortingOrder: 10
-  sprite: {fileID: -9095717837082945937, guid: a97c0e72733fd264db04811f7e7a1209, type: 3}
-  color: {r: 0.15686275, g: 0.15686275, b: 0.15686275, a: 1}
+  sprite: {fileID: 21300000, guid: a8fd94d0313fb2b42ab4b536697ad2ea, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
   isTrigger: 1
   size: {x: 1, y: 2}
   anchorRange: 2.5
