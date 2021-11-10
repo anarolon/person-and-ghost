@@ -103,6 +103,7 @@ namespace PersonAndGhost.PlayMode
             Release(Keyboard.current.slashKey);
             Release(Keyboard.current.downArrowKey);
             yield return new WaitForFixedUpdate();
+            yield return new WaitForFixedUpdate();
 
             // destroyed //
             Assert.False(_platformTransform);
