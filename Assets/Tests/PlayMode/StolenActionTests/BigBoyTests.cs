@@ -44,6 +44,7 @@ namespace PersonAndGhost.PlayMode
             _crateTransform.position = new Vector3(1, 1, 0);
 
             _bigBoyTransform = Object.Instantiate(_bigBoy).transform;
+            _bigBoyTransform.localScale = Vector3.one * 0.5f;
             _bigBoyTransform.position = _crateTransform.position + new Vector3(-1, 1, 0);
 
             CameraSetup();
