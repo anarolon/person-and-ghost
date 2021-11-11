@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using PersonAndGhost.Utils;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 namespace PersonAndGhost
 {
@@ -14,11 +15,16 @@ namespace PersonAndGhost
         [SerializeField] private string _winningRoomMessage = "Room Won!!!";
         [SerializeField] private string _losingRoomMessage = "Room Lost!!!";
         [SerializeField] private string _winningFloorMessage = "Floor Won!!!";
-        [SerializeField] private Text _gameResultTextBox = default;
-        [SerializeField] private Text _collectableTextBox = default;
+        [SerializeField] private GameObject _gameUI = default;
+        
+        private Text _gameResultTextBox;
+        private Text _collectableTextBox;
 
         public static GameManagerController instance = null;
         public static int solvedRoomCount = 0;
+
+        [Header("Input System Variables")]
+        private bool _pausePress = default;
 
         private void Awake()
         {
@@ -26,6 +32,7 @@ namespace PersonAndGhost
             {
                 Destroy(this.gameObject);
             }
+
             else
             {
                 instance = this;
@@ -34,25 +41,28 @@ namespace PersonAndGhost
 
         private void Start()
         {
-            if (_gameResultTextBox == null || _collectableTextBox == null)
+            if (!_gameUI)
             {
-                Canvas uiCanvas = FindObjectOfType<Canvas>();
-                Text[] uiTextBoxes = uiCanvas.GetComponentsInChildren<Text>();
+                _gameUI = FindObjectOfType<Canvas>().gameObject;
 
-                for (int i = 0; i < uiTextBoxes.Length; i++)
+                Debug.LogWarning("Game UI field was null.");
+            }
+
+            Text[] uiTextBoxes = _gameUI.GetComponentsInChildren<Text>();
+
+            foreach(Text text in uiTextBoxes)
+            {
+                string name = text.name;
+
+                if (name == "GameStateText")
                 {
-                    if (uiTextBoxes[i].name == "GameStateText")
-                    {
-                        _gameResultTextBox ??= uiTextBoxes[i];
-                    }
-                    else if (uiTextBoxes[i].name == "CollectablesAmountText")
-                    {
-                        _collectableTextBox ??= uiTextBoxes[i];
-                    }
+                    _gameResultTextBox = text;
                 }
 
-                Debug.LogWarning("Either Game Result Text Box or Collectable Text Box are " +
-                    "null.");
+                else if (name == "CollectablesAmountText")
+                {
+                    _collectableTextBox = text;
+                }
             }
         }
 
@@ -69,6 +79,17 @@ namespace PersonAndGhost
             Actions.OnFloorStateChange -= HandleFloorStateChange;
             Actions.OnCollectableCollected -= UpdateCollectableCount;
         }
+
+        // **************PAUSE MENU METHOD
+        public void OnPauseGame(InputAction.CallbackContext context)
+        {
+            _pausePress = context.action.triggered;
+            if (_pausePress)
+            {
+                Actions.OnGamePause();
+            }
+        }
+        // PAUSE MENU METHOD*****************
 
         private void HandleRoomStateChange(bool hasWon)
         {

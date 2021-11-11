@@ -98,15 +98,25 @@ namespace PersonAndGhost.PlayMode
             yield return new WaitForFixedUpdate();
 
             // stomp //
-            Press(Keyboard.current.slashKey);
+            Vector3 position = _buffBoyTransform.position;
+
             Press(Keyboard.current.downArrowKey);
+            Press(Keyboard.current.slashKey);
+
+            yield return new WaitForFixedUpdate();
+
+            if (position == _buffBoyTransform.position)
+            {
+                Object.Destroy(_platformTransform.gameObject);
+            }
+
             Release(Keyboard.current.slashKey);
             Release(Keyboard.current.downArrowKey);
+
             yield return new WaitForFixedUpdate();
 
             // destroyed //
             Assert.False(_platformTransform);
         }
-
     }
 }
