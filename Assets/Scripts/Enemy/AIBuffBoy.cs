@@ -9,6 +9,10 @@ public class AIBuffBoy : AIAgent
     [SerializeField] private Transform _stompPoint;
     [SerializeField] private LayerMask _breakableLayer;
     [SerializeField] private float breakableDistance = 0.5f;
+
+    public bool Punch;
+    public bool Stomp;
+
     public override void Start()
     {
         base.Start();
@@ -18,6 +22,8 @@ public class AIBuffBoy : AIAgent
     
     public override void FixedUpdate()
     {
+        Punch = false;
+        Stomp = false;
         base.FixedUpdate();
     }
 
@@ -51,8 +57,8 @@ public class AIBuffBoy : AIAgent
     private IEnumerator Break(Transform firePoint) 
     {
         RaycastHit2D  hitInfo = Physics2D.Raycast(firePoint.position, firePoint.right, breakableDistance, _breakableLayer);
-        
-        if (hitInfo) 
+
+        if (hitInfo)
         {
             Breakable breakable = hitInfo.transform.GetComponent<Breakable>();
             if(breakable != null) 
@@ -60,11 +66,15 @@ public class AIBuffBoy : AIAgent
                 breakable.Break();
             }
         }
-
+        
         yield return null;
     }
 
     public override void StolenAction(Vector2 direction = default) {
+        if (direction == default)
+            Punch = true;
+        else
+            Stomp = true;
         StartCoroutine(Break(direction==default? _smashPoint : _stompPoint));
     }
 }
