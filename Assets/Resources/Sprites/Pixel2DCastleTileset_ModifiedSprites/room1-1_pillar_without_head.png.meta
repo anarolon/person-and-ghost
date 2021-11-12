@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 428b90c23367abf4bb4c229a794c294f
+guid: 22f35051e4bbab8468c2be81dabc47d0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4723250963254362342
-    second: background_wall
+      213: 5484239958282013950
+    second: room1-1_pillar_without_head
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -118,13 +118,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: background_wall
+      name: room1-1_pillar_without_head
       rect:
         serializedVersion: 2
-        x: 304
-        y: 256
-        width: 128
-        height: 256
+        x: 360
+        y: 0
+        width: 32
+        height: 96
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,8 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e04cc9e9bb5c8140800000000000000
-      internalID: 4723250963254362342
+      spriteID: efc07607f2feb1c40800000000000000
+      internalID: 5484239958282013950
       vertices: []
       indices: 
       edges: []
@@ -141,7 +141,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 72f5618fbedb64c43a714b880bdefffa
+    spriteID: 4c04507b6ecd8cc409c923be56ecce4f
     internalID: 0
     vertices: []
     indices: 

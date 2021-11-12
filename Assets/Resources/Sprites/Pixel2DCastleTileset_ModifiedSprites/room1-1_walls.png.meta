@@ -1,88 +1,13 @@
 fileFormatVersion: 2
-guid: 24058a628bbd1954eb84190d3b31c1c7
+guid: 346f663f69c7ee04b9f0a427e3c38e22
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3878557786174838139
-    second: ground
+      213: 3910364733708968472
+    second: room1-1_right_wall
   - first:
-      213: -4419227343285247731
-    second: ground_1
-  - first:
-      213: -1977380741081267030
-    second: ground_2
-  - first:
-      213: 2270332835960527861
-    second: ground_3
-  - first:
-      213: 5602472716659199906
-    second: ground_4
-  - first:
-      213: -5561606140109812095
-    second: ground_5
-  - first:
-      213: 1269115465126947162
-    second: ground_6
-  - first:
-      213: 6922181128366143233
-    second: ground_7
-  - first:
-      213: 6955847195254428025
-    second: ground_8
-  - first:
-      213: 3215127950514980561
-    second: ground_9
-  - first:
-      213: 1481100579729305086
-    second: ground_10
-  - first:
-      213: 1363345801621341485
-    second: ground_11
-  - first:
-      213: 3809333609213854930
-    second: ground_12
-  - first:
-      213: -7568449251786254984
-    second: ground_13
-  - first:
-      213: -9118316241333876284
-    second: ground_14
-  - first:
-      213: 6740115482885086893
-    second: ground_15
-  - first:
-      213: 90981220031357130
-    second: ground_16
-  - first:
-      213: -1315250992843845413
-    second: ground_17
-  - first:
-      213: -3981471855960594048
-    second: ground_18
-  - first:
-      213: -3950467699495194761
-    second: ground_19
-  - first:
-      213: 7854021675976469836
-    second: ground_20
-  - first:
-      213: -8785357333018646877
-    second: ground_21
-  - first:
-      213: 7085997053283165259
-    second: ground_22
-  - first:
-      213: -1694574479374107431
-    second: ground_23
-  - first:
-      213: 8865799217249733882
-    second: ground_24
-  - first:
-      213: 3097243897307072021
-    second: ground_25
-  - first:
-      213: -1586680503956681919
-    second: ground_26
+      213: 3527575483680389386
+    second: room1-1_left_wall
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -196,13 +121,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ground
+      name: room1-1_right_wall
       rect:
         serializedVersion: 2
         x: 0
-        y: 192
-        width: 144
-        height: 32
+        y: 176
+        width: 16
+        height: 96
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -210,8 +135,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58a29323e389c2ac0800000000000000
-      internalID: -3878557786174838139
+      spriteID: 81220fed108644630800000000000000
+      internalID: 3910364733708968472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: room1-1_left_wall
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 176
+        width: 16
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a097527663774f030800000000000000
+      internalID: 3527575483680389386
       vertices: []
       indices: 
       edges: []
@@ -219,7 +165,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: a723173645e19904ca66b51169da3439
+    spriteID: 3d912db3b71924d4686745c51dd3b27e
     internalID: 0
     vertices: []
     indices: 

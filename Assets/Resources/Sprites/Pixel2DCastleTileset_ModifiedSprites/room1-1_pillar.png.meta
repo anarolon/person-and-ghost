@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: cdb2dbdaa56ba8841bbf9f01bfbee4d6
+guid: 77fe22e3e05f7b640a16271ef3885e1e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3910364733708968472
-    second: right_wall
-  - first:
-      213: 3527575483680389386
-    second: left_wall
+      213: 5484239958282013950
+    second: room1-1_pillar
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -121,43 +118,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: right_wall
+      name: room1-1_pillar
       rect:
         serializedVersion: 2
-        x: 0
-        y: 176
-        width: 16
-        height: 96
+        x: 360
+        y: 0
+        width: 32
+        height: 112
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81220fed108644630800000000000000
-      internalID: 3910364733708968472
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: left_wall
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 176
-        width: 16
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a097527663774f030800000000000000
-      internalID: 3527575483680389386
+      spriteID: efc07607f2feb1c40800000000000000
+      internalID: 5484239958282013950
       vertices: []
       indices: 
       edges: []
@@ -165,7 +141,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 3d912db3b71924d4686745c51dd3b27e
+    spriteID: 4c04507b6ecd8cc409c923be56ecce4f
     internalID: 0
     vertices: []
     indices: 
