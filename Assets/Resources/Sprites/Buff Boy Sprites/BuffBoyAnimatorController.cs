@@ -21,16 +21,18 @@ namespace PersonAndGhost
             anim = GetComponent<Animator>();
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             anim.SetBool(moveParameter, buffBoyComponent.rb.velocity != Vector2.zero);
-            if (buffBoyComponent.Punch)
+            if (buffBoyComponent.Stomp == true)
             {
-                anim.SetTrigger(punchParameter);
-            }
-            else if (buffBoyComponent.Stomp)
-            {
+                Debug.Log("Stomp");
                 anim.SetTrigger(stompParameter);
+            }
+            else if (buffBoyComponent.Punch == true)
+            {
+                Debug.Log("Punch");
+                anim.SetTrigger(punchParameter);
             }
             
         }

@@ -22,9 +22,9 @@ public class AIBuffBoy : AIAgent
     
     public override void FixedUpdate()
     {
+        base.FixedUpdate();
         Punch = false;
         Stomp = false;
-        base.FixedUpdate();
     }
 
     public override IEnumerator StateLoop()
@@ -71,10 +71,19 @@ public class AIBuffBoy : AIAgent
     }
 
     public override void StolenAction(Vector2 direction = default) {
-        if (direction == default)
-            Punch = true;
-        else
-            Stomp = true;
         StartCoroutine(Break(direction==default? _smashPoint : _stompPoint));
+        // TODO: For some reason punch direction is always detected
+        // The if statement always goes to the Punch block of code if punch is the first if
+        // because of this, I moved it to the second if, but we should check out why Punch is always detected
+        if (direction == Vector2.down)
+        {
+            Stomp = true;
+            Debug.Log("Order to Stomp");
+        }
+        else
+        {
+            Punch = true;
+            Debug.Log("Order to Punch");
+        }
     }
 }
