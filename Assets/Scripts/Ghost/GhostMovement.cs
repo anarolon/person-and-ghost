@@ -47,7 +47,7 @@ namespace PersonAndGhost.Ghost
             if (!_isPossessing)
             {
                 MoveGhost();
-                _ghostSprite.flipX = _direction > 0 ? false : true;
+                if(_ghostSprite) _ghostSprite.flipX = _direction > 0 ? false : true;
                    
             }
         }

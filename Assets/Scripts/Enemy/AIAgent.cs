@@ -14,18 +14,22 @@ public class AIAgent : MonoBehaviour
     public bool CanJump => _isJumping && _isGrounded;
     public bool CanAct => _isActing && isPossessed;
 
+    private SpriteRenderer _monsterSprite;
+
     public virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         stateMachine = new AIStateMachine(this);
         stateMachine.RegisterState(new AIPossessedState());
         stateMachine.RegisterState(new AIIdleState());
+
+        _monsterSprite = GetComponent<SpriteRenderer>();
     }
 
     public virtual void FixedUpdate()
     {
         stateMachine.UpdateState();
-        GetComponent<SpriteRenderer>().flipX = xDirection < 0;
+        if(_monsterSprite) _monsterSprite.flipX = xDirection < 0;
     }
 
     public virtual IEnumerator StateLoop() {

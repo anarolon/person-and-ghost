@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7685764038149926777}
   - component: {fileID: 8209847981997755034}
   - component: {fileID: -7710059561463754582}
+  - component: {fileID: -7531447376050350527}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Ghost
@@ -299,3 +300,16 @@ MonoBehaviour:
   _minSpiritEnergy: 0
   _spiritEnergyDrainSpeed: 2
   _spiritEnergyRestoreSpeed: 2
+--- !u!114 &-7531447376050350527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5665107311941679825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92c4cc7cd8fb2224e9b23ecf0893d798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _config: {fileID: 0}
