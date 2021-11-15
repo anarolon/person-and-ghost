@@ -39,8 +39,13 @@ public class AIBigBoy : AIAgent
     }
 
     public override void movementBehaviour(Vector2 movementInput)
-    {   
-        base.movementBehaviour(movementInput);
+    {
+        
+        if (!isGrabbing)
+        {
+            base.movementBehaviour(movementInput);
+        }
+        
         Vector2 movement = new Vector2(movementInput.x, 0f);
         movement *= this.config._movementAcceleration;
 
@@ -62,7 +67,9 @@ public class AIBigBoy : AIAgent
         Physics2D.queriesStartInColliders = false;
         // Might need to replace transform.right with (Vector2.right * transform.localScale.x)
         // once directions are fixed for Ghost (?) 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, movableDistance, _interactableLayer);
+        Vector3 dir = Vector3.right;
+        if (xDirection < 0)  dir = Vector3.left;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, movableDistance, _interactableLayer);
         
         if (hit.collider != null && hit.collider.gameObject.CompareTag("Movable") ) 
         {

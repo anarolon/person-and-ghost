@@ -37,7 +37,15 @@ public class AIBuffBoy : AIAgent
     }
     
     public override void movementBehaviour(Vector2 movementInput){
-        base.movementBehaviour(movementInput);
+        //base.movementBehaviour(movementInput);
+        if (movementInput == Vector2.left)
+        {
+            transform.eulerAngles = new Vector2(0,180);
+        }
+        else if (movementInput == Vector2.right)
+        {
+            transform.eulerAngles = new Vector2(0,0);
+        }
         Vector2 movement = new Vector2(movementInput.x, 0f);
         movement *= this.config._movementAcceleration;
 
@@ -58,16 +66,17 @@ public class AIBuffBoy : AIAgent
     {
         RaycastHit2D  hitInfo = Physics2D.Raycast(firePoint.position, firePoint.right, breakableDistance, _breakableLayer);
 
+        //TODO: Magic Number (This is how long the animation lasts)
+        yield return new WaitForSeconds(0.2f);
+
         if (hitInfo)
         {
             Breakable breakable = hitInfo.transform.GetComponent<Breakable>();
-            if(breakable != null) 
+            if (breakable != null)
             {
                 breakable.Break();
             }
         }
-        
-        yield return null;
     }
 
     public override void StolenAction(Vector2 direction = default) {

@@ -25,6 +25,7 @@ public class AIAgent : MonoBehaviour
     public virtual void FixedUpdate()
     {
         stateMachine.UpdateState();
+        GetComponent<SpriteRenderer>().flipX = xDirection < 0;
     }
 
     public virtual IEnumerator StateLoop() {
@@ -33,9 +34,11 @@ public class AIAgent : MonoBehaviour
 
     public virtual void movementBehaviour(Vector2 movementInput){
         if(movementInput == Vector2.left) {
-            transform.eulerAngles = new Vector2(0,180);
+            //transform.eulerAngles = new Vector2(0,180);
+            xDirection = -1;
         } else if(movementInput == Vector2.right) {
-            transform.eulerAngles = new Vector2(0,0);
+            //transform.eulerAngles = new Vector2(0,0);
+            xDirection = 1;
         }
     }
 
