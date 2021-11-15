@@ -25,7 +25,8 @@ public class AIBird : AIAgent
     public override IEnumerator StateLoop()
     {  
         yield return new WaitUntil(() => stateMachine.currentState == initialState);
-        while(stateMachine.currentState != AIStateId.Possessed) {
+        
+        while (stateMachine.currentState != AIStateId.Possessed) {
             stateMachine.ChangeState(AIStateId.MoveX);
             this.xDirection *= -1;
             yield return new WaitForSeconds(this.config._changeDirectionFrequency);

@@ -15,6 +15,9 @@ namespace PersonAndGhost.Ghost
         private Vector2 _movementInput = Vector2.zero;
         private bool _isPossessing = false;
 
+        private int _direction = 1;
+        private SpriteRenderer _ghostSprite;
+
         private void Awake()
         {
             if (!_config)
@@ -30,6 +33,8 @@ namespace PersonAndGhost.Ghost
             _rigidbody.gravityScale = _config.gravityScale;
             _rigidbody.collisionDetectionMode = _config.collisionDetectionMode;
             _rigidbody.constraints = _config.constraints;
+
+            _ghostSprite = GetComponent<SpriteRenderer>();
         }
 
         private void OnEnable()
@@ -42,6 +47,8 @@ namespace PersonAndGhost.Ghost
             if (!_isPossessing)
             {
                 MoveGhost();
+                if(_ghostSprite) _ghostSprite.flipX = _direction > 0 ? false : true;
+                   
             }
         }
 
@@ -68,6 +75,8 @@ namespace PersonAndGhost.Ghost
         private void MoveGhost()
         {
             _rigidbody.AddForce(_movementInput * _movementAcceleration);
+            if (_movementInput.x > 0) _direction = 1;
+            else if (_movementInput.x < 0) _direction = -1;
 
             var velocity = _rigidbody.velocity;
 
