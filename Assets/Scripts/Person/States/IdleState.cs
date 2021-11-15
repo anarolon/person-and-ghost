@@ -48,5 +48,9 @@ namespace PersonAndGhost.Person.States
                 stateMachine.ChangeState(character.meditate);
             }
         }
+
+        public override string StateId() {
+            return "IdleState";
+        }
     }
 }

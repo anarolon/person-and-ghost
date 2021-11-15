@@ -53,5 +53,8 @@ public class MeditatingState : PersonState
 
     }
 
+    public override string StateId() {
+        return "MeditatingState";
+    }
 
 }

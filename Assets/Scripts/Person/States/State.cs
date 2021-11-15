@@ -9,6 +9,10 @@ namespace PersonAndGhost.Person.States
             this.stateMachine = stateMachine;
         }
 
+        public virtual string StateId() {
+            return "";
+        }
+
         public virtual void Enter()
         {
 

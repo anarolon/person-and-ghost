@@ -45,5 +45,10 @@ namespace PersonAndGhost.Person.States
         {
             base.PhysicsUpdate();
         }
+        
+        public override string StateId() {
+            return "CarriedState";
+        }
+
     }
 }

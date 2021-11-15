@@ -237,6 +237,12 @@ namespace PersonAndGhost.Person
                 _playerRB.velocity = new Vector2(Mathf.Sign(_playerRB.velocity.x)
                     * _config.maxMoveSpeed, _playerRB.velocity.y);
             }
+
+            if(movementInput == Vector2.left)
+                this.gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            else if (movementInput == Vector2.right) {
+                this.gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            }
         }
 
         private void ApplyLinearDrag()

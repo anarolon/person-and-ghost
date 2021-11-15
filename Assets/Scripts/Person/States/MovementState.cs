@@ -49,5 +49,9 @@ namespace PersonAndGhost.Person.States
             base.PhysicsUpdate();
             character.Move();
         }
+
+        public override string StateId() {
+            return "MovementState";
+        }
     }
 }
