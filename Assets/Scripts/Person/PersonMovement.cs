@@ -15,6 +15,7 @@ namespace PersonAndGhost.Person
         public MeditatingState meditate;
         public ClingState cling;
         public CarriedState carried;
+        public bool isDead = false;
         public GrappleAimState grappleAim;
 
         [Tooltip("Currently only being used to visualize current player state")]

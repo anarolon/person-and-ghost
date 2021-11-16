@@ -10,8 +10,6 @@ namespace PersonAndGhost
     {   
         private Animator animator;
         private PersonMovement personController;
-        private AnimatorStateInfo stateInfo;
-
         private const string IDLE_STATE = "IdleState";
         private const string JUMPING_STATE = "JumpingState";
         private const string FALLING_STATE = "FallingState";
@@ -26,13 +24,14 @@ namespace PersonAndGhost
             this.personController = GetComponent<PersonMovement>();
         }
 
-        
         void Update()
         {
             // Animation transitions should be optimized in future work
             string currentState = personController.MovementSM.CurrentState.StateId();
+            
             animator.SetBool("isJumping", personController.Jumped);
-
+            animator.SetBool("isDead", personController.isDead);
+            
             if(personController.IsOnGround) {
                 animator.SetBool("isFalling", false);
                 animator.SetBool("isClinging", false);
