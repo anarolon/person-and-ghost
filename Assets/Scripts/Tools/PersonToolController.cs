@@ -9,9 +9,10 @@ namespace PersonAndGhost.Tools
         [SerializeField] private bool toolInHand = false;
 
         [Header("Input System Variables")]
-        //[SerializeField] private bool interactWithTool = false;
         [SerializeField] private float interactWithTool = 0;
         [SerializeField] private bool useAction = false;
+
+        GameObject currentTool = default;
 
         void Start()
         {
@@ -22,7 +23,7 @@ namespace PersonAndGhost.Tools
         {
             if (interactWithTool < 0 && toolInHand)
             {
-                DropTool();
+                DropTool(currentTool);
             }
 
             if (useAction && toolInHand)
@@ -33,7 +34,6 @@ namespace PersonAndGhost.Tools
 
         public void OnToolInteract(InputAction.CallbackContext context)
         {
-            //interactWithTool = context.action.triggered;
             interactWithTool = context.ReadValue<float>();
         }
 
@@ -47,21 +47,21 @@ namespace PersonAndGhost.Tools
         {
             if (interactWithTool > 0 && collision.CompareTag("Tool") && !toolInHand)
             {
-                PickupTool();
+                PickupTool(collision.gameObject);
             }
         }
 
 
-        private void PickupTool()
+        private void PickupTool(GameObject tool)
         {
-            Actions.OnToolPickup(gameObject);
-
+            Actions.OnToolPickup(gameObject, tool);
+            currentTool = tool;
             toolInHand = true;
         }
 
-        private void DropTool()
+        private void DropTool(GameObject tool)
         {
-            Actions.OnToolDrop(gameObject);
+            Actions.OnToolDrop(gameObject, tool);
 
             toolInHand = false;
         }

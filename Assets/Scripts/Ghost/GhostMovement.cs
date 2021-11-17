@@ -67,7 +67,7 @@ namespace PersonAndGhost.Ghost
             }
         }
 
-        private void UpdatePossession(bool isPossessing)
+        private void UpdatePossession(bool isPossessing, AIAgent monster)
         {
             _isPossessing = isPossessing;
         }
