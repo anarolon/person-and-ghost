@@ -31,10 +31,10 @@ namespace PersonAndGhost
             
             animator.SetBool("isJumping", personController.Jumped);
             animator.SetBool("isDead", personController.isDead);
+            animator.SetBool("isWinner", personController.isWinner);
             
             if(personController.IsOnGround) {
                 animator.SetBool("isFalling", false);
-                animator.SetBool("isClinging", false);
             } else {
                  animator.SetBool("isFalling", true);
             }

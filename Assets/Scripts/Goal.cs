@@ -1,5 +1,7 @@
 using UnityEngine;
 using PersonAndGhost.Utils;
+using PersonAndGhost.Person;
+using UnityEngine.InputSystem;
 
 namespace PersonAndGhost
 {
@@ -18,6 +20,8 @@ namespace PersonAndGhost
             if (collidingTag == _leftPlayerTag)
             {
                 _isCollidingWithLeftPlayer = true;
+                // for win animation
+                collision.gameObject.GetComponent<PersonMovement>().isWinner = true;
             }
 
             else if (collidingTag == _rightPlayerTag)
@@ -27,6 +31,8 @@ namespace PersonAndGhost
 
             if (_isCollidingWithLeftPlayer && _isCollidingWithRightPlayer)
             {
+                
+                collision.gameObject.GetComponent<PlayerInput>().DeactivateInput();
                 Actions.OnRoomStateChange(true);
                 Destroy(this.gameObject);
             }
@@ -39,6 +45,7 @@ namespace PersonAndGhost
             if (collidingTag == _leftPlayerTag)
             {
                 _isCollidingWithLeftPlayer = false;
+                collision.gameObject.GetComponent<PersonMovement>().isWinner = false;
             }
 
             else if (collidingTag == _rightPlayerTag)
