@@ -32,6 +32,7 @@ namespace PersonAndGhost
             if (_isCollidingWithLeftPlayer && _isCollidingWithRightPlayer)
             {
                 
+                collision.gameObject.GetComponent<PersonMovement>().isWinner = true;
                 collision.gameObject.GetComponent<PlayerInput>().DeactivateInput();
                 Actions.OnRoomStateChange(true);
                 Destroy(this.gameObject);
