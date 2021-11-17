@@ -141,19 +141,19 @@ namespace PersonAndGhost
         {
             if (isPossessing)
             {
-                if (monster.name == "Bird")
+                if (monster.name.Contains("Bird"))
                 {
                     _stolenActionIcon.sprite = birdActionSprite ? birdActionSprite : null;
                 }
-                else if (monster.name == "BigBoy")
+                else if (monster.name.Contains("BigBoy"))
                 {
                     _stolenActionIcon.sprite = bigboyActionSprite ? bigboyActionSprite : null;
                 }
-                else if (monster.name == "BuffBoy")
+                else if (monster.name.Contains("BuffBoy"))
                 {
                     _stolenActionIcon.sprite = buffboyActionSprite ? buffboyActionSprite : null;
                 }
-                else if (monster.name == "Frog")
+                else if (monster.name.Contains("Frog"))
                 {
                     _stolenActionIcon.sprite = frogActionSprite ? frogActionSprite : null;
                 }
