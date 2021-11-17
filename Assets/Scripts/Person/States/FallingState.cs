@@ -45,5 +45,9 @@ namespace PersonAndGhost.Person.States
             base.PhysicsUpdate();
             character.AirMove();
         }
+
+         public override string StateId() {
+            return "FallingState";
+        }
     }
 }

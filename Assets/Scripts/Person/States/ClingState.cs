@@ -50,5 +50,9 @@ namespace PersonAndGhost.Person.States
             base.Exit();
             character.UnCling();
         }
+
+         public override string StateId() {
+            return "ClingState";
+        }
     }
 }

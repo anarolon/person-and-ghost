@@ -15,6 +15,8 @@ namespace PersonAndGhost.Person
         public MeditatingState meditate;
         public ClingState cling;
         public CarriedState carried;
+        public bool isDead = false;
+        public bool isWinner = false;
         public GrappleAimState grappleAim;
 
         [Tooltip("Currently only being used to visualize current player state")]
@@ -236,6 +238,12 @@ namespace PersonAndGhost.Person
             {
                 _playerRB.velocity = new Vector2(Mathf.Sign(_playerRB.velocity.x)
                     * _config.maxMoveSpeed, _playerRB.velocity.y);
+            }
+
+            if(movementInput == Vector2.left)
+                this.gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            else if (movementInput == Vector2.right) {
+                this.gameObject.GetComponent<SpriteRenderer>().flipX = false;
             }
         }
 

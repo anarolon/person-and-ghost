@@ -22,5 +22,9 @@ namespace PersonAndGhost.Person.States
             //       (when y velocity == 0)
             stateMachine.ChangeState(character.falling);
         }
+
+        public override string StateId() {
+            return "JumpingState";
+        }
     }
 }

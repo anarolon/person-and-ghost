@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 3585288843904447370}
   - component: {fileID: 2857880635292040680}
   - component: {fileID: -2928174825496870827}
+  - component: {fileID: -1794427248583147319}
+  - component: {fileID: -8333070568897160514}
   m_Layer: 12
   m_Name: Person
   m_TagString: Person
@@ -332,6 +334,37 @@ MonoBehaviour:
   toolInHand: 0
   interactWithTool: 0
   useAction: 0
+--- !u!114 &-1794427248583147319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3585288843904447371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b8cde328c309347ad972666b6cbe95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &-8333070568897160514
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3585288843904447371}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8869a1a5bc2c6754ca577eeb6d0e14d7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &290013326525943749
 PrefabInstance:
   m_ObjectHideFlags: 0

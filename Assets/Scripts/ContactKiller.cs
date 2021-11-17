@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using PersonAndGhost.Utils;
 using PersonAndGhost.Ghost;
+using PersonAndGhost.Person;
+using UnityEngine.InputSystem;
 
 namespace PersonAndGhost
 {
@@ -13,6 +15,10 @@ namespace PersonAndGhost
 
             if (gameObjectToDestroy.CompareTag(Utility.LEFTPLAYERTAG))
             {
+                gameObjectToDestroy.GetComponent<PersonMovement>().isDead = true;
+                gameObjectToDestroy.GetComponent<PlayerInput>().DeactivateInput();
+                // Maybe wait until death anim is over
+                yield return new WaitForSeconds(1);
                 Destroy(gameObjectToDestroy.transform.parent.gameObject);
 
                 Actions.OnRoomStateChange(false);

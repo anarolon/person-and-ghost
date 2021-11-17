@@ -99,5 +99,9 @@ namespace PersonAndGhost.Person.States
             GameObject.Destroy(_grappleFiringPoint);
             _grappleFiringPoint = null;
         }
+
+        public override string StateId() {
+            return "GrappleAimState";
+        }
     }
 }
