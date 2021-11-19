@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 8209847981997755034}
   - component: {fileID: -7710059561463754582}
   - component: {fileID: -7531447376050350527}
+  - component: {fileID: 2020805160538182622}
+  - component: {fileID: -7778590821970129514}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Ghost
@@ -77,8 +79,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: a8fd94d0313fb2b42ab4b536697ad2ea, type: 3}
+  m_SortingOrder: 20
+  m_Sprite: {fileID: -3391285973156987761, guid: ba10962d1d7e24b428c5739d15fb2ee1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -251,6 +253,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 88855732-37ac-4ca9-9c17-4bd20f8a9548
     m_ActionName: Player/StolenActionDown[/Keyboard/downArrow,/Keyboard/slash]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4c564aa7-642e-4969-a294-ff93e8d31bd8
+    m_ActionName: GameManager/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: KeyboardRight
   m_DefaultActionMap: Player
@@ -313,3 +319,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _config: {fileID: 0}
+--- !u!95 &2020805160538182622
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5665107311941679825}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c729f052accaa9b4c8ecfa615ad8d4f1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-7778590821970129514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5665107311941679825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b161d3157b8cd8b4397976c720ffd51d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

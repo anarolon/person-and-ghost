@@ -100,7 +100,7 @@ namespace PersonAndGhost
                 _gameResultTextBox.text = _winningRoomMessage;
                 solvedRoomCount++;
 
-                Time.timeScale = 0;
+                //Time.timeScale = 0;
             }
 
             else
