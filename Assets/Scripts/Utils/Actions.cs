@@ -19,5 +19,7 @@ namespace PersonAndGhost.Utils
 
         public static Action OnGamePause;
         public static Action OnGameUnPause;
+
+        public static Action<string> OnPersonRequestAudio;
     }
 }

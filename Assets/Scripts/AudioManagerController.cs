@@ -1,4 +1,6 @@
 using PersonAndGhost.Person;
+using PersonAndGhost.Utils;
+using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -8,12 +10,12 @@ namespace PersonAndGhost
     [RequireComponent(typeof(AudioSource))]
     public class AudioManagerController : MonoBehaviour
     {
-        [Header("Person field")]
-        [SerializeField] private PersonMovement _personController;
-
         [Header("Audio fields")]
         [SerializeField] private AudioSource _audioSource;
         [SerializeField] private AudioClip[] _audioClips;
+
+        private int ClipsEnumLength =>
+                (int)System.Enum.GetValues(typeof(Clips)).Cast<Clips>().Max() + 1;
 
         // Order In Which Clips will be
         private enum Clips
@@ -21,79 +23,73 @@ namespace PersonAndGhost
             Move,
             Cling,
             Jump,
-            Meditation,
+            Meditati,
             Death
         }
 
         private void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
-        }
 
-        private IEnumerator Start()
-        {
             if (_audioClips == null || _audioClips.Length < 1)
             {
                 _audioClips = Resources.FindObjectsOfTypeAll<AudioClip>();
             }
 
-            yield return new WaitForFixedUpdate();
-
-            OrderClips(); 
-
-            _personController = FindObjectOfType<PersonMovement>();
+            OrderClips();
         }
 
-        private void Update()
+        private void OnEnable()
         {
-            AudioClip audioClip = SelectAudioToPlay();
-
-            if (audioClip != null)
-            {
-                _audioSource.clip = audioClip;
-                _audioSource.PlayDelayed(audioClip.length / 2);
-            }
+            Actions.OnPersonRequestAudio += HandlePersonRequestAudio;
         }
 
-        private AudioClip SelectAudioToPlay()
+        private void HandlePersonRequestAudio(string state)
         {
-            if (!_audioSource.isPlaying)
+            for (int index = 0; index < ClipsEnumLength; index++)
             {
-                if (_personController)
+                if (state.ToLower().Contains(((Clips)index).ToString().ToLower()))
                 {
-                    switch (_personController.MovementSM.CurrentState.StateId())
+                    AudioClip clip = _audioClips[index];
+
+                    if (index == (int)Clips.Move)
                     {
-                        case "MovementState":
-                            return _audioClips[(int)Clips.Move];
-                        case "ClingState":
-                            return _audioClips[(int)Clips.Cling];
-                        default:
-                            if (_personController.Jumped)
-                            {
-                                return _audioClips[(int)Clips.Jump];
-                            }
-
-                            else if (_personController.IsMeditating)
-                            {
-                                return _audioClips[(int)Clips.Meditation];
-                            }
-
-                            else if (_personController.isDead)
-                            {
-                                return _audioClips[(int)Clips.Death];
-                            }
-                            break;
+                        if (!_audioSource.isPlaying)
+                        {
+                            PlayClip(clip, false, clip.length / 2, 0.75f, false);
+                        }
                     }
+
+                    else
+                    {
+                        PlayClip(clip, false, 0, 1, false);
+                    }
+                    break;
                 }
             }
-            return null;
+        }
+
+        private void PlayClip(AudioClip audioClip, 
+            bool isOneShot, float delay, float volume, bool isLoop)
+        {
+            if (isOneShot)
+            {
+                _audioSource.PlayOneShot(audioClip, volume);
+            }
+
+            else
+            {
+                _audioSource.clip = audioClip;
+                _audioSource.volume = volume;
+                _audioSource.loop = isLoop;
+                _audioSource.PlayDelayed(delay);
+            }
         }
 
         // Order audio clips according to enum Clips
         private void OrderClips()
         {
-            int clipsLength = 
-                (int)System.Enum.GetValues(typeof(Clips)).Cast<Clips>().Max() + 1;
+            int clipsLength = ClipsEnumLength;
 
             if (_audioClips != null && _audioClips.Length >= clipsLength)
             {
@@ -119,6 +115,11 @@ namespace PersonAndGhost
                 Debug.LogWarning("Audio clips array is null " +
                     "or its length is smaller than required.");
             }
+        }
+
+        private void OnDisable()
+        {
+            Actions.OnPersonRequestAudio -= HandlePersonRequestAudio;
         }
     }
 }
