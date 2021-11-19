@@ -143,16 +143,6 @@ namespace PersonAndGhost.Ghost
         {
             IsPossessing = !IsPossessing;
 
-            try
-            {
-                Actions.OnPossessionTriggered(IsPossessing);
-            }
-
-            catch (System.NullReferenceException)
-            {
-                // Do nothing
-            }
-
             // Possess the nearby creature.
             if (IsPossessing)
             {
@@ -167,6 +157,16 @@ namespace PersonAndGhost.Ghost
                 _monster.stateMachine.ChangeState(_monster.initialState);
                 //_renderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
                 _monster = null;
+            }
+
+            try
+            {
+                Actions.OnPossessionTriggered(IsPossessing, _monster);
+            }
+
+            catch (System.NullReferenceException)
+            {
+                // Do nothing
             }
         }
 

@@ -1,9 +1,9 @@
-using UnityEngine;
-using UnityEngine.UI;
 using PersonAndGhost.Utils;
 using System.Collections;
-using UnityEngine.SceneManagement;
+using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace PersonAndGhost
 {
@@ -19,6 +19,17 @@ namespace PersonAndGhost
         
         private Text _gameResultTextBox;
         private Text _collectableTextBox;
+
+        [Header("Icon Fields")]
+        private Image _toolIcon;
+        private Image _stolenActionIcon;
+        [SerializeField] Sprite emptySprite = default;
+        [SerializeField] Sprite birdActionSprite = default;
+        [SerializeField] Sprite bigboyActionSprite = default;
+        [SerializeField] Sprite buffboyActionSprite = default;
+        [SerializeField] Sprite frogActionSprite = default;
+        [SerializeField] Sprite climbingGauntletSprite = default;
+        [SerializeField] Sprite grapplingHookSprite = default;
 
         public static GameManagerController instance = null;
         public static int solvedRoomCount = 0;
@@ -64,6 +75,23 @@ namespace PersonAndGhost
                     _collectableTextBox = text;
                 }
             }
+
+            Image[] uiIcons = _gameUI.GetComponentsInChildren<Image>();
+            foreach(Image icon in uiIcons)
+            {
+                string name = icon.name;
+                if( name == "Tool Icon")
+                {
+                    _toolIcon = icon.GetComponent<Image>();
+                    _toolIcon.sprite = emptySprite ? emptySprite : null;
+                }
+                else if( name == "Stolen Action Icon")
+                {
+                    _stolenActionIcon = icon.GetComponent<Image>();
+                    _stolenActionIcon.sprite = emptySprite ? emptySprite : null;
+                }
+            }
+
         }
 
         private void OnEnable()
@@ -71,6 +99,13 @@ namespace PersonAndGhost
             Actions.OnRoomStateChange += HandleRoomStateChange;
             Actions.OnFloorStateChange += HandleFloorStateChange;
             Actions.OnCollectableCollected += UpdateCollectableCount;
+
+            Actions.OnToolPickup += ToolIconChange;
+            Actions.OnToolDrop += ToolIconRemove;
+
+            Actions.OnPossessionTriggered += StolenActionIconChange;
+
+
         }
         
         private void OnDisable()
@@ -78,9 +113,58 @@ namespace PersonAndGhost
             Actions.OnRoomStateChange -= HandleRoomStateChange;
             Actions.OnFloorStateChange -= HandleFloorStateChange;
             Actions.OnCollectableCollected -= UpdateCollectableCount;
+
+            Actions.OnToolPickup -= ToolIconChange;
+            Actions.OnToolDrop -= ToolIconRemove;
         }
 
-        // **************PAUSE MENU METHOD
+        //*****Tool Icon CHANGES
+        private void ToolIconChange(GameObject obtainer, GameObject tool)
+        {
+            if (tool.name == "Grappling Hook")
+            {
+                _toolIcon.sprite = grapplingHookSprite ? grapplingHookSprite : null;
+            }
+            else if(tool.name == "Climbing Gauntlet")
+            {
+                _toolIcon.sprite = climbingGauntletSprite ? climbingGauntletSprite : null;
+            }
+        }
+
+        private void ToolIconRemove(GameObject obtainer, GameObject tool)
+        {
+            _toolIcon.sprite = emptySprite ? emptySprite : null;
+        }
+
+        //**Stolen Action Icon Changes
+        private void StolenActionIconChange(bool isPossessing, AIAgent monster)
+        {
+            if (isPossessing)
+            {
+                if (monster.name.Contains("Bird"))
+                {
+                    _stolenActionIcon.sprite = birdActionSprite ? birdActionSprite : null;
+                }
+                else if (monster.name.Contains("BigBoy"))
+                {
+                    _stolenActionIcon.sprite = bigboyActionSprite ? bigboyActionSprite : null;
+                }
+                else if (monster.name.Contains("BuffBoy"))
+                {
+                    _stolenActionIcon.sprite = buffboyActionSprite ? buffboyActionSprite : null;
+                }
+                else if (monster.name.Contains("Frog"))
+                {
+                    _stolenActionIcon.sprite = frogActionSprite ? frogActionSprite : null;
+                }
+            }
+            else
+            {
+                _stolenActionIcon.sprite = emptySprite ? emptySprite : null;
+            }
+            
+        }
+
         public void OnPauseGame(InputAction.CallbackContext context)
         {
             _pausePress = context.action.triggered;
@@ -89,7 +173,6 @@ namespace PersonAndGhost
                 Actions.OnGamePause();
             }
         }
-        // PAUSE MENU METHOD*****************
 
         private void HandleRoomStateChange(bool hasWon)
         {
