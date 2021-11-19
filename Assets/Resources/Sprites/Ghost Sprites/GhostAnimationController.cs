@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using PersonAndGhost.Utils;
 using UnityEngine;
 
 namespace PersonAndGhost.Ghost
@@ -20,6 +19,24 @@ namespace PersonAndGhost.Ghost
         {
             bool possessing = possessionComponent.IsPossessing;
             anim.SetBool("isPossessing", possessing);
+        }
+
+        private void OnEnable()
+        {
+            Actions.OnRoomStateChange += HandleRoomStateChange;
+        }
+
+        private void OnDisable()
+        {
+            Actions.OnRoomStateChange -= HandleRoomStateChange;
+        }
+
+        private void HandleRoomStateChange(bool hasWon)
+        {
+            if (hasWon)
+            {
+                anim.SetTrigger("RoomWon");
+            }
         }
     }
 }

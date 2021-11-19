@@ -86,7 +86,7 @@ namespace PersonAndGhost.Tools
 
         }
 
-        protected virtual void ToolDrop(GameObject obtainer)
+        protected virtual void ToolDrop(GameObject obtainer, GameObject tool)
         {
             isPickedUp = false;
             obtainerPos = null;
@@ -96,7 +96,7 @@ namespace PersonAndGhost.Tools
             Actions.OnToolActionUse -= ToolAction;
         }
 
-        protected virtual void ToolPickup(GameObject obtainer)
+        protected virtual void ToolPickup(GameObject obtainer, GameObject tool)
         {
             isPickedUp = true;
             obtainerPos = obtainer.transform;

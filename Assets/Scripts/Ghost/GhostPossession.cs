@@ -143,30 +143,30 @@ namespace PersonAndGhost.Ghost
         {
             IsPossessing = !IsPossessing;
 
-            try
-            {
-                Actions.OnPossessionTriggered(IsPossessing);
-            }
-
-            catch (System.NullReferenceException)
-            {
-                // Do nothing
-            }
-
             // Possess the nearby creature.
             if (IsPossessing)
             {
                 _monster = _nearbyMonster;
                 _monster.stateMachine.ChangeState(AIStateId.Possessed);
-                _renderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+                //_renderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
             }
             
             // Release the possessed creature.
             else
             {
                 _monster.stateMachine.ChangeState(_monster.initialState);
-                _renderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
+                //_renderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
                 _monster = null;
+            }
+
+            try
+            {
+                Actions.OnPossessionTriggered(IsPossessing, _monster);
+            }
+
+            catch (System.NullReferenceException)
+            {
+                // Do nothing
             }
         }
 
