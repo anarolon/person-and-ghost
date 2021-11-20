@@ -80,7 +80,7 @@ namespace PersonAndGhost.PlayMode.GhostTests
 
 
         [UnityTearDown]
-        public IEnumerator TearDown()
+        public new IEnumerator TearDown()
         {
             //Object.Destroy(_ghostTransform.gameObject);
             //Object.Destroy(_anchorTransform.gameObject);

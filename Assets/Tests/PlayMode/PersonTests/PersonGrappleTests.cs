@@ -74,7 +74,7 @@ namespace PersonAndGhost.PlayMode.PersonTests
         }
 
         [UnityTearDown]
-        public IEnumerator TearDown()
+        public new IEnumerator TearDown()
         {
             Object.Destroy(_groundTransform);
             Object.Destroy(_wallTransform);
