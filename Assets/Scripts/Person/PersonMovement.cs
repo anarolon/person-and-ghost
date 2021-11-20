@@ -333,15 +333,17 @@ namespace PersonAndGhost.Person
 
         private void RequestAudio()
         {
+            string audioName = "";
+
             if (Mathf.Abs(_horizontalVelocity) > 0 && isOnGround)
             {
-                Actions.OnPersonRequestAudio(movement.StateId());
+                audioName = movement.StateId();
             }
 
             else if (_horizontalVelocity == 0 && IsMeditating && !_hasEnteredMeditation)
             {
                 _hasEnteredMeditation = true;
-                Actions.OnPersonRequestAudio(meditate.StateId());
+                audioName = meditate.StateId();
             }
 
             else if (_playerRB.gravityScale == 0
@@ -349,20 +351,33 @@ namespace PersonAndGhost.Person
                 && !_hasEnteredCling)
             {
                 _hasEnteredCling = true;
-                Actions.OnPersonRequestAudio(cling.StateId());
+                audioName = cling.StateId();
             }
 
             else if (_jumped && _playerRB.velocity.y > 0 && !_hasEnteredJump)
             {
                 _hasEnteredJump = true;
-                Actions.OnPersonRequestAudio(jumping.StateId());
+                audioName = jumping.StateId();
             }
 
             else if (isDead && !_hasEnteredDeath)
             {
-                Debug.Log("death");
                 _hasEnteredDeath = true;
-                Actions.OnPersonRequestAudio("death");
+                audioName = "death";
+            }
+
+            if (audioName.Length > 0)
+            {
+                // Catch exception that triggers in the tests
+                try
+                {
+                    Actions.OnPersonRequestAudio(audioName);
+                }
+
+                catch (System.NullReferenceException e)
+                {
+                    Debug.LogWarning("context: " + this + "\n exception: " + e);
+                }
             }
         }
 
