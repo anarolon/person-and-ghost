@@ -1,9 +1,6 @@
-using PersonAndGhost.Person;
-using PersonAndGhost.Utils;
-using System;
-using System.Collections;
-using System.Linq;
 using UnityEngine;
+using System.Linq;
+using PersonAndGhost.Utils;
 
 namespace PersonAndGhost
 {
@@ -14,22 +11,11 @@ namespace PersonAndGhost
         [SerializeField] private AudioSource _audioSource;
         [SerializeField] private AudioClip[] _audioClips;
 
-        private int ClipsEnumLength =>
-                (int)System.Enum.GetValues(typeof(Clips)).Cast<Clips>().Max() + 1;
-
-        // Order In Which Clips will be
-        private enum Clips
-        {
-            Move,
-            Cling,
-            Jump,
-            Meditati,
-            Death
-        }
+        public AudioClip[] AudioClips => _audioClips;
 
         private void Awake()
         {
-            _audioSource = GetComponent<AudioSource>();
+            _audioSource ??= GetComponent<AudioSource>();
 
             if (_audioClips == null || _audioClips.Length < 1)
             {
@@ -41,36 +27,29 @@ namespace PersonAndGhost
 
         private void OnEnable()
         {
-            Actions.OnPersonRequestAudio += HandlePersonRequestAudio;
+            Actions.OnRequestAudio += HandleAudioRequest;
         }
 
-        private void HandlePersonRequestAudio(string state)
+        private void HandleAudioRequest(Clips clip)
         {
-            for (int index = 0; index < ClipsEnumLength; index++)
+            AudioClip audioClip = _audioClips[(int)clip];
+
+            if (clip == Clips.Move || clip == Clips.BigBoyAction)
             {
-                if (state.ToLower().Contains(((Clips)index).ToString().ToLower()))
+                if (!_audioSource.isPlaying)
                 {
-                    AudioClip clip = _audioClips[index];
-
-                    if (index == (int)Clips.Move)
-                    {
-                        if (!_audioSource.isPlaying)
-                        {
-                            PlayClip(clip, false, clip.length / 2, 0.75f, false);
-                        }
-                    }
-
-                    else
-                    {
-                        PlayClip(clip, false, 0, 1, false);
-                    }
-                    break;
+                    PlayClip(audioClip, false, audioClip.length / 2, 0.75f);
                 }
+            }
+
+            else
+            {
+                PlayClip(audioClip, false, 0, 1);
             }
         }
 
-        private void PlayClip(AudioClip audioClip, 
-            bool isOneShot, float delay, float volume, bool isLoop)
+        private void PlayClip
+            (AudioClip audioClip, bool isOneShot, float delay, float volume)
         {
             if (isOneShot)
             {
@@ -81,7 +60,6 @@ namespace PersonAndGhost
             {
                 _audioSource.clip = audioClip;
                 _audioSource.volume = volume;
-                _audioSource.loop = isLoop;
                 _audioSource.PlayDelayed(delay);
             }
         }
@@ -89,7 +67,8 @@ namespace PersonAndGhost
         // Order audio clips according to enum Clips
         private void OrderClips()
         {
-            int clipsLength = ClipsEnumLength;
+            int clipsLength =
+                (int)System.Enum.GetValues(typeof(Clips)).Cast<Clips>().Max() + 1;
 
             if (_audioClips != null && _audioClips.Length >= clipsLength)
             {
@@ -99,10 +78,11 @@ namespace PersonAndGhost
                 {
                     foreach (AudioClip clip in _audioClips)
                     {
-                        if (clip.name.ToLower().Contains(
-                            ((Clips)index).ToString().ToLower()))
+                        if (clip.name.ToLower()
+                            .Contains(((Clips)index).ToString().ToLower()))
                         {
                             result[index] = clip;
+                            break;
                         }
                     }
                 }
@@ -119,7 +99,7 @@ namespace PersonAndGhost
 
         private void OnDisable()
         {
-            Actions.OnPersonRequestAudio -= HandlePersonRequestAudio;
+            Actions.OnRequestAudio -= HandleAudioRequest;
         }
     }
 }

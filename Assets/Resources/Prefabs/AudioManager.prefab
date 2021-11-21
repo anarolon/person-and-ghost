@@ -140,11 +140,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5e8f53b4c5177c44a18ddfa42e4aaa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _personController: {fileID: 0}
-  _audioSource: {fileID: 0}
+  _audioSource: {fileID: 7312032693820956819}
   _audioClips:
   - {fileID: 8300000, guid: c1432c4e96af7cc47847a0e8aa51f6cb, type: 3}
   - {fileID: 8300000, guid: dc08be0b20ab515428185d88525844dc, type: 3}
   - {fileID: 8300000, guid: 3cea435e70aa7334f84fd112094efeb9, type: 3}
   - {fileID: 8300000, guid: 8e861931a5930434cb9c88d9b6e794da, type: 3}
   - {fileID: 8300000, guid: 9a9c5342a57fc674bae830acf828f2cc, type: 3}
+  - {fileID: 8300000, guid: a8d6df617fb770b4d90d876e4856f4f4, type: 3}
+  - {fileID: 8300000, guid: d83f663ec78a4d444ba4b658031d9d5e, type: 3}
+  - {fileID: 8300000, guid: 2d13eb4a3f640e64baaf4556942dcac5, type: 3}
+  - {fileID: 8300000, guid: fd10e816dcf56314891a59b8b0cf27ab, type: 3}
+  - {fileID: 8300000, guid: 4bd2cecfda49fde4ab20532460362fd0, type: 3}
+  - {fileID: 8300000, guid: e31f96188ae651449a0e7a8d8dd9cb11, type: 3}
+  - {fileID: 8300000, guid: 80cd2caf46effa8498fe3258084f1fec, type: 3}
+  - {fileID: 8300000, guid: 9d2f3d8e68b039a40b778798236552d5, type: 3}
+  - {fileID: 8300000, guid: 6c5396cba911c1b46aac2f9e681bf880, type: 3}
+  - {fileID: 8300000, guid: 5713b289bca6d004faa1bea94128d4a0, type: 3}
+  - {fileID: 8300000, guid: c92558c861a3b5646b553e3ceb6de099, type: 3}
+  - {fileID: 8300000, guid: 818ef4b8031586e4ba43d668c00b6d8b, type: 3}
+  - {fileID: 8300000, guid: 8b309d7fbd49d8e46b8a8042f4521a0f, type: 3}
+  - {fileID: 8300000, guid: fb5168a4ceeae194baa6466dbc8077ef, type: 3}
+  - {fileID: 8300000, guid: e33db6e3bb5545b4cbcd116779a1927e, type: 3}
+  - {fileID: 8300000, guid: fcea25d7b85a38940962a0ab54028512, type: 3}
+  - {fileID: 8300000, guid: 6908197177a1f5848bcceb434237a0d2, type: 3}
