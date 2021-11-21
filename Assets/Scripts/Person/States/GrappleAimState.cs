@@ -37,7 +37,7 @@ namespace PersonAndGhost.Person.States
             base.LogicUpdate();
             if (character.DidReachGrapplePoint())
             {
-                Debug.Log("Reached the destination");
+                //Debug.Log("Reached the destination");
                 if (character.IsOnGround) stateMachine.ChangeState(character.idle);
                 else stateMachine.ChangeState(character.falling);
             }
@@ -59,7 +59,7 @@ namespace PersonAndGhost.Person.States
                 }
                 else
                 {
-                    Debug.Log("Cancelled Grappling");
+                    //Debug.Log("Cancelled Grappling");
                     if (character.IsOnGround) stateMachine.ChangeState(character.idle);
                     else stateMachine.ChangeState(character.falling);
                 }

@@ -30,7 +30,7 @@ namespace PersonAndGhost.Tools
             _obtainerController = obtainer.GetComponent<PersonMovement>();
             _obtainerStateMachine ??= _obtainerController.MovementSM;
 
-            Debug.Log("Grappling Hook got picked up by: " + obtainer.name);
+            //Debug.Log("Grappling Hook got picked up by: " + obtainer.name);
         }
 
         protected override void ToolDrop(GameObject obtainer, GameObject tool)
@@ -40,7 +40,7 @@ namespace PersonAndGhost.Tools
             _obtainerController = null;
             _obtainerStateMachine = null;
 
-            Debug.Log("Grappling Hook got dropped by: " + obtainer.name);
+            //Debug.Log("Grappling Hook got dropped by: " + obtainer.name);
         }
     }
 }
