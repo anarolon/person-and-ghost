@@ -45,6 +45,7 @@ namespace PersonAndGhost
                     
                 _pauseMenuPanel.SetActive(true);
                 Time.timeScale = 0;
+                Utility.ActionHandler(Actions.Names.OnRequestAudio, Clips.Pause, this);
             }
         }
 

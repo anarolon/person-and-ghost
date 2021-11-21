@@ -94,6 +94,8 @@ namespace PersonAndGhost.Tools
             AddGravityEffect();
 
             Actions.OnToolActionUse -= ToolAction;
+
+            Utility.ActionHandler(Actions.Names.OnRequestAudio, Clips.ToolDrop, this);
         }
 
         protected virtual void ToolPickup(GameObject obtainer, GameObject tool)
@@ -104,6 +106,8 @@ namespace PersonAndGhost.Tools
             ZeroGravityEffect();
 
             Actions.OnToolActionUse += ToolAction;
+
+            Utility.ActionHandler(Actions.Names.OnRequestAudio, Clips.ToolPickup, this);
         }
 
         private void ZeroGravityEffect()

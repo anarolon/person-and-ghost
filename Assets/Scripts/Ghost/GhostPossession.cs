@@ -159,6 +159,11 @@ namespace PersonAndGhost.Ghost
                 _monster = null;
             }
 
+            Clips clip = IsPossessing ? Clips.GhostPossession : Clips.GhostUnpossession;
+
+            Utility.ActionHandler(Actions.Names.OnRequestAudio, clip, this);
+
+            // This can be more efficiently handle by Utility.ActionHandler
             try
             {
                 Actions.OnPossessionTriggered(IsPossessing, _monster);

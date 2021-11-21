@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using PersonAndGhost.Person.States;
 using PersonAndGhost.Utils;
+using System.Collections;
 
 namespace PersonAndGhost.Person
 {
@@ -58,10 +59,12 @@ namespace PersonAndGhost.Person
         private bool _canGrapple = false;
 
         [Header("Audio Request Fields")]
+        [SerializeField] private float _grappleHookShootCooldown = 0.1f;
         private bool _hasEnteredMeditation = false;
         private bool _hasEnteredCling = false;
         private bool _hasEnteredJump = false;
         private bool _hasEnteredDeath = false;
+        private bool _hasEnteredGrappleShot = false;
 
         // PROPERTIES
         public GameObject GhostlyInvasion { get => _ghostlyInvasion; }
@@ -210,7 +213,23 @@ namespace PersonAndGhost.Person
                 _grapplePoint = hit.point;
                 _grappleDistanceVector = (_grapplePoint -
                     (Vector2)transform.position).normalized;
+
+                IEnumerator coroutine = AudioRequestWithCooldown(
+                    _grappleHookShootCooldown, Clips.HookShoot);
+
+                if (!_hasEnteredGrappleShot)
+                {
+                    _hasEnteredGrappleShot = true;
+
+                    StartCoroutine(coroutine);
+                }
+
+                else
+                {
+                    StopCoroutine(coroutine);
+                }
             }
+
             else
             {
                 _canGrapple = false;
@@ -228,7 +247,6 @@ namespace PersonAndGhost.Person
             _playerRB.gravityScale = 0;
             _playerRB.AddForce(grappleSpeed * _config.grappleMultiplier
                 * _grappleDistanceVector);
-
         }
 
         public bool DidReachGrapplePoint()
@@ -333,52 +351,53 @@ namespace PersonAndGhost.Person
 
         private void RequestAudio()
         {
-            string audioName = "";
+            Clips clip;
 
             if (Mathf.Abs(_horizontalVelocity) > 0 && isOnGround)
             {
-                audioName = movement.StateId();
+                clip = Clips.Move;
             }
 
             else if (_horizontalVelocity == 0 && IsMeditating && !_hasEnteredMeditation)
             {
                 _hasEnteredMeditation = true;
-                audioName = meditate.StateId();
+                clip = Clips.Meditation;
             }
 
-            else if (_playerRB.gravityScale == 0
-                && _playerRB.velocity == Vector2.zero
-                && !_hasEnteredCling)
+            else if (_playerRB.gravityScale == 0 && !_hasEnteredCling 
+                && _currentState.Contains(cling.StateId()))
             {
                 _hasEnteredCling = true;
-                audioName = cling.StateId();
+                clip = Clips.Cling;
             }
 
             else if (_jumped && _playerRB.velocity.y > 0 && !_hasEnteredJump)
             {
                 _hasEnteredJump = true;
-                audioName = jumping.StateId();
+                clip = Clips.Jump;
             }
 
             else if (isDead && !_hasEnteredDeath)
             {
                 _hasEnteredDeath = true;
-                audioName = "death";
+                clip = Clips.Dead;
             }
 
-            if (audioName.Length > 0)
+            else
             {
-                // Catch exception that triggers in the tests
-                try
-                {
-                    Actions.OnPersonRequestAudio(audioName);
-                }
-
-                catch (System.NullReferenceException e)
-                {
-                    Debug.LogWarning("context: " + this + "\n exception: " + e);
-                }
+                return;
             }
+
+            Utility.ActionHandler(Actions.Names.OnRequestAudio, clip, this);
+        }
+
+        private IEnumerator AudioRequestWithCooldown(float cooldown, Clips clip)
+        {
+            Utility.ActionHandler(Actions.Names.OnRequestAudio, clip, this);
+
+            yield return new WaitForSeconds(cooldown);
+
+            _hasEnteredGrappleShot = false;
         }
 
         private void OnDrawGizmos()
@@ -401,10 +420,16 @@ namespace PersonAndGhost.Person
                 transform.position + Vector3.left * _config.wallRaycastLength);
         }
 
-        private void OnCollisionEnter2D(Collision2D other) {
-            if(other.gameObject.CompareTag(Utility.SPIRITTAG)) {
+        private void OnCollisionEnter2D(Collision2D other) 
+        {
+            if(other.gameObject.CompareTag(Utility.SPIRITTAG)) 
+            {
                 IsMeditating = false;
+
                 _turret.SetActive(false);
+
+                Utility.ActionHandler(
+                    Actions.Names.OnRequestAudio, Clips.SpiritTouch, this);
             }
         }
     }

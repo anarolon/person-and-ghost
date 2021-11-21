@@ -18,6 +18,9 @@ public class PressurePlateTrigger : MonoBehaviour
             if (other.gameObject.CompareTag(Utility.LEFTPLAYERTAG)) 
             {
                 _door.Open();
+
+                Utility.ActionHandler(
+                    Actions.Names.OnRequestAudio, Clips.PressurePlate, this);
             }
 
             else if (other.gameObject.CompareTag(Utility.MONSTERTAG) 
@@ -26,6 +29,9 @@ public class PressurePlateTrigger : MonoBehaviour
                 if (agent.isPossessed)
                 {
                     _door.Open();
+
+                    Utility.ActionHandler(
+                        Actions.Names.OnRequestAudio, Clips.PressurePlate, this);
                 }
             }
         }
