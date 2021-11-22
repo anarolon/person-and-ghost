@@ -3684,6 +3684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pauseFirstButton: {fileID: 5405329007970446400}
+  _eventSystem: {fileID: 0}
 --- !u!1 &6743332492839361638
 GameObject:
   m_ObjectHideFlags: 0

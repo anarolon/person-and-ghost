@@ -1,3 +1,4 @@
+using PersonAndGhost.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,6 +55,8 @@ public class AIFrog : AIAgent
             this.rb.velocity = new Vector2(this.rb.velocity.x, 0f);
             this.rb.AddForce(Vector2.up * this.config._jumpForce, ForceMode2D.Impulse);
             this._isJumping = false;
+
+            Utility.ActionHandler(Actions.Names.OnRequestAudio, Clips.FrogAction, this);
         }
     }
 

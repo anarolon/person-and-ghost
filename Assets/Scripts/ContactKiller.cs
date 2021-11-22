@@ -50,6 +50,9 @@ namespace PersonAndGhost
                 }
 
                 Destroy(gameObjectToDestroy);
+
+                Utility.ActionHandler(
+                    Actions.Names.OnRequestAudio, Clips.EnemyDeath, this);
             } 
         }
     }

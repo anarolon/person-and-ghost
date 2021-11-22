@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using PersonAndGhost.Person.States;
 using PersonAndGhost.Utils;
+using System.Collections;
 
 namespace PersonAndGhost.Person
 {
@@ -56,7 +57,14 @@ namespace PersonAndGhost.Person
         private Vector2 _grapplePoint;
         private Vector2 _grappleDistanceVector;
         private bool _canGrapple = false;
-        
+
+        [Header("Audio Request Fields")]
+        [SerializeField] private float _grappleHookShootCooldown = 0.1f;
+        private bool _hasEnteredMeditation = false;
+        private bool _hasEnteredCling = false;
+        private bool _hasEnteredJump = false;
+        private bool _hasEnteredDeath = false;
+        private bool _hasEnteredGrappleShot = false;
 
         // PROPERTIES
         public GameObject GhostlyInvasion { get => _ghostlyInvasion; }
@@ -108,7 +116,13 @@ namespace PersonAndGhost.Person
 
         private void FixedUpdate()
         {
+            _horizontalVelocity = 0;
+
             _movementSM.CurrentState.PhysicsUpdate();
+
+            UpdateAudioRequestFields();
+
+            RequestAudio();
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -123,13 +137,13 @@ namespace PersonAndGhost.Person
 
         public void OnMeditation(InputAction.CallbackContext context)
         {
-
             bool triggered = context.action.triggered;
 
             //Not handle this behavior in here but in meditating state script.
             if (triggered)
             {
                 IsMeditating = !IsMeditating;
+
                 // TODO: Change this to a public method maybe to call it within meditation state
                 _turret.SetActive(IsMeditating);
             }
@@ -199,7 +213,23 @@ namespace PersonAndGhost.Person
                 _grapplePoint = hit.point;
                 _grappleDistanceVector = (_grapplePoint -
                     (Vector2)transform.position).normalized;
+
+                IEnumerator coroutine = AudioRequestWithCooldown(
+                    _grappleHookShootCooldown, Clips.HookShoot);
+
+                if (!_hasEnteredGrappleShot)
+                {
+                    _hasEnteredGrappleShot = true;
+
+                    StartCoroutine(coroutine);
+                }
+
+                else
+                {
+                    StopCoroutine(coroutine);
+                }
             }
+
             else
             {
                 _canGrapple = false;
@@ -217,7 +247,6 @@ namespace PersonAndGhost.Person
             _playerRB.gravityScale = 0;
             _playerRB.AddForce(grappleSpeed * _config.grappleMultiplier
                 * _grappleDistanceVector);
-
         }
 
         public bool DidReachGrapplePoint()
@@ -232,7 +261,8 @@ namespace PersonAndGhost.Person
         {
             _horizontalVelocity = movementInput.x;
 
-            _playerRB.AddForce(new Vector2(_horizontalVelocity, 0f) * _config.movementAcceleration);
+            _playerRB.AddForce(new Vector2(_horizontalVelocity, 0f) 
+                * _config.movementAcceleration);
 
             if (Mathf.Abs(_playerRB.velocity.x) > _config.maxMoveSpeed)
             {
@@ -283,15 +313,91 @@ namespace PersonAndGhost.Person
 
         private void CheckCollision()
         {
-            isOnGround = Physics2D.Raycast(transform.position + _config.groundRaycastOffset,
-                Vector2.down, _config.groundRaycastLength, _groundLayer)
-                || Physics2D.Raycast(transform.position - _config.groundRaycastOffset,
-                Vector2.down, _config.groundRaycastLength, _groundLayer);
+            isOnGround = 
+                Physics2D.Raycast(transform.position + _config.groundRaycastOffset,
+                    Vector2.down, _config.groundRaycastLength, _groundLayer) ||
+                Physics2D.Raycast(transform.position - _config.groundRaycastOffset,
+                    Vector2.down, _config.groundRaycastLength, _groundLayer
+            );
 
             isTouchingWall = Physics2D.Raycast(transform.position,
                 Vector2.right, _config.wallRaycastLength, _wallLayer)
                 || Physics2D.Raycast(transform.position,
                 Vector2.left, _config.wallRaycastLength, _wallLayer);
+        }
+
+        private void UpdateAudioRequestFields()
+        {
+            if (_playerRB.gravityScale == 1)
+            {
+                _hasEnteredCling = false;
+            }
+
+            if (isOnGround && _playerRB.velocity.y == 0)
+            {
+                _hasEnteredJump = false;
+            }
+
+            if (!IsMeditating)
+            {
+                _hasEnteredMeditation = false;
+            }
+
+            if (!isDead)
+            {
+                _hasEnteredDeath = false;
+            }
+        }
+
+        private void RequestAudio()
+        {
+            Clips clip;
+
+            if (Mathf.Abs(_horizontalVelocity) > 0 && isOnGround)
+            {
+                clip = Clips.Move;
+            }
+
+            else if (_horizontalVelocity == 0 && IsMeditating && !_hasEnteredMeditation)
+            {
+                _hasEnteredMeditation = true;
+                clip = Clips.Meditation;
+            }
+
+            else if (_playerRB.gravityScale == 0 && !_hasEnteredCling 
+                && _currentState.Contains(cling.StateId()))
+            {
+                _hasEnteredCling = true;
+                clip = Clips.Cling;
+            }
+
+            else if (_jumped && _playerRB.velocity.y > 0 && !_hasEnteredJump)
+            {
+                _hasEnteredJump = true;
+                clip = Clips.Jump;
+            }
+
+            else if (isDead && !_hasEnteredDeath)
+            {
+                _hasEnteredDeath = true;
+                clip = Clips.Dead;
+            }
+
+            else
+            {
+                return;
+            }
+
+            Utility.ActionHandler(Actions.Names.OnRequestAudio, clip, this);
+        }
+
+        private IEnumerator AudioRequestWithCooldown(float cooldown, Clips clip)
+        {
+            Utility.ActionHandler(Actions.Names.OnRequestAudio, clip, this);
+
+            yield return new WaitForSeconds(cooldown);
+
+            _hasEnteredGrappleShot = false;
         }
 
         private void OnDrawGizmos()
@@ -314,10 +420,16 @@ namespace PersonAndGhost.Person
                 transform.position + Vector3.left * _config.wallRaycastLength);
         }
 
-        private void OnCollisionEnter2D(Collision2D other) {
-            if(other.gameObject.CompareTag(Utility.SPIRITTAG)) {
+        private void OnCollisionEnter2D(Collision2D other) 
+        {
+            if(other.gameObject.CompareTag(Utility.SPIRITTAG)) 
+            {
                 IsMeditating = false;
+
                 _turret.SetActive(false);
+
+                Utility.ActionHandler(
+                    Actions.Names.OnRequestAudio, Clips.SpiritTouch, this);
             }
         }
     }

@@ -211,6 +211,7 @@ namespace PersonAndGhost
         private void UpdateCollectableCount(int amount)
         {
             _collectableTextBox.text = amount.ToString();
+            Utility.ActionHandler(Actions.Names.OnRequestAudio, Clips.Collectable, this);
         }
 
         private IEnumerator LoadScene(bool hasWon, float timeToWaitBeforeLoadingScene)
@@ -221,7 +222,7 @@ namespace PersonAndGhost
 
             if (hasWon)
             {
-                Debug.Log(solvedRoomCount);
+                //Debug.Log(solvedRoomCount);
                 if (solvedRoomCount % 3 == 0)
                 {
                     Debug.Log("Floor Complete");
@@ -243,7 +244,7 @@ namespace PersonAndGhost
 
             else
             {
-                Debug.Log("Game Over");
+                //Debug.Log("Game Over");
                 SceneManager.LoadSceneAsync(sceneIndex);
             }
         }

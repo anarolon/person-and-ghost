@@ -19,5 +19,22 @@ namespace PersonAndGhost.Utils
 
         public static Action OnGamePause;
         public static Action OnGameUnPause;
+
+        public static Action<Clips> OnRequestAudio;
+
+        public enum Names
+        {
+            OnToolPickup,
+            OnToolDrop,
+            OnToolActionUse,
+            OnCollectableCollected,
+            OnGhostMovementTriggered,
+            OnPossessionTriggered,
+            OnRoomStateChange,
+            OnFloorStateChange,
+            OnGamePause,
+            OnGameUnPause,
+            OnRequestAudio
+        }
     }
 }

@@ -27,7 +27,7 @@ namespace PersonAndGhost.Tools
             _obtainerController = obtainer.GetComponent<PersonMovement>();
             _obtainerStateMachine ??= _obtainerController.MovementSM;
 
-            Debug.Log("Climbing Gauntlet got picked up by: " + obtainer.name);
+            //Debug.Log("Climbing Gauntlet got picked up by: " + obtainer.name);
         }
 
         protected override void ToolDrop(GameObject obtainer, GameObject tool)
@@ -37,7 +37,7 @@ namespace PersonAndGhost.Tools
             _obtainerController = null;
             _obtainerStateMachine = null;
 
-            Debug.Log("Climbing Gauntlet got dropped by: " + obtainer.name);
+            //Debug.Log("Climbing Gauntlet got dropped by: " + obtainer.name);
         }
     }
 }

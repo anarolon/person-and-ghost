@@ -45,14 +45,16 @@ public class Turret : MonoBehaviour
     {
         RaycastHit2D  hitInfo = Physics2D.Raycast(firePoint.position, firePoint.right, Mathf.Infinity, _spiritLayer);
         _shoot = false;
-        
+
+        Utility.ActionHandler(Actions.Names.OnRequestAudio, Clips.TurretLaser, this);
+
         if (hitInfo) 
         {
             Spirit spirit = hitInfo.transform.GetComponent<Spirit>();
             if(spirit != null) 
             {
                 
-                Debug.Log("Hit!");
+                //Debug.Log("Hit!");
                 spirit.Hit();
             }
 

@@ -294,6 +294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c497609cd64823a4b9df19e9f569094f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
+  isWinner: 0
   _currentState: 
   _config: {fileID: 11400000, guid: 87f8de44ff82129438941eed1cf23a0c, type: 2}
   _groundLayer:
@@ -306,6 +308,7 @@ MonoBehaviour:
   isTouchingWall: 0
   _turret: {fileID: 1183130664659368105}
   _ghostlyInvasion: {fileID: 5953128359430245509, guid: b7a8808f78f82854a8e798124a509c9c, type: 3}
+  _grappleHookShootCooldown: 0.1
 --- !u!114 &2857880635292040680
 MonoBehaviour:
   m_ObjectHideFlags: 0
