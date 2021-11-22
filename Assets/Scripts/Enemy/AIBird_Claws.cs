@@ -36,6 +36,11 @@ public class AIBird_Claws : MonoBehaviour
 
     public void PickUp()
     {
+        if (!isCarrying)
+        {
+            Utility.ActionHandler(Actions.Names.OnRequestAudio, Clips.BirdAction, this);
+        }
+
         //Debug.Log("Bird Claws: Picked up Person.");
         isCarrying = true;
         person.GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -45,6 +50,11 @@ public class AIBird_Claws : MonoBehaviour
 
     public void Drop()
     {
+        if (isCarrying)
+        {
+            Utility.ActionHandler(Actions.Names.OnRequestAudio, Clips.BirdAction, this);
+        }
+
         //Debug.Log("Bird Claws: Released Person.");
         isCarrying = false;
         person.GetComponent<Rigidbody2D>().gravityScale = 1;

@@ -80,7 +80,7 @@ namespace PersonAndGhost.PlayMode.GhostTests
 
 
         [UnityTearDown]
-        public IEnumerator TearDown()
+        public new IEnumerator TearDown()
         {
             //Object.Destroy(_ghostTransform.gameObject);
             //Object.Destroy(_anchorTransform.gameObject);
@@ -132,7 +132,7 @@ namespace PersonAndGhost.PlayMode.GhostTests
             _ghostTransform.position = Vector2.one * offset;
             yield return new WaitForFixedUpdate();
             Vector2 boundPosition = _ghostAnchorController.CalculateAnchorBoundPosition();
-            Debug.Log("normal bound pos: " + boundPosition + "; current position: " + (Vector2)_ghostTransform.position);
+            //Debug.Log("normal bound pos: " + boundPosition + "; current position: " + (Vector2)_ghostTransform.position);
             Assert.AreNotEqual((Vector2)_ghostTransform.position, boundPosition);
 
             // right and up

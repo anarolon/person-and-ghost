@@ -231,6 +231,24 @@ namespace PersonAndGhost.Utils
             }
         }
 
+        public static void ActionHandler
+            (Actions.Names actionName, Clips clip, object context)
+        {
+            if (actionName == Actions.Names.OnRequestAudio)
+            {
+                // Catch exception that triggers in the tests
+                try
+                {
+                    Actions.OnRequestAudio(clip);
+                }
+
+                catch (System.NullReferenceException e)
+                {
+                    Debug.LogWarning("Context: " + context + "\n Exception: " + e);
+                }
+            }
+        }
+
         private static Keyboard GetKeyboard()
         {
             Keyboard keyboard = Keyboard.current;

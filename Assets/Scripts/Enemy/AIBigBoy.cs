@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using PersonAndGhost.Utils; 
 using UnityEngine;
 
 public class AIBigBoy : AIAgent
@@ -45,7 +45,12 @@ public class AIBigBoy : AIAgent
         {
             base.movementBehaviour(movementInput);
         }
-        
+
+        else if (isGrabbing && movementInput.x != 0)
+        {
+            Utility.ActionHandler(Actions.Names.OnRequestAudio, Clips.BigBoyAction,this);
+        }
+
         Vector2 movement = new Vector2(movementInput.x, 0f);
         movement *= this.config._movementAcceleration;
 

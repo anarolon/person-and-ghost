@@ -48,7 +48,14 @@ MonoBehaviour:
   _winningRoomMessage: Room Won!!!
   _losingRoomMessage: Room Lost!!!
   _winningFloorMessage: Floor Won!!!
-  _gameUI: {fileID: 3498482285953255441, guid: d0616ef035252c645ab36be72b51d8ff, type: 3}
+  _gameUI: {fileID: 0}
+  emptySprite: {fileID: 21300000, guid: ade909f52670d5842850c97bcb97652d, type: 3}
+  birdActionSprite: {fileID: 21300000, guid: 682361d93a5e89949ba723c2d4e8a78c, type: 3}
+  bigboyActionSprite: {fileID: 21300000, guid: 8b3a63754437fab4eb63afe7358a7957, type: 3}
+  buffboyActionSprite: {fileID: 21300000, guid: fe6760737a2861d4cbdd654c7680d4ee, type: 3}
+  frogActionSprite: {fileID: 21300000, guid: 3f984560b7a626049ab2945b1403f44e, type: 3}
+  climbingGauntletSprite: {fileID: 21300000, guid: f2474032980ad4e438ad2b149c4d8412, type: 3}
+  grapplingHookSprite: {fileID: 21300000, guid: fda35d055fdae2047b5397d918c5a177, type: 3}
 --- !u!114 &3499969884848086661
 MonoBehaviour:
   m_ObjectHideFlags: 0

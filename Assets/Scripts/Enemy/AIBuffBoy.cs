@@ -75,6 +75,8 @@ public class AIBuffBoy : AIAgent
             if (breakable != null)
             {
                 breakable.Break();
+                Utility.ActionHandler(
+                    Actions.Names.OnRequestAudio, Clips.BuffBoyAction, this);
             }
         }
     }
@@ -87,12 +89,12 @@ public class AIBuffBoy : AIAgent
         if (direction == Vector2.down)
         {
             Stomp = true;
-            Debug.Log("Order to Stomp");
+            //Debug.Log("Order to Stomp");
         }
         else
         {
             Punch = true;
-            Debug.Log("Order to Punch");
+            //Debug.Log("Order to Punch");
         }
     }
 }

@@ -15,8 +15,8 @@ namespace PersonAndGhost.Tools
         protected PolygonCollider2D toolPolyCollider;
 
         // Testing variables
-        [Header("Testing variables")]
-        [SerializeField] private bool touchingGround = false;
+        //[Header("Testing variables")]
+        //[SerializeField] private bool touchingGround = false;
 
         public bool IsPickedUp => isPickedUp; 
 
@@ -28,7 +28,7 @@ namespace PersonAndGhost.Tools
         protected virtual void Start()
         {
             didSubscribe = false;
-            touchingGround = false;
+            //touchingGround = false;
 
             toolRb = GetComponent<Rigidbody2D>();
             toolPolyCollider = GetComponent<PolygonCollider2D>();
@@ -86,7 +86,7 @@ namespace PersonAndGhost.Tools
 
         }
 
-        protected virtual void ToolDrop(GameObject obtainer)
+        protected virtual void ToolDrop(GameObject obtainer, GameObject tool)
         {
             isPickedUp = false;
             obtainerPos = null;
@@ -94,9 +94,11 @@ namespace PersonAndGhost.Tools
             AddGravityEffect();
 
             Actions.OnToolActionUse -= ToolAction;
+
+            Utility.ActionHandler(Actions.Names.OnRequestAudio, Clips.ToolDrop, this);
         }
 
-        protected virtual void ToolPickup(GameObject obtainer)
+        protected virtual void ToolPickup(GameObject obtainer, GameObject tool)
         {
             isPickedUp = true;
             obtainerPos = obtainer.transform;
@@ -104,6 +106,8 @@ namespace PersonAndGhost.Tools
             ZeroGravityEffect();
 
             Actions.OnToolActionUse += ToolAction;
+
+            Utility.ActionHandler(Actions.Names.OnRequestAudio, Clips.ToolPickup, this);
         }
 
         private void ZeroGravityEffect()
