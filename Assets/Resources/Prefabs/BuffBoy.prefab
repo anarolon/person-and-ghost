@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3419638393629664867}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -2, z: 0}
+  m_LocalPosition: {x: -0.2, y: -1.73, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 5722525565604506340}
@@ -74,6 +74,8 @@ GameObject:
   - component: {fileID: 5722525565604506339}
   - component: {fileID: 4911423482673782872}
   - component: {fileID: 5722525565604506342}
+  - component: {fileID: 878724986}
+  - component: {fileID: 878724985}
   m_Layer: 10
   m_Name: BuffBoy
   m_TagString: Monster
@@ -223,3 +225,36 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   breakableDistance: 0.5
+  Punch: 0
+  Stomp: 0
+--- !u!95 &878724986
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5722525565604506343}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 468945a3f1ec98e41976b922707eb99b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &878724985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5722525565604506343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e014e82ce11e444b9439ae749e1b914, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

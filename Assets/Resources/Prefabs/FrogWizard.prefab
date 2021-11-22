@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 3190736947585648112}
   - component: {fileID: 3190736947585648113}
   - component: {fileID: 4822332208879641278}
+  - component: {fileID: 599753054}
+  - component: {fileID: 599753049}
   m_Layer: 10
   m_Name: FrogWizard
   m_TagString: Monster
@@ -76,7 +78,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: -45694790464824758, guid: ee990bb5c5588aa4696dd2efdfcb8878, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 0.8828125}
@@ -152,3 +154,34 @@ MonoBehaviour:
   _isJumping: 0
   _isGrounded: 0
   _isActing: 0
+--- !u!95 &599753054
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190736947585648116}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b3548eae7bf0cc04abf1b015347c8436, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &599753049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190736947585648116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b66efab994c13d458748c8e8acecd7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
