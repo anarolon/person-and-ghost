@@ -8,18 +8,18 @@ namespace PersonAndGhost
 {
     public class PauseMenuController : MonoBehaviour
     {
-        private GameObject _pauseMenuPanel;
         // TODO: Code a way to make sure _pauseFirstButton is set to an object
         [SerializeField] private GameObject _pauseFirstButton;
-        
+        [SerializeField] private EventSystem _eventSystem = default;
+
+        private GameObject _pauseMenuPanel;
         private Button _currentButton = default;
         private GameObject _previousSelected = default;
-        private EventSystem _eventSystem;
 
         private void Start()
         {
             _pauseMenuPanel = transform.GetChild(0).gameObject;
-            _eventSystem = EventSystem.current;
+            _eventSystem ??= EventSystem.current;
         }
 
         private void OnEnable()

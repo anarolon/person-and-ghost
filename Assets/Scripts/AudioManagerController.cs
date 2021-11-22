@@ -25,6 +25,22 @@ namespace PersonAndGhost
             OrderClips();
         }
 
+        private void Start()
+        {
+            GameObject camera = Camera.main.gameObject;
+
+            if (camera)
+            {
+                AudioSource music = camera.AddComponent<AudioSource>();
+
+                music.clip = _audioClips[(int)Clips.Floor1];
+                music.loop = true;
+                music.priority = 200;
+                music.volume = 0.36f;
+                music.Play();
+            }
+        }
+
         private void OnEnable()
         {
             Actions.OnRequestAudio += HandleAudioRequest;
