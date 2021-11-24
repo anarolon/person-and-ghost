@@ -20,6 +20,21 @@ TextureImporter:
   - first:
       213: 8875587922444591170
     second: Room 2-3 Walls_3
+  - first:
+      213: -6988813995447957793
+    second: Room 2-3 Walls_4
+  - first:
+      213: -8119016199964663695
+    second: Room 2-3 Walls_5
+  - first:
+      213: 2050816405371880115
+    second: Room 2-3 Walls_6
+  - first:
+      213: 4847541964285334228
+    second: Room 2-3 Walls_7
+  - first:
+      213: 5697703169875702144
+    second: Room 2-3 Walls_8
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -183,7 +198,7 @@ TextureImporter:
         width: 32
         height: 97
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -204,7 +219,7 @@ TextureImporter:
         width: 5
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -225,7 +240,7 @@ TextureImporter:
         width: 12
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -246,7 +261,7 @@ TextureImporter:
         width: 26
         height: 97
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -254,6 +269,111 @@ TextureImporter:
       bones: []
       spriteID: 240ae0ac03c6c2b70800000000000000
       internalID: 8875587922444591170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Room 2-3 Walls_4
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 145
+        width: 35
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd6cb0013beb20f90800000000000000
+      internalID: -6988813995447957793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Room 2-3 Walls_5
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 91
+        width: 99
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 170e67358c5735f80800000000000000
+      internalID: -8119016199964663695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Room 2-3 Walls_6
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 112
+        width: 32
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b20cbda7a6f57c10800000000000000
+      internalID: 2050816405371880115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Room 2-3 Walls_7
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 225
+        width: 29
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d2d60fabbde54340800000000000000
+      internalID: 4847541964285334228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Room 2-3 Walls_8
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 116
+        width: 24
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 081fe0468de421f40800000000000000
+      internalID: 5697703169875702144
       vertices: []
       indices: 
       edges: []
