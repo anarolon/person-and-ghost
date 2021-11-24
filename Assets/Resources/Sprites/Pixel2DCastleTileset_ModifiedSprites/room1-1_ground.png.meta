@@ -83,6 +83,9 @@ TextureImporter:
   - first:
       213: -1586680503956681919
     second: ground_26
+  - first:
+      213: 8070534314995056174
+    second: room1-1_ground_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -212,6 +215,27 @@ TextureImporter:
       bones: []
       spriteID: 58a29323e389c2ac0800000000000000
       internalID: -3878557786174838139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: room1-1_ground_0
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 112
+        width: 57
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2e71e0333c400070800000000000000
+      internalID: 8070534314995056174
       vertices: []
       indices: 
       edges: []
