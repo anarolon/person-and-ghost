@@ -26,6 +26,12 @@ TextureImporter:
   - first:
       213: -3024536555387977178
     second: wood_env_2-2_7
+  - first:
+      213: 5229915243383090925
+    second: wood_env_2-2_8
+  - first:
+      213: -3182217578930796837
+    second: wood_env_2-2_9
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -294,7 +300,7 @@ TextureImporter:
         width: 48
         height: 4
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -302,6 +308,48 @@ TextureImporter:
       bones: []
       spriteID: 6228aed0700b606d0800000000000000
       internalID: -3024536555387977178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wood_env_2-2_8
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 9
+        width: 79
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: deeef3f5434649840800000000000000
+      internalID: 5229915243383090925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wood_env_2-2_9
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 41
+        width: 96
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd683d9d8fd76d3d0800000000000000
+      internalID: -3182217578930796837
       vertices: []
       indices: 
       edges: []
