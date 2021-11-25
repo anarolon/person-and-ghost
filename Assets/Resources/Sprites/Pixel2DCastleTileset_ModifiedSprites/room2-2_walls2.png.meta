@@ -110,6 +110,30 @@ TextureImporter:
   - first:
       213: -1630419647933481540
     second: room2-2_walls2_35
+  - first:
+      213: -2480527285717250499
+    second: room2-2_walls2_36
+  - first:
+      213: 9105346678796614354
+    second: room2-2_walls2_37
+  - first:
+      213: -5744441968059519562
+    second: room2-2_walls2_38
+  - first:
+      213: -274158230889355094
+    second: room2-2_walls2_39
+  - first:
+      213: 729253863967701936
+    second: room2-2_walls2_40
+  - first:
+      213: -4351798849373193857
+    second: room2-2_walls2_41
+  - first:
+      213: -8818803333678111059
+    second: room2-2_walls2_42
+  - first:
+      213: -8568323184956286639
+    second: room2-2_walls2_43
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -903,7 +927,7 @@ TextureImporter:
         width: 27
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -924,7 +948,7 @@ TextureImporter:
         width: 27
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -945,7 +969,7 @@ TextureImporter:
         width: 64
         height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -966,7 +990,7 @@ TextureImporter:
         width: 64
         height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -974,6 +998,174 @@ TextureImporter:
       bones: []
       spriteID: cbd7b12f7f59f59e0800000000000000
       internalID: -1630419647933481540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: room2-2_walls2_36
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 112
+        width: 74
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3ec8277395639dd0800000000000000
+      internalID: -2480527285717250499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: room2-2_walls2_37
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 112
+        width: 27
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2da747aef80bc5e70800000000000000
+      internalID: 9105346678796614354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: room2-2_walls2_38
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 112
+        width: 27
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bd67f42774a740b0800000000000000
+      internalID: -5744441968059519562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: room2-2_walls2_39
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 200
+        width: 128
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa82793aa8ef13cf0800000000000000
+      internalID: -274158230889355094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: room2-2_walls2_40
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 96
+        width: 48
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bb30e88684de1a00800000000000000
+      internalID: 729253863967701936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: room2-2_walls2_41
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 96
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f793829d00e4b93c0800000000000000
+      internalID: -4351798849373193857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: room2-2_walls2_42
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 208
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da6e51097115d9580800000000000000
+      internalID: -8818803333678111059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: room2-2_walls2_43
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 208
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 159dfefc573371980800000000000000
+      internalID: -8568323184956286639
       vertices: []
       indices: 
       edges: []
