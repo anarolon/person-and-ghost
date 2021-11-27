@@ -1,7 +1,10 @@
 fileFormatVersion: 2
-guid: 0d5f3f330d5ae6e46b61136c76710a25
+guid: b0f34a861c419fd4687477eedf71475c
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -5967049470468799931
+    second: walls_far_2-2_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -113,11 +116,32 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: walls_far_2-2_0
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 256
+        width: 128
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54246831f18c03da0800000000000000
+      internalID: -5967049470468799931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: a723173645e19904ca66b51169da3439
+    spriteID: b5e025c2d180413469433ee8132da690
     internalID: 0
     vertices: []
     indices: 
