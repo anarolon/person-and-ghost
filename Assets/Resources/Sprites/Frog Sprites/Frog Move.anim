@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Frog Idle Left
+  m_Name: Frog Move
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,11 +20,11 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 6795284026774729866, guid: 251aa7ac17abd2744821a81f73f7138a, type: 3}
+      value: {fileID: -3017500422806763307, guid: fae2c416a88621844b2da5abde67aa04, type: 3}
     - time: 0.083333336
-      value: {fileID: -7876825150709414113, guid: 251aa7ac17abd2744821a81f73f7138a, type: 3}
+      value: {fileID: 616631305475143384, guid: fae2c416a88621844b2da5abde67aa04, type: 3}
     - time: 0.16666667
-      value: {fileID: 7998001375445791591, guid: 251aa7ac17abd2744821a81f73f7138a, type: 3}
+      value: {fileID: 4277801687723979038, guid: fae2c416a88621844b2da5abde67aa04, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,9 +44,9 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 6795284026774729866, guid: 251aa7ac17abd2744821a81f73f7138a, type: 3}
-    - {fileID: -7876825150709414113, guid: 251aa7ac17abd2744821a81f73f7138a, type: 3}
-    - {fileID: 7998001375445791591, guid: 251aa7ac17abd2744821a81f73f7138a, type: 3}
+    - {fileID: -3017500422806763307, guid: fae2c416a88621844b2da5abde67aa04, type: 3}
+    - {fileID: 616631305475143384, guid: fae2c416a88621844b2da5abde67aa04, type: 3}
+    - {fileID: 4277801687723979038, guid: fae2c416a88621844b2da5abde67aa04, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -57,7 +57,7 @@ AnimationClip:
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
-    m_LoopTime: 1
+    m_LoopTime: 0
     m_LoopBlend: 0
     m_LoopBlendOrientation: 0
     m_LoopBlendPositionY: 0
