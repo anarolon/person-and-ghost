@@ -33,7 +33,7 @@ namespace PersonAndGhost
             {
                 collision.gameObject.GetComponent<PlayerInput>().DeactivateInput();
                 Actions.OnRoomStateChange(true);
-                Destroy(this.gameObject);
+                //Destroy(this.gameObject);
             }
         }
 
