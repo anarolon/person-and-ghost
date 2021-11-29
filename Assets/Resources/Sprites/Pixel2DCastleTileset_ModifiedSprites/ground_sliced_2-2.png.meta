@@ -1,37 +1,79 @@
 fileFormatVersion: 2
-guid: 346f663f69c7ee04b9f0a427e3c38e22
+guid: e23a2e3da99fe52429135f5d3f03db5b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3910364733708968472
-    second: room1-1_right_wall
+      213: -8610559094780854174
+    second: ground 1_0
   - first:
-      213: 3527575483680389386
-    second: room1-1_left_wall
+      213: 1658427305543869949
+    second: ground 1_1
   - first:
-      213: 8897269714303511005
-    second: room1-1_walls_0
+      213: -6109667300677174470
+    second: ground 1_2
   - first:
-      213: 4223459710443855957
-    second: room1-1_walls_1
+      213: -2589936062380252206
+    second: ground 1_3
   - first:
-      213: 6341343219069706639
-    second: room1-1_walls_2
+      213: 1069505991465107780
+    second: ground 1_4
   - first:
-      213: 5437541942901546715
-    second: room1-1_walls_3
+      213: 416047125413877655
+    second: ground 1_5
   - first:
-      213: -9190601506210073717
-    second: room1-1_walls_4
+      213: -7639640425113162125
+    second: ground 1_6
   - first:
-      213: -3376775438824558504
-    second: room1-1_walls_5
+      213: 3787738875867062442
+    second: ground 1_7
   - first:
-      213: -7199791530156538605
-    second: room1-1_walls_6
+      213: 3063462262752551256
+    second: ground 1_8
   - first:
-      213: 8954651980534851924
-    second: room1-1_walls_7
+      213: -7496725446896387827
+    second: ground 1_9
+  - first:
+      213: -8274496982691938739
+    second: ground 1_10
+  - first:
+      213: 2465747024729836068
+    second: ground 1_11
+  - first:
+      213: 8934521532841216523
+    second: ground 1_12
+  - first:
+      213: 1462757607216185629
+    second: ground_sliced_1
+  - first:
+      213: 6981365768440726671
+    second: ground_sliced_2
+  - first:
+      213: -1817885236547388110
+    second: ground_sliced_3
+  - first:
+      213: -4366012217679134365
+    second: ground_sliced_6
+  - first:
+      213: 918787290588320704
+    second: ground_sliced_7
+  - first:
+      213: -7322571749146784521
+    second: ground_sliced_9
+  - first:
+      213: 8726363607452124434
+    second: ground_sliced_10
+  - first:
+      213: 1719530826589295344
+    second: ground_sliced_12
+  - first:
+      213: -859511087210688712
+    second: ground_sliced_0
+  - first:
+      213: 1814126351809354361
+    second: ground_sliced_8
+  - first:
+      213: 8497700838018627010
+    second: ground_sliced_2-2_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -145,13 +187,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: room1-1_right_wall
+      name: ground_sliced_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 176
+        x: 160
+        y: 180
         width: 16
-        height: 96
+        height: 36
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,188 +201,209 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81220fed108644630800000000000000
-      internalID: 3910364733708968472
+      spriteID: d110f923b42cc4410800000000000000
+      internalID: 1462757607216185629
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: room1-1_left_wall
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 176
-        width: 16
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a097527663774f030800000000000000
-      internalID: 3527575483680389386
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: room1-1_walls_0
-      rect:
-        serializedVersion: 2
-        x: 313
-        y: 0
-        width: 14
-        height: 48
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dd9e6e75aa3797b70800000000000000
-      internalID: 8897269714303511005
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: room1-1_walls_1
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 240
-        width: 160
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5502e24da3ebc9a30800000000000000
-      internalID: 4223459710443855957
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: room1-1_walls_2
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 32
-        width: 160
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f816b735f0af00850800000000000000
-      internalID: 6341343219069706639
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: room1-1_walls_3
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 64
-        width: 112
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bde1fe57697067b40800000000000000
-      internalID: 5437541942901546715
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: room1-1_walls_4
+      name: ground_sliced_2
       rect:
         serializedVersion: 2
         x: 192
-        y: 96
-        width: 16
-        height: 112
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b83bd2ebf9c647080800000000000000
-      internalID: -9190601506210073717
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: room1-1_walls_5
-      rect:
-        serializedVersion: 2
-        x: 80
         y: 192
-        width: 112
-        height: 48
+        width: 64
+        height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 850399a11a84321d0800000000000000
-      internalID: -3376775438824558504
+      spriteID: f844bf27d2bc2e060800000000000000
+      internalID: 6981365768440726671
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: room1-1_walls_6
+      name: ground_sliced_3
       rect:
         serializedVersion: 2
-        x: 64
-        y: 96
+        x: 288
+        y: 180
         width: 16
-        height: 112
+        height: 36
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 315472cdfb3351c90800000000000000
-      internalID: -7199791530156538605
+      spriteID: 23d7a29420395c6e0800000000000000
+      internalID: -1817885236547388110
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: room1-1_walls_7
+      name: ground_sliced_6
       rect:
         serializedVersion: 2
-        x: 80
-        y: 113
-        width: 32
-        height: 79
+        x: 160
+        y: 112
+        width: 64
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3614838250fc863c0800000000000000
+      internalID: -4366012217679134365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ground_sliced_7
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 112
+        width: 64
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c319af3c2030cc00800000000000000
+      internalID: 918787290588320704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ground_sliced_9
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 80
+        width: 64
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fc8bc17acff06a90800000000000000
+      internalID: -7322571749146784521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ground_sliced_10
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 80
+        width: 64
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 215841b77754a1970800000000000000
+      internalID: 8726363607452124434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ground_sliced_12
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 16
+        width: 48
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f250332d200dd710800000000000000
+      internalID: 1719530826589295344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ground_sliced_0
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 37
+        width: 66
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83f0c4658376214f0800000000000000
+      internalID: -859511087210688712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ground_sliced_8
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 37
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97a95492e421d2910800000000000000
+      internalID: 1814126351809354361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ground_sliced_2-2_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3
+        width: 96
+        height: 17
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -348,8 +411,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 45927035880554c70800000000000000
-      internalID: 8954651980534851924
+      spriteID: 2c5b3a1b3e5ede570800000000000000
+      internalID: 8497700838018627010
       vertices: []
       indices: 
       edges: []
@@ -357,7 +420,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 3d912db3b71924d4686745c51dd3b27e
+    spriteID: a723173645e19904ca66b51169da3439
     internalID: 0
     vertices: []
     indices: 
