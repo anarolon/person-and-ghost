@@ -5814,7 +5814,7 @@ PrefabInstance:
     - target: {fileID: 7248009032450900589, guid: 56b41f378fe0edc488ed8676b89dcc18, type: 3}
       propertyPath: _gameUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1628571055}
     - target: {fileID: 7248009032450900589, guid: 56b41f378fe0edc488ed8676b89dcc18, type: 3}
       propertyPath: _gameResultTextBox
       value: 
@@ -18867,6 +18867,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0616ef035252c645ab36be72b51d8ff, type: 3}
+--- !u!1 &1628571055 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3498482285953255441, guid: d0616ef035252c645ab36be72b51d8ff, type: 3}
+  m_PrefabInstance: {fileID: 1628571054}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1632381928
 GameObject:
   m_ObjectHideFlags: 0
