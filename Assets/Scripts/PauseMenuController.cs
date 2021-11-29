@@ -22,6 +22,8 @@ namespace PersonAndGhost
             _eventSystem ??= EventSystem.current;
         }
 
+        
+
         private void OnEnable()
         {
             Actions.OnGamePause += HandleGamePause;
@@ -111,6 +113,11 @@ namespace PersonAndGhost
             {
                 HandleGameUnPause();
             }
+        }
+
+        public void LoadHome()
+        {
+            SceneManager.LoadSceneAsync(0);
         }
 
         public void QuitGame()
