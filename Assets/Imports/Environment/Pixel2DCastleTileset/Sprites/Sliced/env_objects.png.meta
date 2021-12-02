@@ -46,7 +46,7 @@ TextureImporter:
     second: env_objects_13
   - first:
       213: 21300028
-    second: env_objects_14
+    second: room_2_1_door_goal
   - first:
       213: 21300030
     second: env_objects_15
@@ -2017,13 +2017,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: env_objects_14
+      name: room_2_1_door_goal
       rect:
         serializedVersion: 2
         x: 272
-        y: 496
-        width: 16
-        height: 16
+        y: 448
+        width: 48
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
