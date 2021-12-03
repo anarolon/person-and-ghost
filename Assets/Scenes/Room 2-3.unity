@@ -1865,6 +1865,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0616ef035252c645ab36be72b51d8ff, type: 3}
+--- !u!1 &279208201 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3498482285953255441, guid: d0616ef035252c645ab36be72b51d8ff, type: 3}
+  m_PrefabInstance: {fileID: 279208200}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &286366632
 GameObject:
   m_ObjectHideFlags: 0
@@ -6904,7 +6909,7 @@ PrefabInstance:
     - target: {fileID: 7248009032450900589, guid: 56b41f378fe0edc488ed8676b89dcc18, type: 3}
       propertyPath: _gameUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 279208201}
     - target: {fileID: 7248009032450900590, guid: 56b41f378fe0edc488ed8676b89dcc18, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -9744,6 +9749,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5908124609040526731, guid: 4278d9a0dbac3464eb31d47967fb1b1d, type: 3}
+      propertyPath: _mainTheme
+      value: 
+      objectReference: {fileID: 8300000, guid: 41e52008c0cfc6d4eb7b1b4c70eecce4, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4278d9a0dbac3464eb31d47967fb1b1d, type: 3}
 --- !u!1 &1796094827

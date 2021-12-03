@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 7312032693820956819}
+  _mainTheme: {fileID: 8300000, guid: 99159c1298075e44fa9cbdc11f42d29e, type: 3}
   _audioClips:
   - {fileID: 8300000, guid: c1432c4e96af7cc47847a0e8aa51f6cb, type: 3}
   - {fileID: 8300000, guid: dc08be0b20ab515428185d88525844dc, type: 3}
@@ -164,4 +165,3 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e33db6e3bb5545b4cbcd116779a1927e, type: 3}
   - {fileID: 8300000, guid: fcea25d7b85a38940962a0ab54028512, type: 3}
   - {fileID: 8300000, guid: 6908197177a1f5848bcceb434237a0d2, type: 3}
-  - {fileID: 8300000, guid: 99159c1298075e44fa9cbdc11f42d29e, type: 3}

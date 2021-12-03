@@ -9,6 +9,7 @@ namespace PersonAndGhost
     {
         [Header("Audio fields")]
         [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private AudioClip _mainTheme;
         [SerializeField] private AudioClip[] _audioClips;
 
         public AudioClip[] AudioClips => _audioClips;
@@ -27,13 +28,19 @@ namespace PersonAndGhost
 
         private void Start()
         {
+            if (!_mainTheme)
+            {
+                Debug.LogError("Main Theme field cannot be empty.");
+                Time.timeScale = 0;
+            }
+
             GameObject camera = Camera.main.gameObject;
 
             if (camera)
             {
                 AudioSource music = camera.AddComponent<AudioSource>();
 
-                music.clip = _audioClips[(int)Clips.Floor1];
+                music.clip = _mainTheme;
                 music.loop = true;
                 music.priority = 200;
                 music.volume = 0.36f;
