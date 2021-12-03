@@ -10,7 +10,7 @@ namespace PersonAndGhost.PlayMode
     public class RoomManagerTests
     {
         private int SceneAmount => SceneManager.sceneCountInBuildSettings - 1;
-        private string FirstSceneName => SceneManager.GetSceneByBuildIndex(0).name;
+        private string FirstSceneName => SceneManager.GetSceneByBuildIndex(1).name;
         private string CurrentSceneName => SceneManager.GetActiveScene().name;
         private string LastSceneName => 
             SceneManager.GetSceneByBuildIndex(SceneAmount - 1).name;
@@ -30,7 +30,7 @@ namespace PersonAndGhost.PlayMode
 
         private IEnumerator TestTransitionFromFirstSceneToItself()
         {
-            SceneManager.LoadSceneAsync(0);
+            SceneManager.LoadSceneAsync(1);
 
             yield return new WaitUntil(() => CurrentSceneName.Contains(FirstSceneName));
 

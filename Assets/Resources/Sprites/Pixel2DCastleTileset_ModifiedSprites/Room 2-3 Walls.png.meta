@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 346f663f69c7ee04b9f0a427e3c38e22
+guid: 94860ef668ab3ae40a0817f69f0d05cb
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -9,29 +9,32 @@ TextureImporter:
       213: 3527575483680389386
     second: room1-1_left_wall
   - first:
-      213: 8897269714303511005
-    second: room1-1_walls_0
+      213: -8432207285139517402
+    second: Room 2-3 Walls_0
   - first:
-      213: 4223459710443855957
-    second: room1-1_walls_1
+      213: 7998798675508021959
+    second: Room 2-3 Walls_1
   - first:
-      213: 6341343219069706639
-    second: room1-1_walls_2
+      213: 7141575819636975552
+    second: Room 2-3 Walls_2
   - first:
-      213: 5437541942901546715
-    second: room1-1_walls_3
+      213: 8875587922444591170
+    second: Room 2-3 Walls_3
   - first:
-      213: -9190601506210073717
-    second: room1-1_walls_4
+      213: -6988813995447957793
+    second: Room 2-3 Walls_4
   - first:
-      213: -3376775438824558504
-    second: room1-1_walls_5
+      213: -8119016199964663695
+    second: Room 2-3 Walls_5
   - first:
-      213: -7199791530156538605
-    second: room1-1_walls_6
+      213: 2050816405371880115
+    second: Room 2-3 Walls_6
   - first:
-      213: 8954651980534851924
-    second: room1-1_walls_7
+      213: 4847541964285334228
+    second: Room 2-3 Walls_7
+  - first:
+      213: 5697703169875702144
+    second: Room 2-3 Walls_8
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -187,12 +190,33 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: room1-1_walls_0
+      name: Room 2-3 Walls_0
       rect:
         serializedVersion: 2
-        x: 313
+        x: 448
+        y: 159
+        width: 32
+        height: 97
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6205cc06628cafa80800000000000000
+      internalID: -8432207285139517402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Room 2-3 Walls_1
+      rect:
+        serializedVersion: 2
+        x: 298
         y: 0
-        width: 14
+        width: 5
         height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -201,146 +225,146 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd9e6e75aa3797b70800000000000000
-      internalID: 8897269714303511005
+      spriteID: 7ca45831401710f60800000000000000
+      internalID: 7998798675508021959
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: room1-1_walls_1
+      name: Room 2-3 Walls_2
       rect:
         serializedVersion: 2
-        x: 48
-        y: 240
-        width: 160
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5502e24da3ebc9a30800000000000000
-      internalID: 4223459710443855957
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: room1-1_walls_2
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 32
-        width: 160
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f816b735f0af00850800000000000000
-      internalID: 6341343219069706639
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: room1-1_walls_3
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 64
-        width: 112
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bde1fe57697067b40800000000000000
-      internalID: 5437541942901546715
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: room1-1_walls_4
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 96
-        width: 16
-        height: 112
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b83bd2ebf9c647080800000000000000
-      internalID: -9190601506210073717
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: room1-1_walls_5
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 192
-        width: 112
+        x: 314
+        y: 0
+        width: 12
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 850399a11a84321d0800000000000000
-      internalID: -3376775438824558504
+      spriteID: 0c72bf9ce59fb1360800000000000000
+      internalID: 7141575819636975552
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: room1-1_walls_6
+      name: Room 2-3 Walls_3
       rect:
         serializedVersion: 2
-        x: 64
-        y: 96
-        width: 16
-        height: 112
+        x: 389
+        y: 124
+        width: 26
+        height: 97
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 315472cdfb3351c90800000000000000
-      internalID: -7199791530156538605
+      spriteID: 240ae0ac03c6c2b70800000000000000
+      internalID: 8875587922444591170
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: room1-1_walls_7
+      name: Room 2-3 Walls_4
       rect:
         serializedVersion: 2
-        x: 80
-        y: 113
+        x: 285
+        y: 145
+        width: 35
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd6cb0013beb20f90800000000000000
+      internalID: -6988813995447957793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Room 2-3 Walls_5
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 91
+        width: 99
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 170e67358c5735f80800000000000000
+      internalID: -8119016199964663695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Room 2-3 Walls_6
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 112
         width: 32
-        height: 79
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b20cbda7a6f57c10800000000000000
+      internalID: 2050816405371880115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Room 2-3 Walls_7
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 225
+        width: 29
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d2d60fabbde54340800000000000000
+      internalID: 4847541964285334228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Room 2-3 Walls_8
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 116
+        width: 24
+        height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -348,8 +372,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 45927035880554c70800000000000000
-      internalID: 8954651980534851924
+      spriteID: 081fe0468de421f40800000000000000
+      internalID: 5697703169875702144
       vertices: []
       indices: 
       edges: []
