@@ -86,6 +86,15 @@ TextureImporter:
   - first:
       213: 8070534314995056174
     second: room1-1_ground_0
+  - first:
+      213: -6545672356503624547
+    second: room2-1_ground3
+  - first:
+      213: -2022468106571816396
+    second: room2-1_ground
+  - first:
+      213: 7874281778618694696
+    second: room2-1_ground2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -228,7 +237,7 @@ TextureImporter:
         width: 57
         height: 23
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -236,6 +245,69 @@ TextureImporter:
       bones: []
       spriteID: e2e71e0333c400070800000000000000
       internalID: 8070534314995056174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: room2-1_ground3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 176
+        width: 80
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d94e1861ca91925a0800000000000000
+      internalID: -6545672356503624547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: room2-1_ground
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 96
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 432ea3af8ffbee3e0800000000000000
+      internalID: -2022468106571816396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: room2-1_ground2
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 180
+        width: 16
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82cf5e3de81174d60800000000000000
+      internalID: 7874281778618694696
       vertices: []
       indices: 
       edges: []

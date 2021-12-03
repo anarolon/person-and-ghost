@@ -65,3 +65,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: PC and NPC
+    uniqueID: 2481376659
+    locked: 0
+  - name: Foreground environment objects
+    uniqueID: 3795274467
+    locked: 0
