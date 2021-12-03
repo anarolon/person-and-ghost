@@ -232,20 +232,25 @@ namespace PersonAndGhost.Utils
         }
 
         public static void ActionHandler
-            (Actions.Names actionName, Clips clip, object context)
+            (Actions.Names actionName, object parameter, object context)
         {
-            if (actionName == Actions.Names.OnRequestAudio)
+            // Catch exception that triggers in the tests
+            try
             {
-                // Catch exception that triggers in the tests
-                try
+                if (actionName == Actions.Names.OnRequestAudio)
                 {
-                    Actions.OnRequestAudio(clip);
+                    Actions.OnRequestAudio((Clips)parameter);
                 }
 
-                catch (System.NullReferenceException e)
+                else if (actionName == Actions.Names.OnRoomStateChange)
                 {
-                    Debug.LogWarning("Context: " + context + "\n Exception: " + e);
+                    Actions.OnRoomStateChange((bool)parameter);
                 }
+            }
+
+            catch (System.NullReferenceException e)
+            {
+                Debug.LogWarning("Context: " + context + "\n Exception: " + e);
             }
         }
 

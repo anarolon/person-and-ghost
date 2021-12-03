@@ -116,6 +116,8 @@ namespace PersonAndGhost
 
             Actions.OnToolPickup -= ToolIconChange;
             Actions.OnToolDrop -= ToolIconRemove;
+
+            Actions.OnPossessionTriggered -= StolenActionIconChange;
         }
 
         //*****Tool Icon CHANGES
@@ -139,7 +141,7 @@ namespace PersonAndGhost
         //**Stolen Action Icon Changes
         private void StolenActionIconChange(bool isPossessing, AIAgent monster)
         {
-            if (isPossessing)
+            if (isPossessing && _stolenActionIcon)
             {
                 if (monster.name.Contains("Bird"))
                 {
