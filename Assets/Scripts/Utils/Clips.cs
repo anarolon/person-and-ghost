@@ -24,7 +24,6 @@ namespace PersonAndGhost.Utils
         ToolPickup,
         ToolDrop,
         UIMoving,
-        UISelecting,
-        Floor1
+        UISelecting
     }
 }
