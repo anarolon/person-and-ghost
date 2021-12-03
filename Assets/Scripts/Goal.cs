@@ -32,8 +32,8 @@ namespace PersonAndGhost
             if (_isCollidingWithLeftPlayer && _isCollidingWithRightPlayer)
             {
                 collision.gameObject.GetComponent<PlayerInput>().DeactivateInput();
-                Actions.OnRoomStateChange(true);
-                Destroy(this.gameObject);
+                Utility.ActionHandler(Actions.Names.OnRoomStateChange, true, this);
+                //Destroy(this.gameObject);
             }
         }
 

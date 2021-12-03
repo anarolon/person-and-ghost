@@ -1374,6 +1374,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0616ef035252c645ab36be72b51d8ff, type: 3}
+--- !u!1 &1544809848 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3498482285953255441, guid: d0616ef035252c645ab36be72b51d8ff, type: 3}
+  m_PrefabInstance: {fileID: 1544809847}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1599453417 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5737382715517099522, guid: d42b63576af343e409e4e5661bfc8305, type: 3}
@@ -1447,6 +1452,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7248009032450900589, guid: 56b41f378fe0edc488ed8676b89dcc18, type: 3}
+      propertyPath: _gameUI
+      value: 
+      objectReference: {fileID: 1544809848}
     - target: {fileID: 7248009032450900590, guid: 56b41f378fe0edc488ed8676b89dcc18, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1678,6 +1687,10 @@ PrefabInstance:
     - target: {fileID: 5582894911049378225, guid: ae10da3a385ca404392520b0fd3de492, type: 3}
       propertyPath: m_Name
       value: PillarWithoutHead
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582894911049378225, guid: ae10da3a385ca404392520b0fd3de492, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae10da3a385ca404392520b0fd3de492, type: 3}
@@ -1958,7 +1971,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2853772174210074040, guid: 796ef0cb35a28ea4eb2666f0aa2b9c64, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3
+      value: -2.27
       objectReference: {fileID: 0}
     - target: {fileID: 2853772174210074040, guid: 796ef0cb35a28ea4eb2666f0aa2b9c64, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1990,6 +2003,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2853772174210074040, guid: 796ef0cb35a28ea4eb2666f0aa2b9c64, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2853772174210074043, guid: 796ef0cb35a28ea4eb2666f0aa2b9c64, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2853772174210074043, guid: 796ef0cb35a28ea4eb2666f0aa2b9c64, type: 3}
+      propertyPath: m_SortingLayerID
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
