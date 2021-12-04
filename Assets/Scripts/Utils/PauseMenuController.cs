@@ -20,6 +20,7 @@ namespace PersonAndGhost
         {
             _pauseMenuPanel = transform.GetChild(0).gameObject;
             _eventSystem ??= EventSystem.current;
+
         }
 
         

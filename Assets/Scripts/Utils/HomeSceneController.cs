@@ -10,6 +10,7 @@ namespace PersonAndGhost
 
         public void LoadSceneFromText(string sceneName)
         {
+            Time.timeScale = 1;
             SceneManager.LoadScene(sceneName);
         }
 
