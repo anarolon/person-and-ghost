@@ -11,7 +11,8 @@ namespace PersonAndGhost
         private Animator anim;
         private AIFrog frogComponent;
 
-        private string actionParameter = "IsJumping";
+        private string actionParameter = "Jumped";
+        private string movementParameter = "IsMoving";
 
         private void Start()
         {
@@ -21,7 +22,8 @@ namespace PersonAndGhost
 
         private void Update()
         {
-            anim.SetBool(actionParameter, frogComponent._isJumping);
+            if (frogComponent._isJumping) anim.SetTrigger(actionParameter);
+            anim.SetBool(movementParameter, frogComponent.rb.velocity.x != 0);
             
         }
     }

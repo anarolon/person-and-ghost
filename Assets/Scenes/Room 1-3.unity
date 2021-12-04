@@ -8072,6 +8072,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1089735332}
     m_Modifications:
+    - target: {fileID: 3190736947585648115, guid: 0a805c3f04e506d4b870896355adefca, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3190736947585648116, guid: 0a805c3f04e506d4b870896355adefca, type: 3}
       propertyPath: m_Name
       value: FrogWizard
