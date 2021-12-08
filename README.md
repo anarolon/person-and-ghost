@@ -9,6 +9,11 @@ After weeks of travel, Person’s long journey leads them to the home of an agin
 
 Upon reaching the deteriorating castle and climbing their way to the top, Person chants the incantation to bring their once best friend, now to be referred to as Ghost, back from the clutches of death. 
 
+## Demo
+<p align="center">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GkNQ8C0b3Sc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+</p>
+
 ## Motivations
 The inception of this indie game project was heavily influenced by our passion for video games and their development. We decided to nurture and bring this idea to life as our capstone project since we wanted to create a product that leveraged our experience as software engineers, our creativity, and our knowledge of Unity’s Real-Time Development Platform. 
 
