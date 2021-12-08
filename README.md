@@ -9,7 +9,10 @@ After weeks of travel, Person’s long journey leads them to the home of an agin
 
 Upon reaching the deteriorating castle and climbing their way to the top, Person chants the incantation to bring their once best friend, now to be referred to as Ghost, back from the clutches of death. 
 
-## Demo
+## Download
+[Click here](https://yenieldiaz.itch.io/personandghost) to get the latest version of Person & Ghost from our official itch.io page! (instruction manual included!)
+
+## Demo Video
 <p align="center">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/GkNQ8C0b3Sc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
 </p>
